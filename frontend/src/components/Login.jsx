@@ -9,7 +9,7 @@ import Checkbox from '@mui/material/Checkbox';
 import HomeIcon from '@mui/icons-material/Home';
 import { Link, useNavigate } from 'react-router-dom';
 import { styled } from '@mui/system';
-import { fetchPOST } from './fetch.js';
+import { fetchPOST } from './library/fetch.js';
 
 const LoginWindowBorder = styled('div')({
   padding: '24px',
@@ -35,9 +35,9 @@ function Login () {
   // (we click remember me last time when we login in)
   const email = localStorage.getItem('rememberEmail') ? localStorage.getItem('rememberEmail') : '';
   const password = localStorage.getItem('rememberPassword') ? localStorage.getItem('rememberPassword') : '';
-  const checked = localStorage.getItem('rememberInfo');
+  const checked = !!localStorage.getItem('rememberInfo');
 
-  if (checked !== 'true') {
+  if (checked !== true) {
     localStorage.clear();
   }
 
@@ -56,7 +56,7 @@ function Login () {
     }
 
     const bodyInfo = { email: myEmail, password: myPassword };
-    const ret = await fetchPOST('admin/auth/login', bodyInfo);
+    const ret = await fetchPOST('admin/auth/login', bodyInfo, false);
     if (ret.status === 200) {
       const token = (await ret.json()).token;
       // process userInfo based
@@ -105,7 +105,6 @@ function Login () {
             Enter your Email
           </Typography>
           <TextField
-            id='outlined-basic'
             name='email'
             label='Email'
             variant='outlined'
@@ -119,7 +118,6 @@ function Login () {
             Enter your Password
           </Typography>
           <TextField
-            id='outlined-basic'
             name='password'
             label='Password'
             variant='outlined'
@@ -132,14 +130,17 @@ function Login () {
           >
             <FormControlLabel
               name="remember"
-              control={<Checkbox color='primary' />}
+              control=
+              {
+                <Checkbox color='primary' defaultChecked={ checked } />
+              }
               label='Remember me'
             />
             <Typography
               variant='subtitle2'
-              sx={ { textAlign: 'center', pt: 1 } }
+              sx={ { textAlign: 'center', paddingTop: '10px' } }
             >
-              <Link to="#" variant="body2">
+              <Link to="#" variant="body2" color='primary'>
                   Forgot password?
               </Link>
             </Typography>
@@ -159,7 +160,7 @@ function Login () {
               Don&apos; t have an account?
             </Typography>
             <Box sx={ { mr: 1 } }>
-              <Link to='../signup' variant='body1'>
+              <Link to='../signup' variant='body1' color='primary'>
                 Sign Up
               </Link>
             </Box>

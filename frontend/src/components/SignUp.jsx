@@ -6,7 +6,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/system';
 import { Link, useNavigate } from 'react-router-dom';
-import { fetchPOST } from './fetch.js';
+import { fetchPOST } from './library/fetch.js';
 
 const SignUpWindowBorder = styled('div')({
   padding: '24px',
@@ -53,12 +53,12 @@ function SignUp () {
   return (
     <>
       <Container
-          component='form'
-          maxWidth='xs'
-          onSubmit={SignUpAccount}
-          sx={ { mt: 25 } }
-        >
-          <SignUpWindowBorder>
+        component='form'
+        maxWidth='xs'
+        onSubmit={SignUpAccount}
+        sx={ { mt: 25 } }
+      >
+        <SignUpWindowBorder>
           <MyHomeIcon
             color="primary"
           />
@@ -75,7 +75,6 @@ function SignUp () {
             Enter your name
           </Typography>
           <TextField
-            id='outlined-basic'
             name='name'
             label='Name'
             variant='outlined'
@@ -88,7 +87,6 @@ function SignUp () {
             Enter your Email
           </Typography>
           <TextField
-            id='outlined-basic'
             name='email'
             label='Email'
             variant='outlined'
@@ -101,7 +99,6 @@ function SignUp () {
             Enter your Password
           </Typography>
           <TextField
-            id='outlined-basic'
             name='password'
             label='Password'
             variant='outlined'
@@ -119,7 +116,7 @@ function SignUp () {
           <Link to='../login' variant='body1' style={ { paddingRight: '10px', textAlign: 'end' } }>
             Back to login in
           </Link>
-          </SignUpWindowBorder>
+        </SignUpWindowBorder>
       </Container>
     </>
   );

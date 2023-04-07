@@ -1,44 +1,38 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import Login from './components/Login.jsx';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import SignUp from './components/SignUp.jsx';
 import Homepage from './components/Homepage.jsx';
-import { styled } from '@mui/system';
-
-const LinkInButton = styled(Link)({
-  textDecoration: 'none',
-  color: 'white',
-  display: 'block',
-  paddingLeft: '4px'
-});
+import Dashboard from './components/Dashboard.jsx';
+import { CustomizedLink } from './components/common_components.jsx';
 
 const Start = () => {
   return (
     <>
     <Container sx={ { mt: 5, ml: 5 } }>
       <Button variant='contained'>
-        <LinkInButton
+        <CustomizedLink
           to={'/login'}
         >
           Go to Login
-        </LinkInButton>
+        </CustomizedLink>
       </Button>
       <Button variant='contained' sx={ { ml: 5 } }>
-        <LinkInButton
+        <CustomizedLink
           to={'/signup'}
         >
           Go to SignUp
-        </LinkInButton>
+        </CustomizedLink>
       </Button>
       <Button variant='contained' sx={ { ml: 5 } }>
-        <LinkInButton
+        <CustomizedLink
           to={'/homepage'}
         >
           Go to HomePage
-        </LinkInButton>
+        </CustomizedLink>
       </Button>
     </Container>
     </>
@@ -54,9 +48,10 @@ function App () {
         <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<SignUp/>} />
         <Route path='/homepage' element={<Homepage/>} >
-
+          <Route path='dashboard' element={<Dashboard />} />
         </Route>
       </Routes>
+
     </BrowserRouter>
   );
 }

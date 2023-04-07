@@ -1,10 +1,21 @@
-async function fetchPOST (req, bodyInfo) {
-  const ret = await fetch('http://localhost:5005/' + req, {
-    method: 'POST',
-    headers: {
+async function fetchPOST (req, bodyInfo, flag) {
+  let header;
+  if (flag) {
+    header = {
       accept: 'application/json',
       'Content-Type': 'application/json',
-    },
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    }
+  } else {
+    header = {
+      accept: 'application/json',
+      'Content-Type': 'application/json',
+    }
+  }
+
+  const ret = await fetch('http://localhost:5005/' + req, {
+    method: 'POST',
+    headers: header,
     body: JSON.stringify(bodyInfo),
   })
   return ret;
@@ -14,7 +25,7 @@ async function fetchGET (req) {
   const ret = await fetch('http://localhost:5005/' + req, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json;charset=utf-8',
+      accept: 'application/json',
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
   })
