@@ -6,12 +6,7 @@ import Container from '@mui/material/Container';
 import SignUp from './components/SignUp.jsx';
 import Homepage from './components/Homepage.jsx';
 import Dashboard from './components/Dashboard.jsx';
-import { CustomizedLink } from './components/commonComponents.jsx';
-import Play from './components/Play.jsx';
-import { ToastContainer } from 'react-toastify';
-import Login from './components/LoginAccount.jsx';
-import 'react-toastify/dist/ReactToastify.css';
-import GamePanel from './components/GameInfo.jsx';
+import { CustomizedLink } from './components/common_components.jsx';
 
 const Start = () => {
   return (
@@ -60,10 +55,9 @@ function App () {
         <Route path='/' element={<Start/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<SignUp/>} />
-        <Route path='/play' element={<Play/>} />
-        <Route path='/homepage' element={<Homepage value={refresh} function={setRefresh}/>} >
-          <Route path='dashboard' element={<Dashboard value={refresh} function={setRefresh} />} />
-          <Route path='dashboard/:Id' element={<GamePanel />}/>        </Route>
+        <Route path='/homepage' element={<Homepage/>} >
+          <Route path='dashboard' element={<Dashboard />} />
+        </Route>
       </Routes>
       <ToastContainer />
     </BrowserRouter>
