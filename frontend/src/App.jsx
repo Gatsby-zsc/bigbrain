@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 import SignUp from './components/SignUp.jsx';
 import Homepage from './components/Homepage.jsx';
 import Dashboard from './components/Dashboard.jsx';
-import { CustomizedLink } from './components/common_components.jsx';
+import { CustomizedLink } from './components/commonComponents.jsx';
 import Play from './components/Play.jsx';
 import { ToastContainer } from 'react-toastify';
 import Login from './components/LoginAccount.jsx';
