@@ -1,35 +1,47 @@
-import React from 'react';
-import Button from '@mui/material/Button';
+import React, { useState, useEffect } from 'react';
 import { fetchGET } from './library/fetch.js'
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Quiz from './quiz.jsx';
 
-function Dashboard () {
-  const [quizzes, setQuizzes] = React.useState([]);
+// sort all quizzes to display them in order on dashboard
+function sortQuiz (q1, q2) {
+  const check = Date.parse(q2.createdAt) - Date.parse(q1.createdAt);
+  return check;
+}
+
+function Dashboard (props) {
+  const [quizzes, setQuizzes] = useState([]);
 
   // fetch all quizzes from server
-  React.useEffect(async () => {
+  useEffect(async () => {
     const res = (await fetchGET('admin/quiz')).quizzes;
-    setQuizzes(res);
+    const newRes = res.sort(sortQuiz);
+    setQuizzes(newRes);
   }, []);
+
+  // listen refresh to check whether we create an new game,
+  // if so, refresh quizzes panel
+  const refresh = props.value;
+  const setRefresh = props.function;
+  useEffect(async () => {
+    const res = (await fetchGET('admin/quiz')).quizzes;
+    const newRes = res.sort(sortQuiz);
+    setQuizzes(newRes);
+  }, [refresh]);
 
   return (
     <Box>
-      This is Dash board!!!
       <Container maxWidth='xl'>
         <Grid container spacing={1} >
-          <Grid item xs={12} md={12} >
-            <Button variant='contained' sx={ { mt: 2, mb: 2, mr: 2 } }>Create game</Button>
-          </Grid>
           <Grid item xs={12} md={12}>
             <Grid container spacing={3}>
                 {
                   quizzes.map(quiz => {
                     return (
                       <Grid item key={quiz.id} xs={12} sm={12} md={6} >
-                        <Quiz eachQuiz={quiz}></Quiz>
+                        <Quiz eachQuiz={quiz} value={refresh} function={setRefresh}></Quiz>
                       </Grid>
                     )
                   }

@@ -1,12 +1,12 @@
 async function fetchPOST (req, bodyInfo, flag) {
   let header;
-  if (flag) {
+  if (flag === 'logout' || flag === 'newGame') {
     header = {
       accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     }
-  } else {
+  } else if (flag === 'register' || flag === 'login') {
     header = {
       accept: 'application/json',
       'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ async function fetchPost (req, postDetail) {
   return ret.json();
 }
 
-async function fetchDelete (req, postId) {
+async function fetchDelete (req) {
   const ret = await fetch('http://localhost:5005/' + req, {
     method: 'DELETE',
     headers: {
@@ -66,7 +66,6 @@ async function fetchDelete (req, postId) {
       accept: 'application/json',
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
-    body: JSON.stringify(postId),
   })
   return ret.json();
 }

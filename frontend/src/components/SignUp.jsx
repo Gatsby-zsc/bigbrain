@@ -38,7 +38,7 @@ function SignUp () {
     }
 
     const bodyInfo = { email: myEmail, password: myPassword, name: myName };
-    const ret = await fetchPOST('admin/auth/register', bodyInfo);
+    const ret = await fetchPOST('admin/auth/register', bodyInfo, 'register');
     if (ret.status === 200) {
       const token = (await ret.json()).token;
       localStorage.setItem('token', token);
