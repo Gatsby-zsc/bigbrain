@@ -63,8 +63,7 @@ function App () {
         <Route path='/play' element={<Play/>} />
         <Route path='/homepage' element={<Homepage value={refresh} function={setRefresh}/>} >
           <Route path='dashboard' element={<Dashboard value={refresh} function={setRefresh} />} />
-          <Route path='dashboard/:Id' element={<GamePanel />}/>
-        </Route>
+          <Route path='dashboard/:Id' element={<GamePanel />}/>        </Route>
       </Routes>
       <ToastContainer />
     </BrowserRouter>
