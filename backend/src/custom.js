@@ -1,3 +1,26 @@
+// question structure 
+/*
+question {
+  questionId,
+  questionType,                 // can be single or multiple
+  questionField,
+  timeLimit,
+  points,
+  videoURL,
+  imgURL,
+  answers: [options...]         // store an array of different options
+}
+*/
+
+// option structure
+/* 
+option {
+  optionId,
+  optionField,
+  optionCorrect,                // true or false
+}
+*/ 
+
 /*
  For a given data structure of a question, produce another
  object that doesn't contain any important meta data (e.g. the answer)
@@ -5,7 +28,20 @@
 */
 export const quizQuestionPublicReturn = question => {
   console.log('See question: ', question);
-  return question;
+  const options = question.answers.filter( eachOption => {
+    eachOption.optionCorrect !== true
+  });
+
+  return {
+    questionId:question.questionId,
+    questionType:question.questionType,                
+    questionField:question.questionField,
+    timeLimit:question.timeLimit,
+    points:question.points,
+    videoURL:question.videoURL,
+    imgURL:question.imgURL,
+    answers : options
+  };
 };
 
 /*
@@ -13,9 +49,15 @@ export const quizQuestionPublicReturn = question => {
  the correct answers (minimum 1).
 */
 export const quizQuestionGetCorrectAnswers = question => {
-  return [
-    123,
-  ]; // For a single answer
+  const correctAnswers = question.answers.filter( eachOption => {
+    eachOption.optionCorrect === true;
+  });
+
+  const answerIds = correctAnswers.map( eachOption => {
+    eachOption.optionId
+  });
+  
+  return answerIds; 
 };
 
 /*
@@ -23,11 +65,10 @@ export const quizQuestionGetCorrectAnswers = question => {
  all of the answers, correct or incorrect.
 */
 export const quizQuestionGetAnswers = question => {
-  return [
-    123,
-    456,
-    678,
-  ]; // For a single answer
+  const answerIds = question.answers.map( eachOption => {
+    eachOption.optionId
+  });
+  return answerIds;
 };
 
 /*
@@ -35,5 +76,5 @@ export const quizQuestionGetAnswers = question => {
  of the question once it starts. (Seconds)
 */
 export const quizQuestionGetDuration = question => {
-  return 10;
+  return question.timeLimit;
 };

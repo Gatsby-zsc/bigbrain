@@ -22,15 +22,13 @@ function Dashboard () {
         <Grid container spacing={1} >
           <Grid item xs={12} md={12} >
             <Button variant='contained' sx={ { mt: 2, mb: 2, mr: 2 } }>Create game</Button>
-            <Button variant='contained' sx={ { mt: 2, mb: 2, mr: 2 } }>Delete game</Button>
-            <Button variant='contained' sx={ { mt: 2, mb: 2, mr: 2 } }>Edit game</Button>
           </Grid>
           <Grid item xs={12} md={12}>
-            <Grid container spacing={3} >
+            <Grid container spacing={3}>
                 {
                   quizzes.map(quiz => {
                     return (
-                      <Grid item key={quiz.id} xs={12} sm={12} md={6}>
+                      <Grid item key={quiz.id} xs={12} sm={12} md={6} >
                         <Quiz eachQuiz={quiz}></Quiz>
                       </Grid>
                     )

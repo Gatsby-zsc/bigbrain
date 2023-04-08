@@ -1,47 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import analyzeTime from './library/time.js'
+import sampleImg from './sample.jpg'
 
 function Quiz ({ eachQuiz }) {
-  const quizId = 'Id:' + eachQuiz.id;
-  const quizCreatedDate = eachQuiz.createdAt;
-  const quizName = eachQuiz.name;
-  const quizThumbnail = eachQuiz.thumbnail;
-  const quizOwner = eachQuiz.owner;
-  // const quizStatus = eachQuiz.active;
-  // const quizSessions = eachQuiz.oldSessions;
+  const [Quiz, setQuiz] = useState(eachQuiz);
+  const [quizId, setQuizId] = useState(eachQuiz.id)
+  console.log(quizId);
+
+  useEffect(() => {
+    setQuiz(eachQuiz);
+  }, [])
+
+  useEffect(() => {
+    setQuizId(quizId);
+  }, [])
+
   return (
-    <Card>
+    <Card sx={ { position: 'relative' } } >
+      <IconButton aria-label="delete" sx={ { position: 'absolute', right: 10, top: 10 } }>
+        <DeleteIcon />
+      </IconButton>
       <CardHeader
-        title={quizName}
-        subheader={quizId}
+        title={Quiz.name}
+        subheader={analyzeTime(Quiz.createdAt)}
       />
       <CardMedia
         component='img'
-        height='100'
-        image={quizThumbnail}
+        height='250px'
+        image={Quiz.thumbnail ? Quiz.thumbnail : sampleImg}
         alt='Thumbnail'
       />
       <CardContent>
-        <Typography
-          variant='body1'
-        >
-          Quiz Content
-        </Typography>
-        <Typography
-          variant='body2'
-        >
-          {quizCreatedDate}
-        </Typography>
-        <Typography
-          variant='body2'
-        >
-          {quizOwner}
-        </Typography>
         <Button
           variant='contained'
         >
