@@ -8,6 +8,7 @@ import SignUp from './components/SignUp.jsx';
 import Homepage from './components/Homepage.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import { CustomizedLink } from './components/common_components.jsx';
+import Play from './components/Play.jsx';
 
 const Start = () => {
   return (
@@ -34,6 +35,13 @@ const Start = () => {
           Go to HomePage
         </CustomizedLink>
       </Button>
+      <Button variant='contained' sx={ { ml: 5 } }>
+        <CustomizedLink
+          to={'/play'}
+        >
+          Play Now
+        </CustomizedLink>
+      </Button>
     </Container>
     </>
   );
@@ -47,6 +55,7 @@ function App () {
         <Route path='/' element={<Start/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<SignUp/>} />
+        <Route path='/play' element={<Play/>} />
         <Route path='/homepage' element={<Homepage/>} >
           <Route path='dashboard' element={<Dashboard />} />
         </Route>
