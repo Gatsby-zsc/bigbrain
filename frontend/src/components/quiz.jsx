@@ -21,6 +21,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Close';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DialogActions from '@mui/material/DialogActions';
+import EditNoteIcon from '@mui/icons-material/EditNote';
 
 const successsNotify = () =>
   toast.success('Delete game successfully!!!', {
@@ -170,7 +171,7 @@ function Quiz (props) {
             onClick={editGame}
             sx={ { mr: 2 } }
           >
-            Edit
+            <EditNoteIcon fontSize='medium'/> Edit
           </Button>
           {quizStatus === null || quizStatus === false
             ? <Button
@@ -178,7 +179,7 @@ function Quiz (props) {
             variant='contained'
             onClick={() => { startQuiz(quizId); setQuizStatus(true); handleCopyOpen() }}
           >
-            <PlayArrowIcon/> Start
+            <PlayArrowIcon fontSize='medium'/> Start
           </Button>
             : <Button
           color='error'
@@ -186,7 +187,7 @@ function Quiz (props) {
           variant='contained'
           onClick={() => { stopQuiz(quizId); setQuizStatus(false); handleViewResultOpen() }}
           >
-            <StopIcon/>Stop
+            <StopIcon fontSize='medium'/>Stop
           </Button>}
         </CardContent>
       </Card>
