@@ -14,6 +14,13 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import StopIcon from '@mui/icons-material/Stop';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import CloseIcon from '@mui/icons-material/Close';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import DialogActions from '@mui/material/DialogActions';
 
 const successsNotify = () =>
   toast.success('Delete game successfully!!!', {
@@ -72,6 +79,24 @@ function Quiz (props) {
   const [questions, setQuestions] = useState([]);
   const [totalTime, setTotalTime] = useState(0);
   const [quizStatus, setQuizStatus] = useState(eachQuiz.active);
+  const [urlCopy, setUrlCopy] = useState(false);
+  const [viewResult, setViewResult] = useState(false);
+
+  const handleCopyOpen = () => {
+    setUrlCopy(true);
+  };
+
+  const handleCopyClose = () => {
+    setUrlCopy(false);
+  };
+
+  const handleViewResultOpen = () => {
+    setViewResult(true);
+  };
+
+  const handleViewResultClose = () => {
+    setViewResult(false);
+  };
 
   const navigate = useNavigate();
   // delete current quiz by sending request to server
@@ -114,54 +139,94 @@ function Quiz (props) {
   }, [hide])
 
   return (
-    <Card sx={ { position: 'relative', display: displayType } } >
-      <IconButton
-        aria-label="delete"
-        sx={ { position: 'absolute', right: 10, top: 10 } }
-        onClick={deleteGame}
-      >
-        <DeleteIcon />
-      </IconButton>
-      <CardHeader
-        title={Quiz.name}
-        subheader={analyzeTime(Quiz.createdAt)}
-      />
-      <CardMedia
-        component='img'
-        height='250px'
-        image={Quiz.thumbnail ? Quiz.thumbnail : sampleImg}
-        alt='Thumbnail'
-      />
-      <CardContent>
-        <Typography variant='body1'>
-          {questions.length} questions
-        </Typography>
-        <Typography variant='body2'>
-          Total time: {totalTime}
-        </Typography>
-        <Button
+    <>
+      <Card sx={ { position: 'relative', display: displayType } } >
+        <IconButton
+          aria-label="delete"
+          sx={ { position: 'absolute', right: 10, top: 10 } }
+          onClick={deleteGame}
+        >
+          <DeleteIcon />
+        </IconButton>
+        <CardHeader
+          title={Quiz.name}
+          subheader={analyzeTime(Quiz.createdAt)}
+        />
+        <CardMedia
+          component='img'
+          height='250px'
+          image={Quiz.thumbnail ? Quiz.thumbnail : sampleImg}
+          alt='Thumbnail'
+        />
+        <CardContent>
+          <Typography variant='body1'>
+            {questions.length} questions
+          </Typography>
+          <Typography variant='body2'>
+            Total time: {totalTime}
+          </Typography>
+          <Button
+            variant='contained'
+            onClick={editGame}
+            sx={ { mr: 2 } }
+          >
+            Edit
+          </Button>
+          {quizStatus === null || quizStatus === false
+            ? <Button
+            sx={{ alignItems: 'center' }}
+            variant='contained'
+            onClick={() => { startQuiz(quizId); setQuizStatus(true); handleCopyOpen() }}
+          >
+            <PlayArrowIcon/> Start
+          </Button>
+            : <Button
+          color='error'
+          sx={{ alignItems: 'center' }}
           variant='contained'
-          onClick={editGame}
-          sx={ { mr: 2 } }
+          onClick={() => { stopQuiz(quizId); setQuizStatus(false); handleViewResultOpen() }}
+          >
+            <StopIcon/>Stop
+          </Button>}
+        </CardContent>
+      </Card>
+      <>
+        <Dialog
+          open={urlCopy}
+          onClose={handleCopyClose}
         >
-          Edit
-        </Button>
-        {quizStatus === null || quizStatus === false
-          ? <Button
-          variant='contained'
-          onClick={() => { startQuiz(quizId); setQuizStatus(true) }}
+          <DialogTitle sx={{ alignItems: 'center', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            ✏️ Start Your Quiz Now! :
+            <IconButton sx={{ ml: 5 }} onClick={handleCopyClose}><CloseIcon sx={{ color: '#1876d1' }}/></IconButton>
+          </DialogTitle>
+          <DialogContent sx={{ alignItems: 'center', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <DialogContentText sx={{ fontSize: '18px' }}>
+              Session ID is {quizId}
+            </DialogContentText>
+            <IconButton onClick={() => navigate('../../play')}>
+              <ContentCopyIcon/>
+            </IconButton>
+          </DialogContent>
+        </Dialog>
+      </>
+      <>
+        <Dialog
+          open={viewResult}
+          onClose={handleViewResultClose}
         >
-          <PlayArrowIcon/> Start
-        </Button>
-          : <Button
-        color='error'
-        variant='contained'
-        onClick={() => { stopQuiz(quizId); setQuizStatus(false) }}
-        >
-           <StopIcon/>Stop
-        </Button>}
-      </CardContent>
-    </Card>
+          <DialogTitle sx={{ alignItems: 'center', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            Would you like to view the results?
+          </DialogTitle>
+          <DialogActions sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Button onClick={handleViewResultClose}>NO</Button>
+            <Button onClick={handleViewResultClose} autoFocus>
+              YES
+            </Button>
+        </DialogActions>
+        </Dialog>
+      </>
+    </>
+
   )
 }
 
