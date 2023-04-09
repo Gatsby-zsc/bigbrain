@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import SignUp from './components/SignUp.jsx';
 import Homepage from './components/Homepage.jsx';
-import Dashboard from './components/Dashboard.jsx';
+import DashBoard from './components/DashBoard.jsx';
 import { CustomizedLink } from './components/commonComponents.jsx';
 import Play from './components/Play.jsx';
 import { ToastContainer } from 'react-toastify';
@@ -62,7 +62,7 @@ function App () {
         <Route path='/signup' element={<SignUp/>} />
         <Route path='/play' element={<Play/>} />
         <Route path='/homepage' element={<Homepage value={refresh} function={setRefresh}/>} >
-          <Route path='dashboard' element={<Dashboard value={refresh} function={setRefresh} />} />
+          <Route path='dashboard' element={<DashBoard value={refresh} function={setRefresh} />} />
           <Route path='dashboard/:Id' element={<GamePanel />}/>
         </Route>
       </Routes>

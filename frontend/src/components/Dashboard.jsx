@@ -11,7 +11,7 @@ function sortQuiz (q1, q2) {
   return check;
 }
 
-function Dashboard (props) {
+function DashBoard (props) {
   const [quizzes, setQuizzes] = useState([]);
 
   // fetch all quizzes from server
@@ -55,4 +55,4 @@ function Dashboard (props) {
   )
 }
 
-export default Dashboard;
+export default DashBoard;

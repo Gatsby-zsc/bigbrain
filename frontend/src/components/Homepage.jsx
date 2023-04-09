@@ -6,7 +6,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { AppBar } from '@mui/material';
 import { styled } from '@mui/system';
 import Logout from './buttons/Logout.jsx';
-import DashboardButton from './buttons/Dashboard.jsx';
+import DashBoardButton from './buttons/DashBoard.jsx';
 import HomepageButton from './buttons/HomepageButton.jsx';
 import CreateGameButton from './buttons/CreateGame.jsx';
 
@@ -44,9 +44,9 @@ function Homepage (props) {
                       path.length === 3
                         ? <>
                             <HomepageButton />
-                            <DashboardButton />
+                            <DashBoardButton />
                           </>
-                        : <DashboardButton />
+                        : <DashBoardButton />
                     )
               )
             : (

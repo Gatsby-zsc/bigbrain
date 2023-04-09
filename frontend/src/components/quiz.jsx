@@ -12,6 +12,8 @@ import sampleImg from './sample.jpg'
 import { fetchGET, fetchDelete } from './library/fetch.js'
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import StopIcon from '@mui/icons-material/Stop';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 const successsNotify = () =>
   toast.success('Delete game successfully!!!', {
@@ -40,6 +42,26 @@ function processTime (time) {
   return totalTime;
 }
 
+async function startQuiz (quizId) {
+  await fetch(`http://localhost:5005/admin/quiz/${quizId}/start`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  })
+}
+
+async function stopQuiz (quizId) {
+  await fetch(`http://localhost:5005/admin/quiz/${quizId}/end`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  })
+}
+
 function Quiz (props) {
   const [hide, setHide] = useState(false);
   const [displayType, setDisplayType] = useState('block');
@@ -49,6 +71,7 @@ function Quiz (props) {
   const [quizId] = useState(eachQuiz.id);
   const [questions, setQuestions] = useState([]);
   const [totalTime, setTotalTime] = useState(0);
+  const [quizStatus, setQuizStatus] = useState(eachQuiz.active);
 
   const navigate = useNavigate();
   // delete current quiz by sending request to server
@@ -123,12 +146,20 @@ function Quiz (props) {
         >
           Edit
         </Button>
-        <Button
+        {quizStatus === null || quizStatus === false
+          ? <Button
           variant='contained'
-          onClick={editGame}
+          onClick={() => { startQuiz(quizId); setQuizStatus(true) }}
         >
-          Start
+          <PlayArrowIcon/> Start
         </Button>
+          : <Button
+        color='error'
+        variant='contained'
+        onClick={() => { stopQuiz(quizId); setQuizStatus(false) }}
+        >
+           <StopIcon/>Stop
+        </Button>}
       </CardContent>
     </Card>
   )
