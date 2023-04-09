@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
-import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
 
 function Option (props) {
   const [option, setOption] = useState(props.value);
@@ -11,6 +12,7 @@ function Option (props) {
   const [Correct, setOptionCorrect] = useState(option.optionCorrect);
   const [options] = useState(props.options);
 
+  const optionNumber = props.oid;
   const setOptions = props.optionFunction;
   // const questionId = question.questionId;
   const newOptionId = option.optionId;
@@ -39,25 +41,29 @@ function Option (props) {
          variant='subtitle2'
          sx={ { mt: 1, mb: 1 } }
       >
-        Option
+        Option {optionNumber}
       </Typography>
       <div>
-        <TextField
+        <OutlinedInput
           variant='outlined'
           value={Field}
           onChange={(e) => { setOptionField(e.target.value) } }
-        >
-        </TextField>
-        <IconButton sx={ { mt: 1 } } onClick={ () => { setOptionCorrect(!Correct) } }>
-          {Correct === true
-            ? <RadioButtonCheckedIcon
-                color='primary'
-              />
-            : <RadioButtonUncheckedIcon
-                color='primary'
-              />
+          endAdornment={
+            <InputAdornment position='end'>
+              <IconButton onClick={ () => { setOptionCorrect(!Correct) } }>
+                {Correct === true
+                  ? <CheckBoxIcon
+                      color='primary'
+                    />
+                  : <CheckBoxOutlineBlankIcon
+                      color='primary'
+                    />
+                }
+              </IconButton>
+            </InputAdornment>
           }
-        </IconButton>
+        >
+        </OutlinedInput>
       </div>
     </>
   )

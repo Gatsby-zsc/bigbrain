@@ -8,9 +8,12 @@ import { WindowBorder } from './commonComponents';
 import { styled } from '@mui/system';
 import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Collapse from '@mui/material/Collapse';
 import { Grid } from '@mui/material';
 import Option from './Option';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button';
 
 const NewWindowBorder = styled(WindowBorder)({
   padding: '10px',
@@ -18,13 +21,19 @@ const NewWindowBorder = styled(WindowBorder)({
   position: 'relative'
 });
 
+// options of each question, generate random id for each option
+const optionTemplate = {
+  optionId: Math.trunc((Date.now() * Math.random())) % 100000,
+  optionField: '',
+  optionCorrect: false,
+}
+
 function Question (props) {
   const question = props.value;
   const setQuestion = props.function;
   const questions = props.questions;
 
-  const qid = question.questionId;
-
+  const [newQid] = useState(question.questionId);
   const [newType, setType] = useState(question.questionType);
   const [newField, setField] = useState(question.questionField);
   const [newPoints, setPoints] = useState(question.points);
@@ -36,17 +45,57 @@ function Question (props) {
   // allow user to view more info for the created new game
   const [expanded, setExpanded] = useState(false);
 
+  let optionNumber = 1;
+
   function viewDetails () {
     setExpanded(!expanded);
   }
 
+  // delete question
+  function deleteQuestion () {
+    const newQuestions = questions.filter((question) => {
+      return question.questionId !== newQid;
+    })
+
+    setQuestion(newQuestions);
+  }
+
+  function addOption () {
+    // we have at most 6 options
+    if (optionNumber === 7) {
+      return;
+    }
+
+    const addOptions = [...newOptions];
+    const option = optionTemplate;
+    option.optionId = Math.trunc((Date.now() * Math.random())) % 100000;
+    addOptions.push(option);
+    setOptions(addOptions);
+  }
+
+  function deleteOption () {
+    // we have at least 3 options
+    if (optionNumber === 3) {
+      return;
+    }
+
+    const deleteOptions = [];
+    for (const option of newOptions) {
+      if (option !== newOptions[newOptions.length - 1]) {
+        deleteOptions.push(option);
+      }
+    }
+    setOptions(deleteOptions);
+  }
+
+  // update question after we modify them
   useEffect(() => {
     const newQuestions = questions.map((question) => {
-      if (question.questionId === qid) {
+      if (question.questionId === newQid) {
         return ({
           questionField: newField,
           questionType: newType,
-          questionId: qid,
+          questionId: newQid,
           timeLimit: newLimit,
           points: newPoints,
           videoURL: newVideoURL,
@@ -65,21 +114,29 @@ function Question (props) {
     newLimit,
     newVideoURL,
     newImgURL,
-    newOptions])
+    newOptions,
+    newQid])
 
   return (
     <NewWindowBorder>
         <Typography
-          variant='subtitle1'
+          variant='h5'
         >
-          Question id: {qid}
+          Question id: {newQid}
         </Typography>
         <IconButton
           aria-label="expand"
           sx={ { position: 'absolute', right: 10, top: 3 } }
           onClick={viewDetails}
         >
-          <ExpandMoreIcon />
+          {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </IconButton>
+        <IconButton
+          aria-label="expand"
+          sx={ { position: 'absolute', right: 60, top: 3 } }
+          onClick={deleteQuestion}
+        >
+          <DeleteIcon />
         </IconButton>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <Box sx={ { mt: 0, mb: 2 } }>
@@ -101,7 +158,7 @@ function Question (props) {
                   variant='subtitle2'
                   sx={ { mt: 1, mb: 1 } }
                 >
-                  Question type
+                  Type
                 </Typography>
                 <Select
                   value={newType}
@@ -118,7 +175,7 @@ function Question (props) {
                   variant='subtitle2'
                   sx={ { mt: 1, mb: 1 } }
                 >
-                  Question points
+                  Points
                 </Typography>
                 <Select
                   value={newPoints}
@@ -136,7 +193,7 @@ function Question (props) {
                   variant='subtitle2'
                   sx={ { mt: 1, mb: 1 } }
                 >
-                  Question timeLimit
+                  Time limit
                 </Typography>
                 <Select
                   value={newLimit}
@@ -185,6 +242,7 @@ function Question (props) {
                     key={option.optionId}
                   >
                     <Option
+                      oid={optionNumber++}
                       value={option}
                       question={question}
                       questions={questions}
@@ -195,6 +253,14 @@ function Question (props) {
                   </Grid>
                 )
               })}
+            </Grid>
+            <Grid container spaceing={1} sx={ { mt: 3 } }>
+              <Grid item xs={6} sx={ { pr: 1, pl: 1 } }>
+                <Button fullWidth variant='outlined' onClick={addOption}>More</Button>
+              </Grid>
+              <Grid item xs={6} sx={ { pr: 1, pl: 1 } }>
+                <Button fullWidth variant='outlined' onClick={deleteOption}>Delete</Button>
+              </Grid>
             </Grid>
           </Box>
         </Collapse>

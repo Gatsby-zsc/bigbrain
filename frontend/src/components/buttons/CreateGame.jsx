@@ -51,32 +51,32 @@ const failNotify = (message) =>
     theme: 'colored',
   });
 
+// options of each question, generate random id for each option
+const option1 = {
+  optionId: Math.trunc((Date.now() * Math.random())) % 100000,
+  optionField: '',
+  optionCorrect: false,
+}
+
+const option2 = {
+  optionId: Math.trunc((Date.now() * Math.random())) % 100000,
+  optionField: '',
+  optionCorrect: false,
+}
+
+// structure of each question, generate random id for question
+const question = {
+  questionId: Math.trunc((Date.now() * Math.random())) % 100000,
+  questionType: 'type',
+  questionField: 'My favourite game',
+  timeLimit: 0,
+  points: 1,
+  videoURL: '',
+  imgURL: '',
+  answers: [option1, option2]
+}
+
 function CreateGameButton (props) {
-  // options of each question, generate random id for each option
-  const option1 = {
-    optionId: Math.trunc((Date.now() * Math.random())) % 10000,
-    optionField: '',
-    optionCorrect: false,
-  }
-
-  const option2 = {
-    optionId: Math.trunc((Date.now() * Math.random())) % 10000,
-    optionField: '',
-    optionCorrect: false,
-  }
-
-  // structure of each question, generate random id for question
-  const question = {
-    questionId: Math.trunc((Date.now() * Math.random())) % 10000,
-    questionType: 'type',
-    questionField: 'My Little Game',
-    timeLimit: 0,
-    points: 1,
-    videoURL: '',
-    imgURL: '',
-    answers: [option1, option2]
-  }
-
   const [open, setOpen] = useState(false);
   const [newGame, setNewGame] = useState('');
   // expended info which allow user to add more info for the new game
@@ -106,7 +106,7 @@ function CreateGameButton (props) {
   // create an new question when user click more button
   function moreQuestion () {
     const newQestion = question;
-    newQestion.questionId = Math.trunc((Date.now() * Math.random())) % 10000;
+    newQestion.questionId = Math.trunc((Date.now() * Math.random())) % 100000;
     questions.push(newQestion);
     setQuestion(questions);
     setRefresh(!refresh);

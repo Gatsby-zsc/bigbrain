@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import StopIcon from '@mui/icons-material/Stop';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import EditIcon from '@mui/icons-material/Edit';
 
 const successsNotify = () =>
   toast.success('Delete game successfully!!!', {
@@ -144,7 +145,7 @@ function Quiz (props) {
           onClick={editGame}
           sx={ { mr: 2 } }
         >
-          Edit
+          <EditIcon sx={ { mr: 1 } }/>Edit
         </Button>
         {quizStatus === null || quizStatus === false
           ? <Button
