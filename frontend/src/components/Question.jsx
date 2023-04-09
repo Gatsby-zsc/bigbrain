@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -20,20 +20,52 @@ const NewWindowBorder = styled(WindowBorder)({
 
 function Question (props) {
   const question = props.value;
+  const setQuestion = props.function;
+  const questions = props.questions;
+
   const qid = question.questionId;
-  const [questionType, setQuestionType] = useState(question.questionType);
-  const [questionField, setQuestionField] = useState(question.questionField);
-  const [points, setPoints] = useState(question.points);
-  const [timeLimit, setTimeLimit] = useState(question.timeLimit);
-  const [videoURL, setVideoURL] = useState(question.videoURL);
-  const [imgURL, setImgURL] = useState(question.imgURL);
-  const [options] = useState(question.answers);
+
+  const [newType, setType] = useState(question.questionType);
+  const [newField, setField] = useState(question.questionField);
+  const [newPoints, setPoints] = useState(question.points);
+  const [newLimit, setTimeLimit] = useState(question.timeLimit);
+  const [newVideoURL, setVideoURL] = useState(question.videoURL);
+  const [newImgURL, setImgURL] = useState(question.imgURL);
+  const [newOptions, setOptions] = useState(question.answers);
 
   // allow user to view more info for the created new game
   const [expanded, setExpanded] = useState(false);
+
   function viewDetails () {
     setExpanded(!expanded);
   }
+
+  useEffect(() => {
+    const newQuestions = questions.map((question) => {
+      if (question.questionId === qid) {
+        return ({
+          questionField: newField,
+          questionType: newType,
+          questionId: qid,
+          timeLimit: newLimit,
+          points: newPoints,
+          videoURL: newVideoURL,
+          imgURL: newImgURL,
+          answers: newOptions
+        })
+      } else {
+        return question;
+      }
+    })
+
+    setQuestion(newQuestions);
+  }, [newType,
+    newField,
+    newPoints,
+    newLimit,
+    newVideoURL,
+    newImgURL,
+    newOptions])
 
   return (
     <NewWindowBorder>
@@ -59,8 +91,8 @@ function Question (props) {
             </Typography>
             <TextField
               variant='outlined'
-              value={questionField}
-              onChange={(e) => { setQuestionField(e.target.value) } }
+              value={newField}
+              onChange={(e) => { setField(e.target.value) } }
               fullWidth
             />
             <Grid container spacing={1}>
@@ -72,8 +104,8 @@ function Question (props) {
                   Question type
                 </Typography>
                 <Select
-                  value={questionType}
-                  onChange={(e) => { setQuestionType(e.target.value) } }
+                  value={newType}
+                  onChange={(e) => { setType(e.target.value) } }
                   fullWidth
                 >
                   <MenuItem value='type'>None</MenuItem>
@@ -89,7 +121,7 @@ function Question (props) {
                   Question points
                 </Typography>
                 <Select
-                  value={points}
+                  value={newPoints}
                   onChange={(e) => { setPoints(e.target.value) } }
                   fullWidth
                 >
@@ -107,7 +139,7 @@ function Question (props) {
                   Question timeLimit
                 </Typography>
                 <Select
-                  value={timeLimit}
+                  value={newLimit}
                   onChange={(e) => { setTimeLimit(e.target.value) } }
                   fullWidth
                 >
@@ -127,7 +159,7 @@ function Question (props) {
               Question videoURL (optional)
             </Typography>
             <TextField
-              value={videoURL}
+              value={newVideoURL}
               variant='outlined'
               onChange={(e) => { setVideoURL(e.target.value) } }
               fullWidth
@@ -139,20 +171,27 @@ function Question (props) {
               Question imgURL (optional)
             </Typography>
             <TextField
-              value={imgURL}
+              value={newImgURL}
               variant='outlined'
               onChange={(e) => { setImgURL(e.target.value) } }
               fullWidth
             />
             <Grid container spacing={1}>
-              {options.map(option => {
+              {newOptions.map(option => {
                 return (
                   <Grid
                     item
                     xs={6}
                     key={option.optionId}
                   >
-                      <Option value={option}/>
+                    <Option
+                      value={option}
+                      question={question}
+                      questions={questions}
+                      questionFunction={setQuestion}
+                      options={newOptions}
+                      optionFunction={setOptions}
+                    />
                   </Grid>
                 )
               })}

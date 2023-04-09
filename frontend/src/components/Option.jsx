@@ -1,14 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 
 function Option (props) {
-  const option = props.value;
-  const [optionField, setOptionField] = useState(option.optionField);
-  const [optionCorrect, setOptionCorrect] = useState(option.optionCorrect);
-  console.log(option);
+  const [option, setOption] = useState(props.value);
+  const [Field, setOptionField] = useState(option.optionField);
+  const [Correct, setOptionCorrect] = useState(option.optionCorrect);
+  const [options] = useState(props.options);
+
+  const setOptions = props.optionFunction;
+  // const questionId = question.questionId;
+  const newOptionId = option.optionId;
+
+  // update options when we modify one of the option
+  useEffect(() => {
+    const newOptions = options.map((eachOption) => {
+      if (eachOption.optionId === newOptionId) {
+        return option;
+      } else {
+        return eachOption;
+      }
+    })
+
+    setOptions(newOptions);
+  }, [option])
+
+  // update option when we modify its field
+  useEffect(() => {
+    setOption({ optionId: newOptionId, optionField: Field, optionCorrect: Correct });
+  }, [Correct, Field])
+
   return (
     <>
       <Typography
@@ -17,27 +41,24 @@ function Option (props) {
       >
         Option
       </Typography>
-      <TextField
-        variant='outlined'
-        value={optionField}
-        onChange={(e) => { setOptionField(e.target.value) } }
-        fullWidth
-      >
-      </TextField>
-      <Typography
-         variant='subtitle2'
-         sx={ { mt: 1, mb: 1 } }
-      >
-        OptionCorrect
-      </Typography>
-      <Select
-        value={optionCorrect}
-        onChange={(e) => { setOptionCorrect(e.target.value) } }
-        fullWidth
-      >
-        <MenuItem value={true}>true</MenuItem>
-        <MenuItem value={false}>false</MenuItem>
-      </Select>
+      <div>
+        <TextField
+          variant='outlined'
+          value={Field}
+          onChange={(e) => { setOptionField(e.target.value) } }
+        >
+        </TextField>
+        <IconButton sx={ { mt: 1 } } onClick={ () => { setOptionCorrect(!Correct) } }>
+          {Correct === true
+            ? <RadioButtonCheckedIcon
+                color='primary'
+              />
+            : <RadioButtonUncheckedIcon
+                color='primary'
+              />
+          }
+        </IconButton>
+      </div>
     </>
   )
 }

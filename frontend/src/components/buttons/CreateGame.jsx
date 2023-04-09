@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -62,7 +62,7 @@ function CreateGameButton (props) {
   const option2 = {
     optionId: Math.trunc((Date.now() * Math.random())) % 10000,
     optionField: '',
-    optionCorrect: true,
+    optionCorrect: false,
   }
 
   // structure of each question, generate random id for question
@@ -165,7 +165,7 @@ function CreateGameButton (props) {
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <Box sx={ { mt: 2 } }>
               {questions.map(question => {
-                return <Question key={question.questionId} value={question} />;
+                return <Question key={question.questionId} value={question} questions={questions} function={setQuestion} />;
               })}
               <Box sx={ { mt: 2 } }>
                 <Button variant="contained" sx={ { mr: 2 } } onClick={moreQuestion}>
