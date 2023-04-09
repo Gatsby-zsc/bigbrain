@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -17,6 +17,15 @@ import Box from '@mui/material/Box';
 import DoneIcon from '@mui/icons-material/Done';
 import sampleImg from '../sample.jpg'
 import Question from '../Question';
+import { WindowBorder } from '../commonComponents';
+import { styled } from '@mui/system';
+import Typography from '@mui/material/Typography';
+
+const NewWindowBorder = styled(WindowBorder)({
+  marginTop: '10px',
+  marginBottom: '10px',
+  padding: '0px 10px 20px 10px'
+});
 
 const successsNotify = () =>
   toast.success('New game created successfully!!!', {
@@ -43,23 +52,29 @@ const failNotify = (message) =>
   });
 
 function CreateGameButton (props) {
-  // options of each question
-  const option = {
-    optionId: 0,
+  // options of each question, generate random id for each option
+  const option1 = {
+    optionId: Math.trunc((Date.now() * Math.random())) % 10000,
     optionField: '',
     optionCorrect: false,
   }
 
-  // structure of each question
+  const option2 = {
+    optionId: Math.trunc((Date.now() * Math.random())) % 10000,
+    optionField: '',
+    optionCorrect: true,
+  }
+
+  // structure of each question, generate random id for question
   const question = {
-    questionId: Date.now() % 1000000,
-    questionType: '',
-    questionField: '',
+    questionId: Math.trunc((Date.now() * Math.random())) % 10000,
+    questionType: 'type',
+    questionField: 'My Little Game',
     timeLimit: 0,
-    points: 0,
-    videoURL: null,
-    imgURL: null,
-    answers: [option]
+    points: 1,
+    videoURL: '',
+    imgURL: '',
+    answers: [option1, option2]
   }
 
   const [open, setOpen] = useState(false);
@@ -91,9 +106,8 @@ function CreateGameButton (props) {
   // create an new question when user click more button
   function moreQuestion () {
     const newQestion = question;
-    newQestion.questionId = Date.now() % 1000000;
+    newQestion.questionId = Math.trunc((Date.now() * Math.random())) % 10000;
     questions.push(newQestion);
-    console.log(questions)
     setQuestion(questions);
     setRefresh(!refresh);
   }
@@ -131,29 +145,39 @@ function CreateGameButton (props) {
           <DialogContentText>
             To successfully create a game, Please enter a title for the new game
           </DialogContentText>
-          <TextField
-            autoFocus
-            fullWidth
-            label='Game title'
-            variant='standard'
-            sx={{ mt: 1 }}
-            value={newGame}
-            onChange={ (e) => { setNewGame(e.target.value) } }
-          />
+          <NewWindowBorder>
+            <Typography
+              variant='subtitle2'
+              sx={ { mt: 1 } }
+            >
+             Game title
+            </Typography>
+            <TextField
+              autoFocus
+              fullWidth
+              label='Game title'
+              variant='outlined'
+              sx={{ mt: 1 }}
+              value={newGame}
+              onChange={ (e) => { setNewGame(e.target.value) } }
+            />
+          </NewWindowBorder>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <Box sx={ { mt: 2 } }>
               {questions.map(question => {
-                return <Question key={question.questionId} value={questions} function={setQuestion}/>;
+                return <Question key={question.questionId} value={question} />;
               })}
-              <Button variant="contained" sx={ { mr: 2 } } onClick={moreQuestion}>
-                <QuestionAnswerIcon sx={ { mr: 1 } }/>
-                  More
-              </Button>
-              <Button variant="contained" component="label" >
-                { thumbnail === sampleImg ? <PhotoCamera sx={ { mr: 1 } } /> : <DoneIcon sx={ { mr: 1 } } /> }
-                  Upload
-                <input hidden accept="image/*" multiple type="file" onChange={ (e) => { setThumbnail(e.target.value) } } />
-              </Button>
+              <Box sx={ { mt: 2 } }>
+                <Button variant="contained" sx={ { mr: 2 } } onClick={moreQuestion}>
+                  <QuestionAnswerIcon sx={ { mr: 1 } }/>
+                    More
+                </Button>
+                <Button variant="contained" component="label" >
+                  { thumbnail === sampleImg ? <PhotoCamera sx={ { mr: 1 } } /> : <DoneIcon sx={ { mr: 1 } } /> }
+                    Upload
+                  <input hidden accept="image/*" multiple type="file" onChange={ (e) => { setThumbnail(e.target.value) } } />
+                </Button>
+              </Box>
             </Box>
           </Collapse>
         </DialogContent>
