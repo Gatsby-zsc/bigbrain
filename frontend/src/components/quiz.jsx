@@ -119,8 +119,15 @@ function Quiz (props) {
         <Button
           variant='contained'
           onClick={editGame}
+          sx={ { mr: 2 } }
         >
-          Edit game
+          Edit
+        </Button>
+        <Button
+          variant='contained'
+          onClick={editGame}
+        >
+          Start
         </Button>
       </CardContent>
     </Card>

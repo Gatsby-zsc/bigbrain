@@ -7,15 +7,7 @@ import Button from '@mui/material/Button';
 import { styled } from '@mui/system';
 import { Link, useNavigate } from 'react-router-dom';
 import { fetchPOST } from './library/fetch.js';
-
-const SignUpWindowBorder = styled('div')({
-  padding: '24px',
-  borderRadius: '8px',
-  boxShadow: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px',
-  boxSizing: 'border-box',
-  display: 'flex',
-  flexDirection: 'column',
-});
+import { WindowBorder } from './commonComponents.jsx'
 
 const MyHomeIcon = styled(HomeIcon)({
   margin: '0 auto',
@@ -58,7 +50,7 @@ function SignUp () {
         onSubmit={SignUpAccount}
         sx={ { mt: 25 } }
       >
-        <SignUpWindowBorder>
+        <WindowBorder>
           <MyHomeIcon
             color="primary"
           />
@@ -116,7 +108,7 @@ function SignUp () {
           <Link to='../login' variant='body1' style={ { paddingRight: '10px', textAlign: 'end' } }>
             Back to login in
           </Link>
-        </SignUpWindowBorder>
+        </WindowBorder>
       </Container>
     </>
   );

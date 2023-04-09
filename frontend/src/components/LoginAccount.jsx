@@ -11,15 +11,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { styled } from '@mui/system';
 import { fetchPOST } from './library/fetch.js';
 import { toast } from 'react-toastify';
-
-const LoginWindowBorder = styled('div')({
-  padding: '24px',
-  borderRadius: '8px',
-  boxShadow: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px',
-  boxSizing: 'border-box',
-  display: 'flex',
-  flexDirection: 'column',
-});
+import { WindowBorder } from './commonComponents.jsx'
 
 const MyHomeIcon = styled(HomeIcon)({
   margin: '0 auto',
@@ -99,7 +91,7 @@ function Login () {
         maxWidth='xs'
         sx={ { mt: 25 } }
       >
-        <LoginWindowBorder>
+        <WindowBorder>
           <MyHomeIcon
             color="primary"
             onMouseEnter={changeColor}
@@ -177,7 +169,7 @@ function Login () {
               </Link>
             </Box>
           </Box>
-        </LoginWindowBorder>
+        </WindowBorder>
       </Container>
     </>
   );

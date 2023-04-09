@@ -17,6 +17,16 @@ function CustomizedLink (props) {
   )
 }
 
+const WindowBorder = styled('div')({
+  padding: '24px',
+  borderRadius: '8px',
+  boxShadow: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px',
+  boxSizing: 'border-box',
+  display: 'flex',
+  flexDirection: 'column',
+});
+
 export {
-  CustomizedLink
+  CustomizedLink,
+  WindowBorder
 }

@@ -31,6 +31,17 @@ function GamePanel () {
       <QuizWindowBorder >
         {quiz.name}
         <Container maxWidth={'sm'}>
+          <Box
+            component='img'
+            alt='Game thumbnail'
+            src={quiz.thumbnail ? quiz.thumbnail : sampleImg}
+            sx={ {
+              height: 300,
+              width: '100%',
+              borderRadius: '10px',
+            } }
+          >
+          </Box>
           <TextField
             autoFocus
             variant='outlined'
@@ -39,17 +50,6 @@ function GamePanel () {
             onChange={ (e) => { setNewGame(e.target.value) } }
             fullWidth
           />
-          <Box
-            component='img'
-            alt='Game thumbnail'
-            src={quiz.thumbnail ? quiz.thumbnail : sampleImg}
-            sx={ {
-              height: 300,
-              width: '100%',
-            } }
-          >
-
-          </Box>
         </Container>
         </QuizWindowBorder>
     </Container>
