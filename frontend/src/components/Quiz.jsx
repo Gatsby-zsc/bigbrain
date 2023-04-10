@@ -59,8 +59,6 @@ async function stopQuiz (quizId) {
 }
 
 function Quiz (props) {
-  const [hide, setHide] = useState(false);
-  const [displayType, setDisplayType] = useState('block');
   const eachQuiz = props.eachQuiz;
   const [Quiz] = useState(eachQuiz);
   const [quizId] = useState(eachQuiz.id);
@@ -69,6 +67,9 @@ function Quiz (props) {
   const [quizStatus, setQuizStatus] = useState(eachQuiz.active);
   const [urlCopy, setUrlCopy] = useState(false);
   const [viewResult, setViewResult] = useState(false);
+
+  const refresh = props.value;
+  const setRefresh = props.function;
 
   // request server to get the details of each question for the corresponding quiz
   useEffect(async () => {
@@ -97,7 +98,7 @@ function Quiz (props) {
   function deleteGame () {
     fetchDelete('admin/quiz/' + quizId);
     successsNotify('Delete game successfully!!!');
-    setHide(!hide);
+    setRefresh(!refresh);
   }
 
   // navigate to new url to edit current quiz
@@ -123,18 +124,9 @@ function Quiz (props) {
     setTotalTime(newTime);
   }, [questions])
 
-  // hide quiz we delete
-  useEffect(() => {
-    if (hide === true) {
-      setDisplayType('none');
-    } else {
-      setDisplayType('block');
-    }
-  }, [hide])
-
   return (
     <>
-      <Card sx={ { position: 'relative', display: displayType } } >
+      <Card sx={ { position: 'relative' } } >
         <IconButton
           aria-label="delete"
           sx={ { position: 'absolute', right: 10, top: 10 } }

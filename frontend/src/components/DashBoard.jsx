@@ -14,6 +14,9 @@ function sortQuiz (q1, q2) {
 function DashBoard (props) {
   const [quizzes, setQuizzes] = useState([]);
 
+  const setRefresh = props.function;
+  const refresh = props.value;
+
   // fetch all quizzes from server
   useEffect(async () => {
     const res = (await fetchGET('admin/quiz')).quizzes;
@@ -23,8 +26,7 @@ function DashBoard (props) {
 
   // listen refresh to check whether we create an new game,
   // if so, refresh quizzes panel
-  const refresh = props.value;
-  const setRefresh = props.function;
+
   useEffect(async () => {
     const res = (await fetchGET('admin/quiz')).quizzes;
     const newRes = res.sort(sortQuiz);

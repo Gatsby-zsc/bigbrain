@@ -6,7 +6,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { AppBar } from '@mui/material';
 import { styled } from '@mui/system';
 import Logout from './buttons/Logout.jsx';
-import DashBoardButton from './buttons/DashBoard.jsx';
+import DashBoardButton from './buttons/DashBoardButton.jsx';
 import HomepageButton from './buttons/HomepageButton.jsx';
 import CreateGameButton from './buttons/CreateGame.jsx';
 

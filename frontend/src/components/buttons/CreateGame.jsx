@@ -48,6 +48,7 @@ function CreateGameButton (props) {
     setExpanded(false);
     setQuestion([question]);
     setThumbnail(sampleImg);
+    setRefresh(!refresh);
     setNewGame('');
   }
 
