@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -8,8 +7,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
-import { toast } from 'react-toastify';
-import { fetchPOST } from '../library/fetch';
 import Collapse from '@mui/material/Collapse';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
@@ -20,6 +17,10 @@ import Question from '../Question';
 import { WindowBorder } from '../commonComponents';
 import { styled } from '@mui/system';
 import Typography from '@mui/material/Typography';
+import question from '../library/question';
+import { failNotify, successsNotify } from '../library/notify';
+import { fetchPOST, fetchPut, fetchGET } from '../library/fetch';
+import { fileToDataUrl } from '../library/helpers.js';
 
 const NewWindowBorder = styled(WindowBorder)({
   marginTop: '10px',
@@ -27,62 +28,13 @@ const NewWindowBorder = styled(WindowBorder)({
   padding: '0px 10px 20px 10px'
 });
 
-const successsNotify = () =>
-  toast.success('New game created successfully!!!', {
-    position: 'top-center',
-    autoClose: 2000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'colored',
-  });
-
-const failNotify = (message) =>
-  toast.error(message, {
-    position: 'top-center',
-    autoClose: 1000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'colored',
-  });
-
-// options of each question, generate random id for each option
-const option1 = {
-  optionId: Math.trunc((Date.now() * Math.random())) % 100000,
-  optionField: '',
-  optionCorrect: false,
-}
-
-const option2 = {
-  optionId: Math.trunc((Date.now() * Math.random())) % 100000,
-  optionField: '',
-  optionCorrect: false,
-}
-
-// structure of each question, generate random id for question
-const question = {
-  questionId: Math.trunc((Date.now() * Math.random())) % 100000,
-  questionType: 'type',
-  questionField: 'My favourite game',
-  timeLimit: 0,
-  points: 1,
-  videoURL: '',
-  imgURL: '',
-  answers: [option1, option2]
-}
-
 function CreateGameButton (props) {
+// expended info which allow user to add more info for the new game
+  const [expanded, setExpanded] = useState(false);
+  const [newThumbnail, setThumbnail] = useState(sampleImg);
+  const [newQuestions, setQuestion] = useState([question]);
   const [open, setOpen] = useState(false);
   const [newGame, setNewGame] = useState('');
-  // expended info which allow user to add more info for the new game
-  const [expanded, setExpanded] = useState(false);
-  const [thumbnail, setThumbnail] = useState(sampleImg);
-  const [questions, setQuestion] = useState([question]);
 
   const setRefresh = props.function;
   const refresh = props.value;
@@ -96,6 +48,7 @@ function CreateGameButton (props) {
     setExpanded(false);
     setQuestion([question]);
     setThumbnail(sampleImg);
+    setNewGame('');
   }
 
   // allow user to edit more info for the created new game
@@ -107,8 +60,8 @@ function CreateGameButton (props) {
   function moreQuestion () {
     const newQestion = question;
     newQestion.questionId = Math.trunc((Date.now() * Math.random())) % 100000;
-    questions.push(newQestion);
-    setQuestion(questions);
+    newQuestions.push(newQestion);
+    setQuestion(newQuestions);
     setRefresh(!refresh);
   }
 
@@ -118,18 +71,34 @@ function CreateGameButton (props) {
       failNotify('Can not create new game with empty name!!!');
       return;
     } else {
-      const res = await fetchPOST('admin/quiz/new', { name: newGame }, 'newGame');
-      if (res.status === 200) {
-        successsNotify();
-        // process more info entered by user
+      const responseForCreatingGame = await fetchPOST('admin/quiz/new', { name: newGame }, 'newGame');
+      if (responseForCreatingGame.status === 200) {
+        successsNotify('New game created successfully!!!');
+        // if user create questions for current quiz, update quiz after create it
+        if (newQuestions.length !== 1) {
+          const quizId = (await responseForCreatingGame.json()).quizId;
+          const quiz = await fetchGET('admin/quiz/' + quizId);
+          const NewQuiz = { ...quiz };
+
+          NewQuiz.name = newGame;
+          NewQuiz.thumbnail = newThumbnail;
+          NewQuiz.questions = newQuestions;
+
+          const responseForUpdatingGame = await fetchPut('admin/quiz/' + quizId, NewQuiz);
+          if (responseForUpdatingGame.status === 200) {
+            successsNotify('update quiz successully');
+          } else {
+            failNotify('update quiz failed!!!');
+          }
+        }
       } else {
         failNotify('Invalid name!!!');
       }
     }
     setTimeout(() => {
-      closeWindow();
       // refresh dashbaord to show newly created quiz
       setRefresh(!refresh);
+      closeWindow();
     }, 2000);
   }
 
@@ -162,20 +131,24 @@ function CreateGameButton (props) {
               onChange={ (e) => { setNewGame(e.target.value) } }
             />
           </NewWindowBorder>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <Collapse in={expanded} timeout='auto' unmountOnExit>
             <Box sx={ { mt: 2 } }>
-              {questions.map(question => {
-                return <Question key={question.questionId} value={question} questions={questions} function={setQuestion} />;
+              {newQuestions.map(question => {
+                return <Question key={question.questionId} value={question} questions={newQuestions} function={setQuestion} />;
               })}
               <Box sx={ { mt: 2 } }>
-                <Button variant="contained" sx={ { mr: 2 } } onClick={moreQuestion}>
+                <Button variant='contained' sx={ { mr: 2 } } onClick={moreQuestion}>
                   <QuestionAnswerIcon sx={ { mr: 1 } }/>
                     More
                 </Button>
-                <Button variant="contained" component="label" >
-                  { thumbnail === sampleImg ? <PhotoCamera sx={ { mr: 1 } } /> : <DoneIcon sx={ { mr: 1 } } /> }
+                <Button variant='contained' component='label' >
+                  { newThumbnail === sampleImg ? <PhotoCamera sx={ { mr: 1 } } /> : <DoneIcon sx={ { mr: 1 } } /> }
                     Upload
-                  <input hidden accept="image/*" multiple type="file" onChange={ (e) => { setThumbnail(e.target.value) } } />
+                  <input hidden accept='image/*' type='file' onChange={ (e) => {
+                    fileToDataUrl(e.target.files[0]).then((data) => {
+                      setThumbnail(data);
+                    });
+                  } } />
                 </Button>
               </Box>
             </Box>

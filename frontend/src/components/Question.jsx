@@ -201,11 +201,11 @@ function Question (props) {
                   fullWidth
                 >
                   <MenuItem value={0}>0s</MenuItem>
-                  <MenuItem value={5}>5s</MenuItem>
-                  <MenuItem value={10}>10s</MenuItem>
-                  <MenuItem value={15}>15s</MenuItem>
-                  <MenuItem value={30}>30s</MenuItem>
-                  <MenuItem value={60}>1min</MenuItem>
+                  <MenuItem value={5000}>5s</MenuItem>
+                  <MenuItem value={10000}>10s</MenuItem>
+                  <MenuItem value={15000}>15s</MenuItem>
+                  <MenuItem value={30000}>30s</MenuItem>
+                  <MenuItem value={60000}>1min</MenuItem>
                 </Select>
               </Grid>
             </Grid>

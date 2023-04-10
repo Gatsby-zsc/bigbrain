@@ -10,7 +10,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import analyzeTime from './library/time.js'
 import sampleImg from './sample.jpg'
 import { fetchGET, fetchDelete } from './library/fetch.js'
-import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import StopIcon from '@mui/icons-material/Stop';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
@@ -22,18 +21,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DialogActions from '@mui/material/DialogActions';
 import EditNoteIcon from '@mui/icons-material/EditNote';
-
-const successsNotify = () =>
-  toast.success('Delete game successfully!!!', {
-    position: 'top-center',
-    autoClose: 2000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'colored',
-  });
+import { successsNotify } from './library/notify.js';
 
 // transform time into minutes and seconds
 function processTime (time) {
@@ -108,7 +96,7 @@ function Quiz (props) {
   // delete current quiz by sending request to server
   function deleteGame () {
     fetchDelete('admin/quiz/' + quizId);
-    successsNotify();
+    successsNotify('Delete game successfully!!!');
     setHide(!hide);
   }
 

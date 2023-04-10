@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import Button from '@mui/material/Button';
@@ -10,8 +11,8 @@ import { CustomizedLink } from './components/commonComponents.jsx';
 import Play from './components/Play.jsx';
 import { ToastContainer } from 'react-toastify';
 import Login from './components/LoginAccount.jsx';
-import 'react-toastify/dist/ReactToastify.css';
-import GamePanel from './components/GameInfo.jsx';
+import GamePanel from './components/EditGame.jsx';
+import EditQuestion from './components/EditQuestion.jsx';
 
 const Start = () => {
   return (
@@ -65,7 +66,8 @@ function App () {
         </Route>
         <Route path='/homepage' element={<Homepage value={refresh} function={setRefresh}/>} >
           <Route path='dashboard' element={<DashBoard value={refresh} function={setRefresh} />} />
-          <Route path='dashboard/:Id' element={<GamePanel />}/>
+          <Route path='dashboard/:quizId/:questionId' element={<EditQuestion />}/>
+          <Route path='dashboard/:quizId' element={<GamePanel />}/>
         </Route>
       </Routes>
       <ToastContainer />

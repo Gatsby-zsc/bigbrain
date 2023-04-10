@@ -41,7 +41,7 @@ async function fetchPut (req, bodyInfo) {
     },
     body: JSON.stringify(bodyInfo),
   })
-  return ret.json();
+  return ret;
 }
 
 // function of make a post or comment into server

@@ -10,8 +10,8 @@ import HomeIcon from '@mui/icons-material/Home';
 import { Link, useNavigate } from 'react-router-dom';
 import { styled } from '@mui/system';
 import { fetchPOST } from './library/fetch.js';
-import { toast } from 'react-toastify';
 import { WindowBorder } from './commonComponents.jsx'
+import { failNotify } from './library/notify';
 
 const MyHomeIcon = styled(HomeIcon)({
   margin: '0 auto',
@@ -29,17 +29,6 @@ function Login () {
   const email = localStorage.getItem('rememberEmail') ? localStorage.getItem('rememberEmail') : '';
   const password = localStorage.getItem('rememberPassword') ? localStorage.getItem('rememberPassword') : '';
   const checked = localStorage.getItem('rememberInfo');
-
-  const notify = () => toast.error('Invalid account !', {
-    position: 'top-center',
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'light',
-  });
 
   if (checked !== 'true') {
     localStorage.clear();
@@ -77,9 +66,9 @@ function Login () {
       }
       navigate('../homepage');
     } else if (ret.status === 400) {
-      notify();
+      failNotify('Invalid account !');
     } else {
-      notify();
+      failNotify('Invalid account !');
     }
   }
 

@@ -10,11 +10,10 @@ function Option (props) {
   const [option, setOption] = useState(props.value);
   const [Field, setOptionField] = useState(option.optionField);
   const [Correct, setOptionCorrect] = useState(option.optionCorrect);
-  const [options] = useState(props.options);
 
+  const options = props.options;
   const optionNumber = props.oid;
   const setOptions = props.optionFunction;
-  // const questionId = question.questionId;
   const newOptionId = option.optionId;
 
   // update options when we modify one of the option

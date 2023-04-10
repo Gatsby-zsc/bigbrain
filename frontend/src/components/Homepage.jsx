@@ -35,18 +35,16 @@ function Homepage (props) {
             ? (
                 currentLocation === 'dashboard'
                   ? (
-                    <>
-                      <HomepageButton />
-                      <CreateGameButton value={refresh} function={setRefresh}/>
-                    </>
+                      <>
+                        <HomepageButton />
+                        <CreateGameButton value={refresh} function={setRefresh}/>
+                      </>
                     )
                   : (
-                      path.length === 3
-                        ? <>
-                            <HomepageButton />
-                            <DashBoardButton />
-                          </>
-                        : <DashBoardButton />
+                      <>
+                        <HomepageButton />
+                        <DashBoardButton />
+                      </>
                     )
               )
             : (
@@ -58,16 +56,16 @@ function Homepage (props) {
       <Container>
         {token
           ? (
-          <Typography variant='h6' sx={{ textAlign: 'center' }}>
-            {currentLocation === 'homepage' ? 'This is Homepage!!!' : ''}
-            <br />
-            <Outlet />
-          </Typography>
+              <Typography variant='h6' sx={{ textAlign: 'center' }}>
+                {currentLocation === 'homepage' ? 'This is Homepage!!!' : ''}
+                <br />
+                <Outlet />
+              </Typography>
             )
           : (
-          <Typography variant='h6' sx={{ textAlign: 'center' }}>
-            You haven&rsquo;t login, please go to the login page
-          </Typography>
+              <Typography variant='h6' sx={{ textAlign: 'center' }}>
+                You haven&rsquo;t login, please go to the login page
+              </Typography>
             )}
       </Container>
     </>
