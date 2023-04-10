@@ -60,7 +60,9 @@ function App () {
         <Route path='/' element={<Start/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<SignUp/>} />
-        <Route path='/play' element={<Play/>} />
+        <Route path='/play' element={<Play/>} >
+          <Route path=':sessionId' element={<Play/>} />
+        </Route>
         <Route path='/homepage' element={<Homepage value={refresh} function={setRefresh}/>} >
           <Route path='dashboard' element={<DashBoard value={refresh} function={setRefresh} />} />
           <Route path='dashboard/:Id' element={<GamePanel />}/>

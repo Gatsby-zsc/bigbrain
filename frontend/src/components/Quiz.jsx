@@ -74,7 +74,6 @@ function Quiz (props) {
   const [hide, setHide] = useState(false);
   const [displayType, setDisplayType] = useState('block');
   const eachQuiz = props.eachQuiz;
-
   const [Quiz] = useState(eachQuiz);
   const [quizId] = useState(eachQuiz.id);
   const [questions, setQuestions] = useState([]);
@@ -82,6 +81,12 @@ function Quiz (props) {
   const [quizStatus, setQuizStatus] = useState(eachQuiz.active);
   const [urlCopy, setUrlCopy] = useState(false);
   const [viewResult, setViewResult] = useState(false);
+
+  // request server to get the details of each question for the corresponding quiz
+  useEffect(async () => {
+    const ret = await fetchGET('admin/quiz/' + quizId);
+    setQuizStatus(ret.active);
+  }, [urlCopy, viewResult])
 
   const handleCopyOpen = () => {
     setUrlCopy(true);
@@ -173,11 +178,11 @@ function Quiz (props) {
           >
             <EditNoteIcon fontSize='medium'/> Edit
           </Button>
-          {quizStatus === null || quizStatus === false
+          {quizStatus === null
             ? <Button
             sx={{ alignItems: 'center' }}
             variant='contained'
-            onClick={() => { startQuiz(quizId); setQuizStatus(true); handleCopyOpen() }}
+            onClick={() => { startQuiz(quizId); handleCopyOpen() }}
           >
             <PlayArrowIcon fontSize='medium'/> Start
           </Button>
@@ -185,7 +190,7 @@ function Quiz (props) {
           color='error'
           sx={{ alignItems: 'center' }}
           variant='contained'
-          onClick={() => { stopQuiz(quizId); setQuizStatus(false); handleViewResultOpen() }}
+          onClick={() => { stopQuiz(quizId); handleViewResultOpen() }}
           >
             <StopIcon fontSize='medium'/>Stop
           </Button>}
@@ -202,9 +207,9 @@ function Quiz (props) {
           </DialogTitle>
           <DialogContent sx={{ alignItems: 'center', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
             <DialogContentText sx={{ fontSize: '18px' }}>
-              Session ID is {quizId}
+              Session ID is {quizStatus}
             </DialogContentText>
-            <IconButton onClick={() => navigate('../../play')}>
+            <IconButton onClick={() => navigator.clipboard.writeText(`localhost:3001/play/${quizStatus}`)}>
               <ContentCopyIcon/>
             </IconButton>
           </DialogContent>

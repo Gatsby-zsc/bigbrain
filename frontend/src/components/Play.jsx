@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/system';
 import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import { fetchPOST } from './library/fetch.js';
+import { fetchPost } from './library/fetch.js';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const PlayStyle = styled('div')({
   width: 320,
@@ -30,16 +31,22 @@ function SvgIcon () {
 }
 
 export default function Play () {
+  const location = useParams()
+  const navigate = useNavigate()
   const [playInfo, setPlayInfo] = React.useState('id')
-  const [sessionID, setSessionID] = React.useState('')
+  const [sessionId, setSessionId] = React.useState('')
   const [nickName, setNickName] = React.useState('')
+
+  useEffect(() => {
+    if (location.sessionId) { console.log(location.sessionId); setSessionId(location.sessionId) }
+  }, [])
+
   async function Connect () {
-    console.log(sessionID, nickName)
-    const ret = await fetchPOST(`play/join/{${sessionID}}`, nickName);
-    if (ret.status === 200) {
-      console.log('success')
-    }
+    const bodyInfo = { name: nickName }
+    const ret = await fetchPost(`play/join/${sessionId}`, bodyInfo);
+    console.log(ret)
   }
+
   return (
     <Box
     sx={{
@@ -66,9 +73,10 @@ export default function Play () {
               backgroundColor: 'white',
               borderRadius: '8px'
             }}>
-              <TextField onChange={(e) => setSessionID(e.target.value)} placeholder="Enter Session ID"/>
-              <Button onClick={() => setPlayInfo('name')} variant='contained' size='large' sx={{ mt: 1 } }>Enter</Button>
-
+              <>
+                <TextField value={sessionId} onChange={e => setSessionId(e.target.value)} placeholder='Enter Session ID'/>
+                <Button onClick={() => { setPlayInfo('name'); navigate('/play/' + sessionId) }} variant='contained' size='large' sx={{ mt: 1 } }>Enter</Button>
+              </>
             </Box>
           </>
             )
@@ -85,7 +93,7 @@ export default function Play () {
               backgroundColor: 'white',
               borderRadius: '8px'
             }}>
-              <TextField onChange={(e) => setNickName(`{ name: '${e.target.value}' }`)} placeholder="Nickname"/>
+              <TextField value={nickName} onChange={(e) => setNickName(e.target.value)} placeholder="Nickname"/>
               <Button onClick={Connect} variant='contained' size='large' sx={{ mt: 1 }}>OK, go!🚀</Button>
             </Box>
           </>
