@@ -58,7 +58,7 @@ export default function Play () {
     const bodyInfo = { name: nickName }
     if (!nickName) {
       setError(true);
-      failNotify('Please enter the nickName.')
+      failNotify('Please enter the nickname.')
     } else {
       setError(true);
       const ret = await fetchPost(`play/join/${sessionId}`, bodyInfo);
