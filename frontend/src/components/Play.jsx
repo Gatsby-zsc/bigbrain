@@ -5,6 +5,7 @@ import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { fetchPost } from './library/fetch.js';
 import { useParams, useNavigate } from 'react-router-dom';
+import { failNotify, successsNotify } from './library/notify.js';
 
 const PlayStyle = styled('div')({
   width: 320,
@@ -36,15 +37,39 @@ export default function Play () {
   const [playInfo, setPlayInfo] = React.useState('id')
   const [sessionId, setSessionId] = React.useState('')
   const [nickName, setNickName] = React.useState('')
+  const [error, setError] = React.useState(false)
+
+  const enterSession = (e) => {
+    if (!sessionId) {
+      setError(true);
+      failNotify('Please enter the session ID.')
+    } else {
+      setError(false);
+      setPlayInfo('name');
+      navigate('/play/' + sessionId);
+    }
+  }
 
   useEffect(() => {
-    if (location.sessionId) { console.log(location.sessionId); setSessionId(location.sessionId) }
+    if (location.sessionId) { setSessionId(location.sessionId) }
   }, [])
 
   async function Connect () {
     const bodyInfo = { name: nickName }
-    const ret = await fetchPost(`play/join/${sessionId}`, bodyInfo);
-    console.log(ret)
+    if (!nickName) {
+      setError(true);
+      failNotify('Please enter the nickName.')
+    } else {
+      setError(true);
+      const ret = await fetchPost(`play/join/${sessionId}`, bodyInfo);
+      console.log(ret)
+      console.log(error)
+      if (ret.playerId) {
+        successsNotify('Start Playing!')
+      } else if (ret.error) {
+        failNotify(ret.error)
+      }
+    }
   }
 
   return (
@@ -75,7 +100,7 @@ export default function Play () {
             }}>
               <>
                 <TextField value={sessionId} onChange={e => setSessionId(e.target.value)} placeholder='Enter Session ID'/>
-                <Button onClick={() => { setPlayInfo('name'); navigate('/play/' + sessionId) }} variant='contained' size='large' sx={{ mt: 1 } }>Enter</Button>
+                <Button onClick={() => { enterSession() }} variant='contained' size='large' sx={{ mt: 1 } }>Enter</Button>
               </>
             </Box>
           </>

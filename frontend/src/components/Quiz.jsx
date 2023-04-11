@@ -67,6 +67,11 @@ function Quiz (props) {
   const [quizStatus, setQuizStatus] = useState(eachQuiz.active);
   const [urlCopy, setUrlCopy] = useState(false);
   const [viewResult, setViewResult] = useState(false);
+  const path = window.location.href.split('/')
+    .filter((path) => {
+      return path !== '';
+    });
+  const currentLocation = path[1];
 
   const refresh = props.value;
   const setRefresh = props.function;
@@ -189,7 +194,7 @@ function Quiz (props) {
             <DialogContentText sx={{ fontSize: '18px' }}>
               Session ID is {quizStatus}
             </DialogContentText>
-            <IconButton onClick={() => navigator.clipboard.writeText(`localhost:3001/play/${quizStatus}`)}>
+            <IconButton onClick={() => navigator.clipboard.writeText(`${currentLocation}/play/${quizStatus}`)}>
               <ContentCopyIcon/>
             </IconButton>
           </DialogContent>
@@ -205,7 +210,7 @@ function Quiz (props) {
           </DialogTitle>
           <DialogActions sx={{ alignItems: 'center', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
             <Button onClick={handleViewResultClose}>NO</Button>
-            <Button onClick={handleViewResultClose} autoFocus>
+            <Button onClick={handleViewResultClose} >
               YES
             </Button>
           </DialogActions>
