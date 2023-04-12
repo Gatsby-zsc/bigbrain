@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import HomeIcon from '@mui/icons-material/Home';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import { styled } from '@mui/system';
 import { Link, useNavigate } from 'react-router-dom';
 import { fetchPOST } from './library/fetch.js';
@@ -48,8 +49,8 @@ function SignUp () {
         component='form'
         maxWidth='xs'
         onSubmit={SignUpAccount}
-        sx={ { mt: 25 } }
       >
+        <Box sx={ { pt: 25 } }></Box>
         <WindowBorder>
           <MyHomeIcon
             color="primary"

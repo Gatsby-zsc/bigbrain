@@ -32,7 +32,7 @@ function CreateGameButton (props) {
 // expended info which allow user to add more info for the new game
   const [expanded, setExpanded] = useState(false);
   const [newThumbnail, setThumbnail] = useState(sampleImg);
-  const [newQuestions, setQuestion] = useState([question]);
+  const [newQuestions, setQuestion] = useState([]);
   const [open, setOpen] = useState(false);
   const [newGame, setNewGame] = useState('');
 
@@ -71,31 +71,52 @@ function CreateGameButton (props) {
     if (newGame.length === 0) {
       failNotify('Can not create new game with empty name!!!');
       return;
-    } else {
-      const responseForCreatingGame = await fetchPOST('admin/quiz/new', { name: newGame }, 'newGame');
-      if (responseForCreatingGame.status === 200) {
-        successsNotify('New game created successfully!!!');
-        // if user create questions for current quiz, update quiz after create it
-        if (newQuestions.length !== 1) {
-          const quizId = (await responseForCreatingGame.json()).quizId;
-          const quiz = await fetchGET('admin/quiz/' + quizId);
-          const NewQuiz = { ...quiz };
-
-          NewQuiz.name = newGame;
-          NewQuiz.thumbnail = newThumbnail;
-          NewQuiz.questions = newQuestions;
-
-          const responseForUpdatingGame = await fetchPut('admin/quiz/' + quizId, NewQuiz);
-          if (responseForUpdatingGame.status === 200) {
-            successsNotify('update quiz successully');
-          } else {
-            failNotify('update quiz failed!!!');
-          }
+    }
+    // validate each question, we simply check whether user set a
+    // single choice question with multiple true answer
+    for (const question of newQuestions) {
+      let countTrue = 0;
+      for (const option of question.answers) {
+        if (option.optionCorrect) {
+          countTrue++;
         }
-      } else {
-        failNotify('Invalid name!!!');
+        if (option.optionField === '' && option.optionCorrect === true) {
+          failNotify('Please enter your option after select it as true answer');
+          return;
+        }
+      }
+      if (question.questionType === 'single' && countTrue === 0) {
+        failNotify('please select at least one answer');
+        return;
+      }
+      if (question.questionType === 'single' && countTrue !== 1) {
+        failNotify('please select only one answer');
+        return;
       }
     }
+
+    const responseForCreatingGame = await fetchPOST('admin/quiz/new', { name: newGame }, 'newGame');
+    if (responseForCreatingGame.status === 200) {
+      // if user create questions for current quiz, update quiz after create it
+      if (newQuestions.length !== 0) {
+        const quizId = (await responseForCreatingGame.json()).quizId;
+        const quiz = await fetchGET('admin/quiz/' + quizId);
+        const NewQuiz = { ...quiz };
+
+        NewQuiz.name = newGame;
+        NewQuiz.thumbnail = newThumbnail;
+        NewQuiz.questions = newQuestions;
+
+        const responseForUpdatingGame = await fetchPut('admin/quiz/' + quizId, NewQuiz);
+        if (responseForUpdatingGame.status !== 200) {
+          failNotify('update quiz failed!!!');
+        }
+      }
+    } else {
+      failNotify('Can not create game!!!');
+    }
+    successsNotify('New game created successfully!!!');
+
     setTimeout(() => {
       // refresh dashbaord to show newly created quiz
       setRefresh(!refresh);

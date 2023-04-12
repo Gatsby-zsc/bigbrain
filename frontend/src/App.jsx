@@ -13,11 +13,14 @@ import { ToastContainer } from 'react-toastify';
 import Login from './components/LoginAccount.jsx';
 import GamePanel from './components/EditGame.jsx';
 import EditQuestion from './components/EditQuestion.jsx';
+import Lobby from './Lobby.jsx';
+import backgroundImg from './components/background.jpg';
+import Box from '@mui/material/Box';
 
 const Start = () => {
   return (
     <>
-    <Container sx={ { mt: 5, ml: 5 } }>
+    <Container sx={ { pt: 10 } }>
       <Button variant='contained'>
         <CustomizedLink
           to={'/login'}
@@ -46,6 +49,13 @@ const Start = () => {
           Play Now
         </CustomizedLink>
       </Button>
+      <Button variant='contained' sx={ { ml: 5 } }>
+        <CustomizedLink
+          to={'/play/lobby'}
+        >
+          Go to Lobby
+        </CustomizedLink>
+      </Button>
     </Container>
     </>
   );
@@ -53,25 +63,34 @@ const Start = () => {
 
 function App () {
   const [refresh, setRefresh] = useState(true);
-
   return (
-    <BrowserRouter>
-      <CssBaseline />
-      <Routes>
-        <Route path='/' element={<Start/>} />
-        <Route path='/login' element={<Login/>} />
-        <Route path='/signup' element={<SignUp/>} />
-        <Route path='/play' element={<Play/>} >
-          <Route path=':sessionId' element={<Play/>} />
-        </Route>
-        <Route path='/homepage' element={<Homepage value={refresh} function={setRefresh}/>} >
-          <Route path='dashboard' element={<DashBoard value={refresh} function={setRefresh} />} />
-          <Route path='dashboard/:quizId/:questionId' element={<EditQuestion />}/>
-          <Route path='dashboard/:quizId' element={<GamePanel />}/>
-        </Route>
-      </Routes>
-      <ToastContainer />
-    </BrowserRouter>
+    <Box sx={{
+      backgroundImage: `url(${backgroundImg})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      opacity: 1,
+      pt: 0,
+      height: '100vh'
+    }}>
+      <BrowserRouter>
+        <CssBaseline />
+        <Routes>
+          <Route path='/' element={<Start/>} />
+          <Route path='/login' element={<Login/>} />
+          <Route path='/signup' element={<SignUp/>} />
+          <Route path='/play/lobby' element={<Lobby />} />
+          <Route path='/play' element={<Play/>} >
+            <Route path=':sessionId' element={<Play/>} />
+          </Route>
+          <Route path='/homepage' element={<Homepage value={refresh} function={setRefresh}/>} >
+            <Route path='dashboard' element={<DashBoard value={refresh} function={setRefresh} />} />
+            <Route path='dashboard/:quizId/:questionId' element={<EditQuestion />}/>
+            <Route path='dashboard/:quizId' element={<GamePanel />}/>
+          </Route>
+        </Routes>
+        <ToastContainer />
+      </BrowserRouter>
+    </Box>
   );
 }
 
