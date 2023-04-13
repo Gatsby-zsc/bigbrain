@@ -21,7 +21,9 @@ import CloseIcon from '@mui/icons-material/Close'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import DialogActions from '@mui/material/DialogActions'
 import EditNoteIcon from '@mui/icons-material/EditNote'
-import { successsNotify } from './library/notify.js'
+import { failNotify, successsNotify } from './library/notify.js'
+import HistoryIcon from '@mui/icons-material/History'
+import SettingsRemoteIcon from '@mui/icons-material/SettingsRemote'
 
 // transform time into minutes and seconds
 function processTime (time) {
@@ -67,6 +69,7 @@ function Quiz (props) {
   const [quizStatus, setQuizStatus] = useState(eachQuiz.active)
   const [urlCopy, setUrlCopy] = useState(false)
   const [viewResult, setViewResult] = useState(false)
+  const [start, setStart] = useState(false)
   const path = window.location.href.split('/')
     .filter((path) => {
       return path !== ''
@@ -80,7 +83,7 @@ function Quiz (props) {
   useEffect(async () => {
     const ret = await fetchGET('admin/quiz/' + quizId)
     setQuizStatus(ret.active)
-  }, [urlCopy, viewResult])
+  }, [urlCopy, viewResult, start])
 
   const handleCopyOpen = () => {
     setUrlCopy(true)
@@ -109,6 +112,16 @@ function Quiz (props) {
   // navigate to new url to edit current quiz
   function editGame () {
     navigate('./' + quizId)
+  }
+
+  function controlGame () {
+    if (quizStatus === null) {
+      failNotify('Game not started yet!');
+    } else {
+      localStorage.setItem('quizId', quizId);
+      localStorage.setItem('sessionId', quizStatus);
+      navigate(`/ongoing/${quizId}`)
+    }
   }
 
   // request server to get the details of each question for the corresponding quiz
@@ -150,10 +163,10 @@ function Quiz (props) {
           alt='Thumbnail'
         />
         <CardContent>
-          <Typography variant='body1'>
+           <Typography sx={{ mb: 1 }} variant='body1'>
             {questions.length} questions
           </Typography>
-          <Typography variant='body2'>
+          <Typography sx={{ mb: 2 }} variant='body2'>
             Total time: {totalTime}
           </Typography>
           <Button
@@ -163,11 +176,18 @@ function Quiz (props) {
           >
             <EditNoteIcon fontSize='medium'/> Edit
           </Button>
+          <Button
+            variant='contained'
+            onClick={editGame}
+            sx={ { mr: 2 } }
+          >
+            <HistoryIcon fontSize='medium'/> History
+          </Button>
           {quizStatus === null
             ? <Button
             sx={{ alignItems: 'center' }}
             variant='contained'
-            onClick={() => { startQuiz(quizId); handleCopyOpen() }}
+            onClick={() => { startQuiz(quizId); handleCopyOpen(); setStart(true) }}
           >
             <PlayArrowIcon fontSize='medium'/> Start
           </Button>
@@ -175,10 +195,17 @@ function Quiz (props) {
           color='error'
           sx={{ alignItems: 'center' }}
           variant='contained'
-          onClick={() => { stopQuiz(quizId); handleViewResultOpen() }}
+            onClick={() => { stopQuiz(quizId); handleViewResultOpen(); localStorage.setItem('quizId', quizId); localStorage.setItem('sessionId', quizStatus); setStart(false) }}
           >
             <StopIcon fontSize='medium'/>Stop
           </Button>}
+          <Button
+            variant='contained'
+            onClick={() => { controlGame() }}
+            sx={ { ml: 2 } }
+          >
+            <SettingsRemoteIcon fontSize='medium'/> Control
+          </Button>
         </CardContent>
       </Card>
       <>
@@ -194,7 +221,7 @@ function Quiz (props) {
             <DialogContentText sx={{ fontSize: '18px' }}>
               Session ID is {quizStatus}
             </DialogContentText>
-            <IconButton onClick={() => navigator.clipboard.writeText(`${currentLocation}/play/${quizStatus}`)}>
+            <IconButton onClick={() => { navigator.clipboard.writeText(`${currentLocation}/play/${quizStatus}`); handleCopyClose() }}>
               <ContentCopyIcon/>
             </IconButton>
           </DialogContent>
@@ -209,8 +236,8 @@ function Quiz (props) {
             Would you like to view the results?
           </DialogTitle>
           <DialogActions sx={{ alignItems: 'center', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Button onClick={handleViewResultClose}>NO</Button>
-            <Button onClick={handleViewResultClose} >
+           <Button onClick={() => { handleViewResultClose(); localStorage.removeItem('sessionId'); localStorage.removeItem('quizId') }}>NO</Button>
+            <Button onClick={() => { handleViewResultClose(); navigate(`/ongoing/${quizId}`) }} >
               YES
             </Button>
           </DialogActions>
@@ -221,4 +248,4 @@ function Quiz (props) {
   )
 }
 
-export default Quiz
+export { Quiz, stopQuiz }

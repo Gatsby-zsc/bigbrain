@@ -16,6 +16,7 @@ import EditQuestion from './components/EditQuestion.jsx'
 import Lobby from './components/Lobby.jsx'
 import backgroundImg from './components/background.jpg'
 import Box from '@mui/material/Box'
+import AdminResults from './components/AdminResults.jsx'
 
 const Start = () => {
   return (
@@ -86,6 +87,7 @@ function App () {
             <Route path='dashboard/:quizId/:questionId' element={<EditQuestion />}/>
             <Route path='dashboard/:quizId' element={<GamePanel />}/>
           </Route>
+          <Route path='/ongoing/:quizId' element={<AdminResults/>}/>
         </Routes>
         <ToastContainer />
       </BrowserRouter>
