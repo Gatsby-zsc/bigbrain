@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { fetchPost, fetchGET } from './library/fetch.js'
-import { stopQuiz } from './Quiz.jsx';
+import { stopQuiz } from './library/control.js';
 import { useNavigate } from 'react-router-dom';
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
 import BottomNavigation from '@mui/material/BottomNavigation';
@@ -21,6 +21,7 @@ export default function AdminResults () {
   const [stage, setStage] = React.useState(-1);
   const [status, setStatus] = React.useState(true);
   const [results, setResults] = React.useState([]);
+  const [start, setStart] = React.useState(false);
   const data = [{ name: 'Page A', uv: 400, pv: 2400, amt: 2400 }];
   // const players = [];
   const navigate = useNavigate();
@@ -36,10 +37,12 @@ export default function AdminResults () {
 
   async function advanceStage () {
     const nowStage = await fetchPost(`admin/quiz/${quizId}/advance`)
-    setStage(nowStage.stage);
+    setStage(nowStage.stage)
+    setStart(true)
     if (nowStage.error) {
       failNotify('All Questions have been answered');
-      setStatus(false);
+      setStatus(false)
+      setStart(false)
     }
     console.log(stage)
   }
@@ -76,7 +79,7 @@ export default function AdminResults () {
       height: '100vh',
     }}
     >
-      {stage === -1 && status
+      {!start && status
         ? (
           <>
             <Container maxWidth='md'>
@@ -154,7 +157,7 @@ export default function AdminResults () {
       sx={{ width: '100%', position: 'fixed', bottom: 0 }}
       >
         <BottomNavigationAction onClick={() => { advanceStage() }} label="NEXT" icon={<SkipNextIcon />} />
-        <BottomNavigationAction onClick={() => { stopQuiz(); setStatus(false) }} label="STOP" icon={<CancelIcon />} />
+        <BottomNavigationAction onClick={() => { stopQuiz(quizId); setStatus(false) }} label="STOP" icon={<CancelIcon />} />
         <BottomNavigationAction onClick={() => { localStorage.removeItem('sessionId'); localStorage.removeItem('quizId'); navigate('/homepage/dashboard/') }} label="EXIT" icon={<ExitToAppIcon />} />
       </BottomNavigation>
     </Box>

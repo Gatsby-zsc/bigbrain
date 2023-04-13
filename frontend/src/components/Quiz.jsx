@@ -24,6 +24,7 @@ import EditNoteIcon from '@mui/icons-material/EditNote'
 import { failNotify, successsNotify } from './library/notify.js'
 import HistoryIcon from '@mui/icons-material/History'
 import SettingsRemoteIcon from '@mui/icons-material/SettingsRemote'
+import { startQuiz, stopQuiz } from './library/control.js'
 
 // transform time into minutes and seconds
 function processTime (time) {
@@ -40,26 +41,6 @@ function processTime (time) {
   return totalTime
 }
 
-async function startQuiz (quizId) {
-  await fetch(`http://localhost:5005/admin/quiz/${quizId}/start`, {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    }
-  })
-}
-
-async function stopQuiz (quizId) {
-  await fetch(`http://localhost:5005/admin/quiz/${quizId}/end`, {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    }
-  })
-}
-
 function Quiz (props) {
   const eachQuiz = props.eachQuiz
   const [Quiz] = useState(eachQuiz)
@@ -70,6 +51,7 @@ function Quiz (props) {
   const [urlCopy, setUrlCopy] = useState(false)
   const [viewResult, setViewResult] = useState(false)
   const [start, setStart] = useState(false)
+
   const path = window.location.href.split('/')
     .filter((path) => {
       return path !== ''
@@ -248,4 +230,4 @@ function Quiz (props) {
   )
 }
 
-export { Quiz, stopQuiz }
+export default Quiz
