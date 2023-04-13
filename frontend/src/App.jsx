@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import 'react-toastify/dist/ReactToastify.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import CssBaseline from '@mui/material/CssBaseline';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import SignUp from './components/SignUp.jsx';
-import Homepage from './components/Homepage.jsx';
-import DashBoard from './components/DashBoard.jsx';
-import { CustomizedLink } from './components/commonComponents.jsx';
-import Play from './components/Play.jsx';
-import { ToastContainer } from 'react-toastify';
-import Login from './components/LoginAccount.jsx';
-import GamePanel from './components/EditGame.jsx';
-import EditQuestion from './components/EditQuestion.jsx';
-import Lobby from './components/Lobby.jsx';
-import backgroundImg from './components/background.jpg';
-import Box from '@mui/material/Box';
+import React, { useState } from 'react'
+import 'react-toastify/dist/ReactToastify.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import CssBaseline from '@mui/material/CssBaseline'
+import Button from '@mui/material/Button'
+import Container from '@mui/material/Container'
+import SignUp from './components/SignUp.jsx'
+import Homepage from './components/Homepage.jsx'
+import DashBoard from './components/DashBoard.jsx'
+import { CustomizedLink } from './components/commonComponents.jsx'
+import Play from './components/Play.jsx'
+import { ToastContainer } from 'react-toastify'
+import Login from './components/LoginAccount.jsx'
+import GamePanel from './components/EditGame.jsx'
+import EditQuestion from './components/EditQuestion.jsx'
+import Lobby from './components/Lobby.jsx'
+import backgroundImg from './components/background.jpg'
+import Box from '@mui/material/Box'
 
 const Start = () => {
   return (
@@ -58,11 +58,11 @@ const Start = () => {
       </Button>
     </Container>
     </>
-  );
+  )
 }
 
 function App () {
-  const [refresh, setRefresh] = useState(true);
+  const [refresh, setRefresh] = useState(true)
   return (
     <Box sx={{
       backgroundImage: `url(${backgroundImg})`,
@@ -91,7 +91,7 @@ function App () {
         <ToastContainer />
       </BrowserRouter>
     </Box>
-  );
+  )
 }
 
-export default App;
+export default App

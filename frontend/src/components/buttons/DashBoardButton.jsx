@@ -1,13 +1,13 @@
-import React from 'react';
-import Button from '@mui/material/Button';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import { useNavigate } from 'react-router-dom';
+import React from 'react'
+import Button from '@mui/material/Button'
+import DashboardIcon from '@mui/icons-material/Dashboard'
+import { useNavigate } from 'react-router-dom'
 
 function DashBoardButton () {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   function goToDashboard () {
-    navigate('/homepage/dashboard');
+    navigate('/homepage/dashboard')
   }
 
   return (
@@ -18,4 +18,4 @@ function DashBoardButton () {
   )
 }
 
-export default DashBoardButton;
+export default DashBoardButton

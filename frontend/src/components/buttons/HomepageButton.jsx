@@ -1,13 +1,13 @@
-import React from 'react';
-import HomeIcon from '@mui/icons-material/Home';
-import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
+import React from 'react'
+import HomeIcon from '@mui/icons-material/Home'
+import Button from '@mui/material/Button'
+import { useNavigate } from 'react-router-dom'
 
 function HomepageButton () {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   function goToHomePage () {
-    navigate('/homepage');
+    navigate('/homepage')
   }
 
   return (
@@ -20,4 +20,4 @@ function HomepageButton () {
   )
 }
 
-export default HomepageButton;
+export default HomepageButton

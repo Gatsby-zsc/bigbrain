@@ -1,16 +1,16 @@
-import React from 'react';
-import { fetchPOST } from '../library/fetch.js';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { useNavigate } from 'react-router-dom';
-import Button from '@mui/material/Button';
+import React from 'react'
+import { fetchPOST } from '../library/fetch.js'
+import LogoutIcon from '@mui/icons-material/Logout'
+import { useNavigate } from 'react-router-dom'
+import Button from '@mui/material/Button'
 
 function Logout () {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   function logout () {
     fetchPOST('admin/auth/logout', {}, 'logout')
-    localStorage.removeItem('token');
-    navigate('/');
+    localStorage.removeItem('token')
+    navigate('/')
   }
 
   return (
@@ -23,4 +23,4 @@ function Logout () {
   )
 }
 
-export default Logout;
+export default Logout

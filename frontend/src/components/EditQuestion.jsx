@@ -1,64 +1,64 @@
-import React, { useState, useEffect } from 'react';
-import Container from '@mui/material/Container';
-import { WindowBorder } from './commonComponents';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Grid } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import Button from '@mui/material/Button';
-import { fetchGET, fetchPut } from './library/fetch.js';
-import Option from './Option';
-import { failNotify, successsNotify } from './library/notify.js';
+import React, { useState, useEffect } from 'react'
+import Container from '@mui/material/Container'
+import { WindowBorder } from './commonComponents'
+import { useParams, useNavigate } from 'react-router-dom'
+import { Grid } from '@mui/material'
+import Typography from '@mui/material/Typography'
+import TextField from '@mui/material/TextField'
+import Box from '@mui/material/Box'
+import Select from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
+import Button from '@mui/material/Button'
+import { fetchGET, fetchPut } from './library/fetch.js'
+import Option from './Option'
+import { failNotify, successsNotify } from './library/notify.js'
 
 // options of each question, generate random id for each option
 const optionTemplate = {
   optionId: Math.trunc((Date.now() * Math.random())) % 100000,
   optionField: '',
-  optionCorrect: false,
+  optionCorrect: false
 }
 
 function EditQuestion () {
-  let optionNumber = 1;
+  let optionNumber = 1
 
-  const location = useParams();
-  const questionId = Number(location.questionId);
-  const quizId = Number(location.quizId);
+  const location = useParams()
+  const questionId = Number(location.questionId)
+  const quizId = Number(location.quizId)
 
-  const [quiz, setQuiz] = useState({});
-  const [newQuestions, setQuestions] = useState(quiz.questions);
+  const [quiz, setQuiz] = useState({})
+  const [newQuestions, setQuestions] = useState(quiz.questions)
 
-  const [newType, setType] = useState('type');
-  const [newField, setField] = useState('');
-  const [newPoints, setPoints] = useState(1);
-  const [newLimit, setTimeLimit] = useState(5000);
-  const [newVideoURL, setVideoURL] = useState('');
-  const [newImgURL, setImgURL] = useState('');
-  const [newOptions, setOptions] = useState([]);
+  const [newType, setType] = useState('type')
+  const [newField, setField] = useState('')
+  const [newPoints, setPoints] = useState(1)
+  const [newLimit, setTimeLimit] = useState(5000)
+  const [newVideoURL, setVideoURL] = useState('')
+  const [newImgURL, setImgURL] = useState('')
+  const [newOptions, setOptions] = useState([])
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   // fetch quiz info from server
   useEffect(async () => {
-    const ret = await fetchGET('admin/quiz/' + quizId);
-    setQuestions(ret.questions);
-    setQuiz(ret);
-  }, []);
+    const ret = await fetchGET('admin/quiz/' + quizId)
+    setQuestions(ret.questions)
+    setQuiz(ret)
+  }, [])
 
   // update all states after fetching quiz from server
   useEffect(() => {
     if (newQuestions !== undefined) {
       for (const question of newQuestions) {
         if (Number(question.questionId) === questionId) {
-          setType(question.questionType);
-          setField(question.questionField);
-          setPoints(question.points);
-          setTimeLimit(question.timeLimit);
-          setVideoURL(question.videoURL);
-          setImgURL(question.imgURL);
-          setOptions(question.answers);
+          setType(question.questionType)
+          setField(question.questionField)
+          setPoints(question.points)
+          setTimeLimit(question.timeLimit)
+          setVideoURL(question.videoURL)
+          setImgURL(question.imgURL)
+          setOptions(question.answers)
         }
       }
     }
@@ -67,32 +67,32 @@ function EditQuestion () {
   function addOption () {
     // we have at most 6 options
     if (optionNumber === 7) {
-      return;
+      return
     }
-    const addOptions = [...newOptions];
-    const option = optionTemplate;
-    option.optionId = Math.trunc((Date.now() * Math.random())) % 100000;
-    addOptions.push(option);
-    setOptions(addOptions);
+    const addOptions = [...newOptions]
+    const option = optionTemplate
+    option.optionId = Math.trunc((Date.now() * Math.random())) % 100000
+    addOptions.push(option)
+    setOptions(addOptions)
   }
 
   function deleteOption () {
     // we have at least 3 options
     if (optionNumber === 3) {
-      return;
+      return
     }
 
-    const deleteOptions = [];
+    const deleteOptions = []
     for (const option of newOptions) {
       if (option !== newOptions[newOptions.length - 1]) {
-        deleteOptions.push(option);
+        deleteOptions.push(option)
       }
     }
-    setOptions(deleteOptions);
+    setOptions(deleteOptions)
   }
 
   function backToQuestionPanel () {
-    navigate(-1);
+    navigate(-1)
   }
 
   async function updateQuestion () {
@@ -109,45 +109,45 @@ function EditQuestion () {
     // update question
     const newQuestions = quiz.questions.map((eachQuestion) => {
       if (eachQuestion.questionId === questionId) {
-        return newQuestion;
+        return newQuestion
       } else {
-        return eachQuestion;
+        return eachQuestion
       }
     })
 
-    const newQuiz = { ...quiz };
-    newQuiz.questions = newQuestions;
+    const newQuiz = { ...quiz }
+    newQuiz.questions = newQuestions
 
     // validate each question, we simply check whether user set a
     // single choice question with multiple true answer
     for (const question of newQuestions) {
-      let countTrue = 0;
+      let countTrue = 0
       for (const option of question.answers) {
         if (option.optionCorrect) {
-          countTrue++;
+          countTrue++
         }
         if (option.optionField === '' && option.optionCorrect === true) {
-          failNotify('Please enter your option after select it as true answer');
-          return;
+          failNotify('Please enter your option after select it as true answer')
+          return
         }
         if (option.optionField === '' && option.optionCorrect === false) {
-          failNotify('Please set up all your options');
-          return;
+          failNotify('Please set up all your options')
+          return
         }
       }
       if (question.questionType === 'single' && countTrue === 0) {
-        failNotify('please select at least one answer');
-        return;
+        failNotify('please select at least one answer')
+        return
       }
       if (question.questionType === 'single' && countTrue !== 1) {
-        failNotify('please select only one answer');
-        return;
+        failNotify('please select only one answer')
+        return
       }
     }
 
-    const res = await fetchPut('admin/quiz/' + quizId, newQuiz);
+    const res = await fetchPut('admin/quiz/' + quizId, newQuiz)
     if (res.status === 200) {
-      successsNotify('update question successfully');
+      successsNotify('update question successfully')
     } else {
       failNotify('update question failed')
     }
@@ -284,4 +284,4 @@ function EditQuestion () {
   )
 }
 
-export default EditQuestion;
+export default EditQuestion

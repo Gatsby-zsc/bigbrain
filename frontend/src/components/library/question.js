@@ -2,13 +2,13 @@
 const option1 = {
   optionId: Math.trunc((Date.now() * Math.random())) % 100000,
   optionField: '',
-  optionCorrect: false,
+  optionCorrect: false
 }
 
 const option2 = {
   optionId: Math.trunc((Date.now() * Math.random())) % 100000,
   optionField: '',
-  optionCorrect: false,
+  optionCorrect: false
 }
 
 // structure of each question, generate random id for question
@@ -23,4 +23,4 @@ const question = {
   answers: [option1, option2]
 }
 
-export default question;
+export default question

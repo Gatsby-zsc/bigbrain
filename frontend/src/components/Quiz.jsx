@@ -1,41 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
+import React, { useEffect, useState } from 'react'
+import Card from '@mui/material/Card'
+import CardHeader from '@mui/material/CardHeader'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import DeleteIcon from '@mui/icons-material/Delete'
 import analyzeTime from './library/time.js'
 import sampleImg from './sample.jpg'
 import { fetchGET, fetchDelete } from './library/fetch.js'
-import { useNavigate } from 'react-router-dom';
-import StopIcon from '@mui/icons-material/Stop';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import CloseIcon from '@mui/icons-material/Close';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import DialogActions from '@mui/material/DialogActions';
-import EditNoteIcon from '@mui/icons-material/EditNote';
-import { successsNotify } from './library/notify.js';
+import { useNavigate } from 'react-router-dom'
+import StopIcon from '@mui/icons-material/Stop'
+import PlayArrowIcon from '@mui/icons-material/PlayArrow'
+import Dialog from '@mui/material/Dialog'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import CloseIcon from '@mui/icons-material/Close'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import DialogActions from '@mui/material/DialogActions'
+import EditNoteIcon from '@mui/icons-material/EditNote'
+import { successsNotify } from './library/notify.js'
 
 // transform time into minutes and seconds
 function processTime (time) {
-  let retTime = time;
-  retTime /= 1000;
+  let retTime = time
+  retTime /= 1000
 
-  let minutes = 0;
+  let minutes = 0
   while (retTime >= 60) {
-    retTime -= 60;
-    minutes++;
+    retTime -= 60
+    minutes++
   }
 
-  const totalTime = minutes.toString() + 'm' + retTime.toString() + 's';
-  return totalTime;
+  const totalTime = minutes.toString() + 'm' + retTime.toString() + 's'
+  return totalTime
 }
 
 async function startQuiz (quizId) {
@@ -43,8 +43,8 @@ async function startQuiz (quizId) {
     method: 'POST',
     headers: {
       accept: 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    }
   })
 }
 
@@ -53,80 +53,80 @@ async function stopQuiz (quizId) {
     method: 'POST',
     headers: {
       accept: 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    }
   })
 }
 
 function Quiz (props) {
-  const eachQuiz = props.eachQuiz;
-  const [Quiz] = useState(eachQuiz);
-  const [quizId] = useState(eachQuiz.id);
-  const [questions, setQuestions] = useState([]);
-  const [totalTime, setTotalTime] = useState(0);
-  const [quizStatus, setQuizStatus] = useState(eachQuiz.active);
-  const [urlCopy, setUrlCopy] = useState(false);
-  const [viewResult, setViewResult] = useState(false);
+  const eachQuiz = props.eachQuiz
+  const [Quiz] = useState(eachQuiz)
+  const [quizId] = useState(eachQuiz.id)
+  const [questions, setQuestions] = useState([])
+  const [totalTime, setTotalTime] = useState(0)
+  const [quizStatus, setQuizStatus] = useState(eachQuiz.active)
+  const [urlCopy, setUrlCopy] = useState(false)
+  const [viewResult, setViewResult] = useState(false)
   const path = window.location.href.split('/')
     .filter((path) => {
-      return path !== '';
-    });
-  const currentLocation = path[1];
+      return path !== ''
+    })
+  const currentLocation = path[1]
 
-  const refresh = props.value;
-  const setRefresh = props.function;
+  const refresh = props.value
+  const setRefresh = props.function
 
   // request server to get the details of each question for the corresponding quiz
   useEffect(async () => {
-    const ret = await fetchGET('admin/quiz/' + quizId);
-    setQuizStatus(ret.active);
+    const ret = await fetchGET('admin/quiz/' + quizId)
+    setQuizStatus(ret.active)
   }, [urlCopy, viewResult])
 
   const handleCopyOpen = () => {
-    setUrlCopy(true);
-  };
+    setUrlCopy(true)
+  }
 
   const handleCopyClose = () => {
-    setUrlCopy(false);
-  };
+    setUrlCopy(false)
+  }
 
   const handleViewResultOpen = () => {
-    setViewResult(true);
-  };
+    setViewResult(true)
+  }
 
   const handleViewResultClose = () => {
-    setViewResult(false);
-  };
+    setViewResult(false)
+  }
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   // delete current quiz by sending request to server
   function deleteGame () {
-    fetchDelete('admin/quiz/' + quizId);
-    successsNotify('Delete game successfully!!!');
-    setRefresh(!refresh);
+    fetchDelete('admin/quiz/' + quizId)
+    successsNotify('Delete game successfully!!!')
+    setRefresh(!refresh)
   }
 
   // navigate to new url to edit current quiz
   function editGame () {
-    navigate('./' + quizId);
+    navigate('./' + quizId)
   }
 
   // request server to get the details of each question for the corresponding quiz
   useEffect(async () => {
-    const ret = await fetchGET('admin/quiz/' + quizId);
-    setQuestions(ret.questions);
+    const ret = await fetchGET('admin/quiz/' + quizId)
+    setQuestions(ret.questions)
   }, [])
 
   // reset new time after fetch info of all questions of quiz
   useEffect(() => {
-    let newTime = 0;
+    let newTime = 0
     for (const eachQuestion of questions) {
-      newTime += eachQuestion.timeLimit;
+      newTime += eachQuestion.timeLimit
     }
 
-    newTime = processTime(newTime);
+    newTime = processTime(newTime)
 
-    setTotalTime(newTime);
+    setTotalTime(newTime)
   }, [questions])
 
   return (
@@ -221,4 +221,4 @@ function Quiz (props) {
   )
 }
 
-export default Quiz;
+export default Quiz

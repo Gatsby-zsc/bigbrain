@@ -1,31 +1,31 @@
-import React from 'react';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { Outlet, useLocation } from 'react-router-dom';
-import { AppBar } from '@mui/material';
-import { styled } from '@mui/system';
-import Logout from './buttons/Logout.jsx';
-import DashBoardButton from './buttons/DashBoardButton.jsx';
-import HomepageButton from './buttons/HomepageButton.jsx';
-import CreateGameButton from './buttons/CreateGame.jsx';
+import React from 'react'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import Container from '@mui/material/Container'
+import { Outlet, useLocation } from 'react-router-dom'
+import { AppBar } from '@mui/material'
+import { styled } from '@mui/system'
+import Logout from './buttons/Logout.jsx'
+import DashBoardButton from './buttons/DashBoardButton.jsx'
+import HomepageButton from './buttons/HomepageButton.jsx'
+import CreateGameButton from './buttons/CreateGame.jsx'
 
 const ToolBarModified = styled(Toolbar)({
   display: 'flex',
-  justifyContent: 'end',
-});
+  justifyContent: 'end'
+})
 
 function Homepage (props) {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token')
   const path = useLocation()
     .pathname.split('/')
     .filter((path) => {
-      return path !== '';
-    });
-  const currentLocation = path[path.length - 1];
+      return path !== ''
+    })
+  const currentLocation = path[path.length - 1]
 
-  const setRefresh = props.function;
-  const refresh = props.value;
+  const setRefresh = props.function
+  const refresh = props.value
 
   return (
     <>
@@ -69,7 +69,7 @@ function Homepage (props) {
             )}
       </Container>
     </>
-  );
+  )
 }
 
-export default Homepage;
+export default Homepage

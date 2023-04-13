@@ -1,91 +1,91 @@
-import React, { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import { WindowBorder } from './commonComponents';
-import { styled } from '@mui/system';
-import IconButton from '@mui/material/IconButton';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import Collapse from '@mui/material/Collapse';
-import { Grid } from '@mui/material';
-import Option from './Option';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Button from '@mui/material/Button';
+import React, { useState, useEffect } from 'react'
+import Box from '@mui/material/Box'
+import Select from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
+import Typography from '@mui/material/Typography'
+import TextField from '@mui/material/TextField'
+import { WindowBorder } from './commonComponents'
+import { styled } from '@mui/system'
+import IconButton from '@mui/material/IconButton'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import ExpandLessIcon from '@mui/icons-material/ExpandLess'
+import Collapse from '@mui/material/Collapse'
+import { Grid } from '@mui/material'
+import Option from './Option'
+import DeleteIcon from '@mui/icons-material/Delete'
+import Button from '@mui/material/Button'
 
 const NewWindowBorder = styled(WindowBorder)({
   padding: '10px',
   marginBottom: '20px',
   position: 'relative'
-});
+})
 
 // options of each question, generate random id for each option
 const optionTemplate = {
   optionId: Math.trunc((Date.now() * Math.random())) % 100000,
   optionField: '',
-  optionCorrect: false,
+  optionCorrect: false
 }
 
 function Question (props) {
-  const question = props.value;
-  const setQuestion = props.function;
-  const questions = props.questions;
+  const question = props.value
+  const setQuestion = props.function
+  const questions = props.questions
 
-  const [newQid] = useState(question.questionId);
-  const [newType, setType] = useState(question.questionType);
-  const [newField, setField] = useState(question.questionField);
-  const [newPoints, setPoints] = useState(question.points);
-  const [newLimit, setTimeLimit] = useState(question.timeLimit);
-  const [newVideoURL, setVideoURL] = useState(question.videoURL);
-  const [newImgURL, setImgURL] = useState(question.imgURL);
-  const [newOptions, setOptions] = useState(question.answers);
+  const [newQid] = useState(question.questionId)
+  const [newType, setType] = useState(question.questionType)
+  const [newField, setField] = useState(question.questionField)
+  const [newPoints, setPoints] = useState(question.points)
+  const [newLimit, setTimeLimit] = useState(question.timeLimit)
+  const [newVideoURL, setVideoURL] = useState(question.videoURL)
+  const [newImgURL, setImgURL] = useState(question.imgURL)
+  const [newOptions, setOptions] = useState(question.answers)
 
   // allow user to view more info for the created new game
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(false)
 
-  let optionNumber = 1;
+  let optionNumber = 1
 
   function viewDetails () {
-    setExpanded(!expanded);
+    setExpanded(!expanded)
   }
 
   // delete question
   function deleteQuestion () {
     const newQuestions = questions.filter((question) => {
-      return question.questionId !== newQid;
+      return question.questionId !== newQid
     })
 
-    setQuestion(newQuestions);
+    setQuestion(newQuestions)
   }
 
   function addOption () {
     // we have at most 6 options
     if (optionNumber === 7) {
-      return;
+      return
     }
 
-    const addOptions = [...newOptions];
-    const option = optionTemplate;
-    option.optionId = Math.trunc((Date.now() * Math.random())) % 100000;
-    addOptions.push(option);
-    setOptions(addOptions);
+    const addOptions = [...newOptions]
+    const option = optionTemplate
+    option.optionId = Math.trunc((Date.now() * Math.random())) % 100000
+    addOptions.push(option)
+    setOptions(addOptions)
   }
 
   function deleteOption () {
     // we have at least 3 options
     if (optionNumber === 3) {
-      return;
+      return
     }
 
-    const deleteOptions = [];
+    const deleteOptions = []
     for (const option of newOptions) {
       if (option !== newOptions[newOptions.length - 1]) {
-        deleteOptions.push(option);
+        deleteOptions.push(option)
       }
     }
-    setOptions(deleteOptions);
+    setOptions(deleteOptions)
   }
 
   // update question after we modify them
@@ -103,11 +103,11 @@ function Question (props) {
           answers: newOptions
         })
       } else {
-        return question;
+        return question
       }
     })
 
-    setQuestion(newQuestions);
+    setQuestion(newQuestions)
   }, [newType,
     newField,
     newPoints,
@@ -268,4 +268,4 @@ function Question (props) {
   )
 }
 
-export default Question;
+export default Question

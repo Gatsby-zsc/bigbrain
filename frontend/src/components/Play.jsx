@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import Box from '@mui/material/Box';
-import { styled } from '@mui/system';
-import { Button } from '@mui/material';
-import TextField from '@mui/material/TextField';
-import { fetchPost } from './library/fetch.js';
-import { useParams, useNavigate } from 'react-router-dom';
-import { failNotify } from './library/notify.js';
+import React, { useEffect } from 'react'
+import Box from '@mui/material/Box'
+import { styled } from '@mui/system'
+import { Button } from '@mui/material'
+import TextField from '@mui/material/TextField'
+import { fetchPost } from './library/fetch.js'
+import { useParams, useNavigate } from 'react-router-dom'
+import { failNotify } from './library/notify.js'
 
 const PlayStyle = styled('div')({
   width: 320,
@@ -14,8 +14,8 @@ const PlayStyle = styled('div')({
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  paddingTop: 40,
-});
+  paddingTop: 40
+})
 
 function SvgIcon () {
   return (
@@ -28,7 +28,7 @@ function SvgIcon () {
       <path d="M363.4,19.6l-15.5-6.4v32.1l-17.3-0.6l3.3,22.8h14l1,54.3c0,0-2.2,19.5,27.6,15.1c0,0,9.3-2.8,9-9.3v-21.4 c0,0-6.3,3.7-13.1,3.7c-6.8,0-6.9-3.3-6.9-3.3l-1.8-42l21.7-1.2V49.5L363.1,48L363.4,19.6z" fill="#1876d1"></path>
       <polygon points="440,19.8 399,12 424.2,120.5" fill="#1876d1"></polygon><path d="M77.6,49.9L83,64.1c13.5-8.1,21.1,0,21.1,0l-0.1,9.1c-40.2,7.1-30,44.3-30,44.3 c4.1,14.6,17.3,14.1,17.3,14.1h30.1l0.6-67.7C117.3,32.4,77.6,49.9,77.6,49.9z M104,118.6c0,0-14.6,3.5-16.2-10.7 c0,0,0.3-22,16.7-19.6L104,118.6z" fill="#1876d1"></path>
       </svg>
-  );
+  )
 }
 
 export default function Play () {
@@ -41,12 +41,12 @@ export default function Play () {
 
   const enterSession = (e) => {
     if (!sessionId) {
-      setError(!error);
+      setError(!error)
       failNotify('Please enter the session ID.')
     } else {
-      setError(error);
-      setPlayInfo('name');
-      navigate('/play/' + sessionId);
+      setError(error)
+      setPlayInfo('name')
+      navigate('/play/' + sessionId)
     }
   }
 
@@ -57,13 +57,13 @@ export default function Play () {
   async function Connect () {
     const bodyInfo = { name: nickName }
     if (!nickName) {
-      setError(!error);
+      setError(!error)
       failNotify('Please enter the nickname.')
     } else {
-      setError(!error);
-      const ret = await fetchPost(`play/join/${sessionId}`, bodyInfo);
+      setError(!error)
+      const ret = await fetchPost(`play/join/${sessionId}`, bodyInfo)
       if (ret.playerId) {
-        navigate('/play/lobby/' + sessionId);
+        navigate('/play/lobby/' + sessionId)
       } else if (ret.error) {
         failNotify(ret.error)
       }
@@ -74,7 +74,7 @@ export default function Play () {
     <Box
     sx={{
       width: '100wh',
-      height: '100vh',
+      height: '100vh'
     }}
   >
     <PlayStyle>
@@ -124,5 +124,5 @@ export default function Play () {
       </main>
     </PlayStyle>
   </Box>
-  );
+  )
 }

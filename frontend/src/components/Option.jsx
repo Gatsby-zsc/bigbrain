@@ -1,37 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
+import React, { useEffect, useState } from 'react'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
+import CheckBoxIcon from '@mui/icons-material/CheckBox'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import InputAdornment from '@mui/material/InputAdornment'
 
 function Option (props) {
-  const [option, setOption] = useState(props.value);
-  const [Field, setOptionField] = useState(option.optionField);
-  const [Correct, setOptionCorrect] = useState(option.optionCorrect);
+  const [option, setOption] = useState(props.value)
+  const [Field, setOptionField] = useState(option.optionField)
+  const [Correct, setOptionCorrect] = useState(option.optionCorrect)
 
-  const options = props.options;
-  const optionNumber = props.oid;
-  const setOptions = props.optionFunction;
-  const newOptionId = option.optionId;
+  const options = props.options
+  const optionNumber = props.oid
+  const setOptions = props.optionFunction
+  const newOptionId = option.optionId
 
   // update options when we modify one of the option
   useEffect(() => {
     const newOptions = options.map((eachOption) => {
       if (eachOption.optionId === newOptionId) {
-        return option;
+        return option
       } else {
-        return eachOption;
+        return eachOption
       }
     })
 
-    setOptions(newOptions);
+    setOptions(newOptions)
   }, [option])
 
   // update option when we modify its field
   useEffect(() => {
-    setOption({ optionId: newOptionId, optionField: Field, optionCorrect: Correct });
+    setOption({ optionId: newOptionId, optionField: Field, optionCorrect: Correct })
   }, [Correct, Field])
 
   return (
@@ -68,4 +68,4 @@ function Option (props) {
   )
 }
 
-export default Option;
+export default Option

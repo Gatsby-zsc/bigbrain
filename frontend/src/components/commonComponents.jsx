@@ -1,13 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { styled } from '@mui/system';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { styled } from '@mui/system'
 
 const LinkInButton = styled(Link)({
   textDecoration: 'none',
   color: 'white',
   display: 'block',
   paddingLeft: '4px'
-});
+})
 
 function CustomizedLink (props) {
   return (
@@ -23,8 +23,8 @@ const WindowBorder = styled('div')({
   boxShadow: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px',
   boxSizing: 'border-box',
   display: 'flex',
-  flexDirection: 'column',
-});
+  flexDirection: 'column'
+})
 
 export {
   CustomizedLink,

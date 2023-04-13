@@ -1,24 +1,24 @@
 async function fetchPOST (req, bodyInfo, flag) {
-  let header;
+  let header
   if (flag === 'logout' || flag === 'newGame') {
     header = {
       accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${localStorage.getItem('token')}`
     }
   } else if (flag === 'register' || flag === 'login') {
     header = {
       accept: 'application/json',
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     }
   }
 
   const ret = await fetch('http://localhost:5005/' + req, {
     method: 'POST',
     headers: header,
-    body: JSON.stringify(bodyInfo),
+    body: JSON.stringify(bodyInfo)
   })
-  return ret;
+  return ret
 }
 
 async function fetchGET (req) {
@@ -26,10 +26,10 @@ async function fetchGET (req) {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    }
   })
-  return ret.json();
+  return ret.json()
 }
 
 async function fetchPut (req, bodyInfo) {
@@ -37,11 +37,11 @@ async function fetchPut (req, bodyInfo) {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${localStorage.getItem('token')}`
     },
-    body: JSON.stringify(bodyInfo),
+    body: JSON.stringify(bodyInfo)
   })
-  return ret;
+  return ret
 }
 
 // function of make a post or comment into server
@@ -51,11 +51,11 @@ async function fetchPost (req, postDetail) {
     headers: {
       'Content-Type': 'application/json',
       accept: 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${localStorage.getItem('token')}`
     },
-    body: JSON.stringify(postDetail),
+    body: JSON.stringify(postDetail)
   })
-  return ret.json();
+  return ret.json()
 }
 
 async function fetchDelete (req) {
@@ -64,10 +64,10 @@ async function fetchDelete (req) {
     headers: {
       'Content-Type': 'application/json',
       accept: 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    }
   })
-  return ret.json();
+  return ret.json()
 }
 
 export {

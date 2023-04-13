@@ -1,45 +1,45 @@
-import React from 'react';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import HomeIcon from '@mui/icons-material/Home';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import { styled } from '@mui/system';
-import { Link, useNavigate } from 'react-router-dom';
-import { fetchPOST } from './library/fetch.js';
+import React from 'react'
+import Container from '@mui/material/Container'
+import Typography from '@mui/material/Typography'
+import TextField from '@mui/material/TextField'
+import HomeIcon from '@mui/icons-material/Home'
+import Button from '@mui/material/Button'
+import Box from '@mui/material/Box'
+import { styled } from '@mui/system'
+import { Link, useNavigate } from 'react-router-dom'
+import { fetchPOST } from './library/fetch.js'
 import { WindowBorder } from './commonComponents.jsx'
 
 const MyHomeIcon = styled(HomeIcon)({
   margin: '0 auto',
   fontSize: '60px'
-});
+})
 
 function SignUp () {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   async function SignUpAccount (event) {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const myEmail = data.get('email');
-    const myName = data.get('name');
-    const myPassword = data.get('password');
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
+    const myEmail = data.get('email')
+    const myName = data.get('name')
+    const myPassword = data.get('password')
 
     // one of the field is entered, no action
     if (myEmail === '' || myPassword === '') {
-      return;
+      return
     }
 
-    const bodyInfo = { email: myEmail, password: myPassword, name: myName };
-    const ret = await fetchPOST('admin/auth/register', bodyInfo, 'register');
+    const bodyInfo = { email: myEmail, password: myPassword, name: myName }
+    const ret = await fetchPOST('admin/auth/register', bodyInfo, 'register')
     if (ret.status === 200) {
-      const token = (await ret.json()).token;
-      localStorage.setItem('token', token);
-      localStorage.setItem('Email', myEmail);
-      localStorage.setItem('name', myName);
-      navigate('../homepage');
+      const token = (await ret.json()).token
+      localStorage.setItem('token', token)
+      localStorage.setItem('Email', myEmail)
+      localStorage.setItem('name', myName)
+      navigate('../homepage')
     } else if (ret.status === 400) {
-      console.log('Invalid input');
+      console.log('Invalid input')
     }
   }
 
@@ -112,7 +112,7 @@ function SignUp () {
         </WindowBorder>
       </Container>
     </>
-  );
+  )
 }
 
-export default SignUp;
+export default SignUp

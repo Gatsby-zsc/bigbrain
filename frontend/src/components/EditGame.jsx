@@ -1,46 +1,46 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { fetchGET, fetchPut } from './library/fetch.js';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import DoneIcon from '@mui/icons-material/Done';
-import { WindowBorder } from './commonComponents';
-import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
-import { Grid } from '@mui/material';
-import { styled } from '@mui/system';
-import question from './library/question.js';
-import { fileToDataUrl } from './library/helpers.js';
-import { failNotify, successsNotify } from './library/notify.js';
+import React, { useEffect, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import { fetchGET, fetchPut } from './library/fetch.js'
+import Container from '@mui/material/Container'
+import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import PhotoCamera from '@mui/icons-material/PhotoCamera'
+import DoneIcon from '@mui/icons-material/Done'
+import { WindowBorder } from './commonComponents'
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer'
+import { Grid } from '@mui/material'
+import { styled } from '@mui/system'
+import question from './library/question.js'
+import { fileToDataUrl } from './library/helpers.js'
+import { failNotify, successsNotify } from './library/notify.js'
 
 const QuestionBorder = styled(WindowBorder)({
   padding: '10px',
-  marginBottom: '10px',
-});
+  marginBottom: '10px'
+})
 
 function GamePanel () {
-  let questionNumber = 1;
+  let questionNumber = 1
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const location = useParams();
-  const [quiz, setQuiz] = useState({});
-  const [newGame, setNewGame] = useState(quiz.name);
-  const [newThumbnail, setThumbnail] = useState(quiz.thumbnail);
-  const [newQuestions, setQuestions] = useState(quiz.questions);
-  const [refresh, setRefresh] = useState(true);
+  const location = useParams()
+  const [quiz, setQuiz] = useState({})
+  const [newGame, setNewGame] = useState(quiz.name)
+  const [newThumbnail, setThumbnail] = useState(quiz.thumbnail)
+  const [newQuestions, setQuestions] = useState(quiz.questions)
+  const [refresh, setRefresh] = useState(true)
 
   // fetch quiz from server
   useEffect(async () => {
-    const ret = await fetchGET('admin/quiz/' + location.quizId);
-    setNewGame(ret.name);
-    setThumbnail(ret.thumbnail);
-    setQuestions(ret.questions);
-    setQuiz(ret);
-  }, []);
+    const ret = await fetchGET('admin/quiz/' + location.quizId)
+    setNewGame(ret.name)
+    setThumbnail(ret.thumbnail)
+    setQuestions(ret.questions)
+    setQuiz(ret)
+  }, [])
 
   // update question after we fetch data from server or edit quiz
   useEffect(() => {
@@ -53,30 +53,30 @@ function GamePanel () {
       oldSessions: quiz.oldSessions,
       createdAt: quiz.createdAt
     }
-    setQuiz(newQuiz);
+    setQuiz(newQuiz)
   }, [refresh, newGame, newThumbnail])
 
   function moreQuestion () {
     // deep copy object to get an new question
-    const newQestion = { ...question };
-    newQuestions.push(newQestion);
-    newQuestions[newQuestions.length - 1].questionId = Math.trunc((Date.now() * Math.random())) % 100000;
-    setQuestions(newQuestions);
-    setRefresh(!refresh);
+    const newQestion = { ...question }
+    newQuestions.push(newQestion)
+    newQuestions[newQuestions.length - 1].questionId = Math.trunc((Date.now() * Math.random())) % 100000
+    setQuestions(newQuestions)
+    setRefresh(!refresh)
   }
 
   async function updateQuiz () {
-    const res = await fetchPut('admin/quiz/' + location.quizId, quiz);
+    const res = await fetchPut('admin/quiz/' + location.quizId, quiz)
     if (res.status === 200) {
-      successsNotify('update quiz successully');
+      successsNotify('update quiz successully')
     } else {
-      failNotify('update quiz failed!!!');
+      failNotify('update quiz failed!!!')
     }
   }
 
   // we need to update current questions before edit
   async function navigateToQuestion () {
-    await fetchPut('admin/quiz/' + location.quizId, quiz);
+    await fetchPut('admin/quiz/' + location.quizId, quiz)
   }
 
   return (
@@ -112,8 +112,8 @@ function GamePanel () {
                   <input hidden type='file' onChange={ (e) => {
                     if (e.target.value !== null) {
                       fileToDataUrl(e.target.files[0]).then((data) => {
-                        setThumbnail(data);
-                      });
+                        setThumbnail(data)
+                      })
                     }
                   } } />
                 </Button>
@@ -149,8 +149,8 @@ function GamePanel () {
                 </Grid>
                 <Grid item xs={3}>
                   <Button fullWidth variant='contained' onClick={ () => {
-                    navigate('./' + eachQuestion.questionId);
-                    navigateToQuestion();
+                    navigate('./' + eachQuestion.questionId)
+                    navigateToQuestion()
                   } }>
                     Edit
                   </Button>
@@ -159,9 +159,9 @@ function GamePanel () {
                   <Button fullWidth variant='contained' onClick={ () => {
                     const Questions = newQuestions.filter((Question) => {
                       return Question.questionId !== eachQuestion.questionId
-                    });
-                    setQuestions(Questions);
-                    setRefresh(!refresh);
+                    })
+                    setQuestions(Questions)
+                    setRefresh(!refresh)
                   } }>
                     Delete
                   </Button>
@@ -178,4 +178,4 @@ function GamePanel () {
   )
 }
 
-export default GamePanel;
+export default GamePanel
