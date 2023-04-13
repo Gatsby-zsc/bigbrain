@@ -1,0 +1,24 @@
+{
+  "name": "Sample question",
+  "questions": [
+    {
+      "questionField": "My favourite game",
+      "questionType": "type",
+      "timeLimit": 5000,
+      "points": 1,
+      "videoURL": "",
+      "imgURL": "",
+      "answers": [
+        {
+          "optionField": "",
+          "optionCorrect": false
+        },
+        {
+          "optionField": "",
+          "optionCorrect": false
+        }
+      ]
+    }
+  ],
+  "thumbnail": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="
+}

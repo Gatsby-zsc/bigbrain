@@ -13,7 +13,7 @@ import { ToastContainer } from 'react-toastify';
 import Login from './components/LoginAccount.jsx';
 import GamePanel from './components/EditGame.jsx';
 import EditQuestion from './components/EditQuestion.jsx';
-import Lobby from './Lobby.jsx';
+import Lobby from './components/Lobby.jsx';
 import backgroundImg from './components/background.jpg';
 import Box from '@mui/material/Box';
 
@@ -51,7 +51,7 @@ const Start = () => {
       </Button>
       <Button variant='contained' sx={ { ml: 5 } }>
         <CustomizedLink
-          to={'/play/lobby'}
+          to={'/play/lobby/123'}
         >
           Go to Lobby
         </CustomizedLink>
@@ -78,7 +78,7 @@ function App () {
           <Route path='/' element={<Start/>} />
           <Route path='/login' element={<Login/>} />
           <Route path='/signup' element={<SignUp/>} />
-          <Route path='/play/lobby' element={<Lobby />} />
+          <Route path='/play/lobby/:sessionId' element={<Lobby />} />
           <Route path='/play' element={<Play/>} >
             <Route path=':sessionId' element={<Play/>} />
           </Route>

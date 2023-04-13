@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Container from '@mui/material/Container';
 import { WindowBorder } from './commonComponents';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -37,6 +37,8 @@ function EditQuestion () {
   const [newVideoURL, setVideoURL] = useState('');
   const [newImgURL, setImgURL] = useState('');
   const [newOptions, setOptions] = useState([]);
+
+  const navigate = useNavigate();
 
   // fetch quiz info from server
   useEffect(async () => {
@@ -89,6 +91,10 @@ function EditQuestion () {
     setOptions(deleteOptions);
   }
 
+  function backToQuestionPanel () {
+    navigate(-1);
+  }
+
   async function updateQuestion () {
     const newQuestion = {
       questionId: location.questionId,
@@ -111,6 +117,33 @@ function EditQuestion () {
 
     const newQuiz = { ...quiz };
     newQuiz.questions = newQuestions;
+
+    // validate each question, we simply check whether user set a
+    // single choice question with multiple true answer
+    for (const question of newQuestions) {
+      let countTrue = 0;
+      for (const option of question.answers) {
+        if (option.optionCorrect) {
+          countTrue++;
+        }
+        if (option.optionField === '' && option.optionCorrect === true) {
+          failNotify('Please enter your option after select it as true answer');
+          return;
+        }
+        if (option.optionField === '' && option.optionCorrect === false) {
+          failNotify('Please set up all your options');
+          return;
+        }
+      }
+      if (question.questionType === 'single' && countTrue === 0) {
+        failNotify('please select at least one answer');
+        return;
+      }
+      if (question.questionType === 'single' && countTrue !== 1) {
+        failNotify('please select only one answer');
+        return;
+      }
+    }
 
     const res = await fetchPut('admin/quiz/' + quizId, newQuiz);
     if (res.status === 200) {
@@ -244,6 +277,7 @@ function EditQuestion () {
             </Grid>
           </Grid>
         <Button variant='contained' fullWidth sx={ { mt: 2 } } onClick={updateQuestion}>Update Question !!!</Button>
+        <Button variant='contained' fullWidth sx={ { mt: 2 } } onClick={backToQuestionPanel}>Cancel</Button>
         </Box>
       </Container>
     </WindowBorder>

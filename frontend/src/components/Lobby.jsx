@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { VictoryChart, VictoryAxis, VictoryScatter } from 'victory';
 import Grid from '@mui/material/Grid';
-import { WindowBorder } from './components/commonComponents';
+import { WindowBorder } from './commonComponents';
 import Typography from '@mui/material/Typography';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -45,7 +45,17 @@ function getScatterData (icons) {
 function Lobby () {
   const [icons, setIcons] = useState(0);
   const [state, setState] = useState(getScatterData(0));
-  const [speed, setSpeed] = useState(2000);
+  const [speed, setSpeed] = useState(3000);
+
+  // keep fecthing backend to detect whether session has started
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      console.log('fetch session status, go to the first question');
+      // navigate to new window to join active session
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -71,7 +81,7 @@ function Lobby () {
 
   function startGame () {
     setIcons(5);
-    setSpeed(2000);
+    setSpeed(3000);
     setState(getScatterData(5));
   }
 

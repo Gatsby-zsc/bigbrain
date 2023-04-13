@@ -74,6 +74,11 @@ function GamePanel () {
     }
   }
 
+  // we need to update current questions before edit
+  async function navigateToQuestion () {
+    await fetchPut('admin/quiz/' + location.quizId, quiz);
+  }
+
   return (
     <WindowBorder >
       <Container maxWidth={'sm'}>
@@ -144,7 +149,8 @@ function GamePanel () {
                 </Grid>
                 <Grid item xs={3}>
                   <Button fullWidth variant='contained' onClick={ () => {
-                    navigate('./' + eachQuestion.questionId)
+                    navigate('./' + eachQuestion.questionId);
+                    navigateToQuestion();
                   } }>
                     Edit
                   </Button>

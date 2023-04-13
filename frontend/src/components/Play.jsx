@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { fetchPost } from './library/fetch.js';
 import { useParams, useNavigate } from 'react-router-dom';
-import { failNotify, successsNotify } from './library/notify.js';
+import { failNotify } from './library/notify.js';
 
 const PlayStyle = styled('div')({
   width: 320,
@@ -41,10 +41,10 @@ export default function Play () {
 
   const enterSession = (e) => {
     if (!sessionId) {
-      setError(true);
+      setError(!error);
       failNotify('Please enter the session ID.')
     } else {
-      setError(false);
+      setError(error);
       setPlayInfo('name');
       navigate('/play/' + sessionId);
     }
@@ -57,15 +57,13 @@ export default function Play () {
   async function Connect () {
     const bodyInfo = { name: nickName }
     if (!nickName) {
-      setError(true);
+      setError(!error);
       failNotify('Please enter the nickname.')
     } else {
-      setError(true);
+      setError(!error);
       const ret = await fetchPost(`play/join/${sessionId}`, bodyInfo);
-      console.log(ret)
-      console.log(error)
       if (ret.playerId) {
-        successsNotify('Start Playing!')
+        navigate('/play/lobby/' + sessionId);
       } else if (ret.error) {
         failNotify(ret.error)
       }
