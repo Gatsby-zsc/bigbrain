@@ -65,12 +65,11 @@ function App () {
   const [refresh, setRefresh] = useState(true)
   return (
     <Box sx={{
+      minHeight: '100vh',
       backgroundImage: `url(${backgroundImg})`,
-      backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
-      opacity: 1,
-      pt: 0,
-      height: '100vh'
+      backgroundRepeat: 'repeat',
+      backgroundSize: '100%',
     }}>
       <BrowserRouter>
         <CssBaseline />

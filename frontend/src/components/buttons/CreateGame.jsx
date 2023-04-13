@@ -198,7 +198,7 @@ function CreateGameButton (props) {
               <Box sx={ { mt: 2 } }>
                 <Button variant='contained' sx={ { mr: 2 } } onClick={moreQuestion}>
                   <QuestionAnswerIcon sx={ { mr: 1 } }/>
-                    add question
+                    question
                 </Button>
                 <Button variant='contained' component='label' >
                   { newThumbnail === null ? <PhotoCamera sx={ { mr: 1 } } /> : <DoneIcon sx={ { mr: 1 } } /> }

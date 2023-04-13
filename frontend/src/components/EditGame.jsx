@@ -104,7 +104,7 @@ function GamePanel () {
                   variant='subtitle2'
                   sx={ { mt: 2, mb: 1 } }
                 >
-                  Upload an new thunmbnail
+                  Upload thunmbnail
                 </Typography>
                 <Button variant='contained' component='label'>
                   { newThumbnail === null ? <PhotoCamera sx={ { mr: 1 } } /> : <DoneIcon sx={ { mr: 1 } } /> }
