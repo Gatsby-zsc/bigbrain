@@ -1,9 +1,14 @@
 {
-    "root": true,
-    "env": {
-        "browser": true,
-        "es2021": true,
-        "jest": true
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest": true
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended", "standard"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
     "extends": [
         "eslint:recommended",
@@ -32,4 +37,5 @@
             "version": "detect"
         }
     }
+  }
 }
