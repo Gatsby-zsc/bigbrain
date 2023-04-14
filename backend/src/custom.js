@@ -27,7 +27,7 @@ option {
  to return to a "player"
 */
 export const quizQuestionPublicReturn = question => {
-  console.log('See question: ', question);
+  // console.log('See question: ', question);
   const options = question.answers.map( eachOption => {
     return { optionId: eachOption.optionId, optionField: eachOption.optionField, optionCorrect: false };
   });
@@ -50,13 +50,11 @@ export const quizQuestionPublicReturn = question => {
 */
 export const quizQuestionGetCorrectAnswers = question => {
   const correctAnswers = question.answers.filter( eachOption => {
-    eachOption.optionCorrect === true;
+    return eachOption.optionCorrect === true;
   });
-
   const answerIds = correctAnswers.map( eachOption => {
-    eachOption.optionId
+    return eachOption.optionId
   });
-  
   return answerIds; 
 };
 
@@ -66,7 +64,7 @@ export const quizQuestionGetCorrectAnswers = question => {
 */
 export const quizQuestionGetAnswers = question => {
   const answerIds = question.answers.map( eachOption => {
-    eachOption.optionId
+   return eachOption.optionId
   });
   return answerIds;
 };
@@ -76,5 +74,5 @@ export const quizQuestionGetAnswers = question => {
  of the question once it starts. (Seconds)
 */
 export const quizQuestionGetDuration = question => {
-  return question.timeLimit;
+  return question.timeLimit / 1000;
 };
