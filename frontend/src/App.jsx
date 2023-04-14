@@ -18,6 +18,7 @@ import backgroundImg from './pictures/background.jpg'
 import Box from '@mui/material/Box'
 import AdminResults from './components/AdminResults.jsx'
 import Gaming from './components/Gaming.jsx'
+import HistoryPanel from './components/History.jsx'
 
 const Start = () => {
   return (
@@ -79,13 +80,14 @@ function App () {
           <Route path='/' element={<Start/>} />
           <Route path='/login' element={<Login/>} />
           <Route path='/signup' element={<SignUp/>} />
-          <Route path='/play/lobby/:sessionId' element={<Lobby />} />
           <Route path='/play' element={<Play/>} >
+            <Route path='lobby/:sessionId' element={<Lobby />} />
             <Route path=':sessionId' element={<Play/>} />
           </Route>
           <Route path='/play/:sessionId/:playerId' element={<Gaming/>} />
           <Route path='/homepage' element={<Homepage value={refresh} function={setRefresh}/>} >
             <Route path='dashboard' element={<DashBoard value={refresh} function={setRefresh} />} />
+            <Route path='dashboard/history/:quizId' element={<HistoryPanel/>}/>
             <Route path='dashboard/:quizId/:questionId' element={<EditQuestion />}/>
             <Route path='dashboard/:quizId' element={<GamePanel />}/>
           </Route>

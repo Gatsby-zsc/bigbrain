@@ -1,5 +1,5 @@
 // parse time
-export default function analyzeTime (date) {
+function analyzeTime (date) {
   const currentTime = Date.now()
   const postTime = Date.parse(date)
   const timeStamp = currentTime - postTime
@@ -21,3 +21,5 @@ export default function analyzeTime (date) {
     return minutes + ' minutes ago'
   }
 }
+
+export default analyzeTime;

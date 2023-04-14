@@ -24,6 +24,7 @@ const WindowBorder = styled('div')({
   boxSizing: 'border-box',
   display: 'flex',
   flexDirection: 'column',
+  backgroundColor: 'white',
 })
 
 export {

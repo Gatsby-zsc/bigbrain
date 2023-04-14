@@ -26,7 +26,6 @@ function DashBoard (props) {
 
   // listen refresh to check whether we create an new game,
   // if so, refresh quizzes panel
-
   useEffect(async () => {
     const res = (await fetchGET('admin/quiz', 'token')).quizzes
     const newRes = res.sort(sortQuiz)

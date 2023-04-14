@@ -195,7 +195,7 @@ function CreateGameButton (props) {
               {newQuestions.map(question => {
                 return <Question key={question.questionId} value={question} questions={newQuestions} function={setQuestion} />
               })}
-              <Box sx={ { mt: 2 } }>
+              <Box sx={ { mt: 2, mb: 1 } }>
                 <Button variant='contained' sx={ { mr: 2 } } onClick={moreQuestion}>
                   <QuestionAnswerIcon sx={ { mr: 1 } }/>
                     question

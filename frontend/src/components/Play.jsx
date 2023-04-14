@@ -56,8 +56,8 @@ export default function Play () {
   // check whether we can join game
   async function Connect () {
     const bodyInfo = { name: nickName }
+    // if we haven't enter nickname, ask user for that
     if (!nickName) {
-      // if we haven't enter nickname, ask user for that
       failNotify('Please enter the nickname.')
       return
     }

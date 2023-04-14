@@ -25,6 +25,7 @@ import { failNotify, successsNotify } from '../library/notify.js'
 import HistoryIcon from '@mui/icons-material/History'
 import SettingsRemoteIcon from '@mui/icons-material/SettingsRemote'
 import { startQuiz, stopQuiz } from '../library/control.js'
+import Grid from '@mui/material/Grid'
 
 // transform time into minutes and seconds
 function processTime (time) {
@@ -42,7 +43,10 @@ function processTime (time) {
 }
 
 function Quiz (props) {
+  const refresh = props.value
+  const setRefresh = props.function
   const eachQuiz = props.eachQuiz
+
   const [Quiz] = useState(eachQuiz)
   const [quizId] = useState(eachQuiz.id)
   const [questions, setQuestions] = useState([])
@@ -52,14 +56,13 @@ function Quiz (props) {
   const [viewResult, setViewResult] = useState(false)
   const [start, setStart] = useState(false)
 
+  const navigate = useNavigate()
+
   const path = window.location.href.split('/')
     .filter((path) => {
       return path !== ''
     })
   const currentLocation = path[1]
-
-  const refresh = props.value
-  const setRefresh = props.function
 
   // request server to get the details of each question for the corresponding quiz
   useEffect(async () => {
@@ -83,7 +86,6 @@ function Quiz (props) {
     setViewResult(false)
   }
 
-  const navigate = useNavigate()
   // delete current quiz by sending request to server
   function deleteGame () {
     fetchDelete('admin/quiz/' + quizId)
@@ -96,6 +98,11 @@ function Quiz (props) {
     navigate('./' + quizId)
   }
 
+  function goToHistory () {
+    navigate('./history/' + quizId)
+  }
+
+  // navigate to another window to advance game process
   function controlGame () {
     if (quizStatus === null) {
       failNotify('Game not started yet!');
@@ -151,43 +158,54 @@ function Quiz (props) {
           <Typography sx={{ mb: 2 }} variant='body2'>
             Total time: {totalTime}
           </Typography>
-          <Button
-            variant='contained'
-            onClick={editGame}
-            sx={ { mr: 2 } }
-          >
-            <EditNoteIcon fontSize='medium'/> Edit
-          </Button>
-          <Button
-            variant='contained'
-            onClick={editGame}
-            sx={ { mr: 2 } }
-          >
-            <HistoryIcon fontSize='medium'/> History
-          </Button>
-          {quizStatus === null
-            ? <Button
-            sx={{ alignItems: 'center' }}
-            variant='contained'
-            onClick={() => { startQuiz(quizId); handleCopyOpen(); setStart(true) }}
-          >
-            <PlayArrowIcon fontSize='medium'/> Start
-          </Button>
-            : <Button
-          color='error'
-          sx={{ alignItems: 'center' }}
-          variant='contained'
-            onClick={() => { stopQuiz(quizId); handleViewResultOpen(); localStorage.setItem('quizId', quizId); localStorage.setItem('sessionId', quizStatus); setStart(false) }}
-          >
-            <StopIcon fontSize='medium'/>Stop
-          </Button>}
-          <Button
-            variant='contained'
-            onClick={() => { controlGame() }}
-            sx={ { ml: 2 } }
-          >
-            <SettingsRemoteIcon fontSize='medium'/> Control
-          </Button>
+          <Grid container spacing={1}>
+            <Grid item xs={6} sm={3} md={6} lg={3} >
+              <Button
+                variant='contained'
+                onClick={editGame}
+                fullWidth
+              >
+                <EditNoteIcon fontSize='medium' sx={ { mr: 1 } }/> Edit
+              </Button>
+            </Grid>
+            <Grid item xs={6} sm={3} md={6} lg={3} >
+              <Button
+                variant='contained'
+                onClick={goToHistory}
+                fullWidth
+              >
+                <HistoryIcon fontSize='medium' sx={ { mr: 1 } }/> History
+              </Button>
+            </Grid>
+            <Grid item xs={6} sm={3} md={6} lg={3} >
+              {quizStatus === null
+                ? <Button
+                    sx={{ alignItems: 'center' }}
+                    variant='contained'
+                    onClick={() => { startQuiz(quizId); handleCopyOpen(); setStart(true) }}
+                    fullWidth
+                  >
+                  <PlayArrowIcon fontSize='medium' sx={ { mr: 1 } }/> Start
+                  </Button>
+                : <Button
+                    color='error'
+                    variant='contained'
+                    onClick={() => { stopQuiz(quizId); handleViewResultOpen(); localStorage.setItem('quizId', quizId); localStorage.setItem('sessionId', quizStatus); setStart(false) }}
+                    fullWidth
+                  >
+                    <StopIcon fontSize='medium' sx={ { mr: 1 } }/>Stop
+                  </Button>}
+            </Grid>
+            <Grid item xs={6} sm={3} md={6} lg={3} >
+              <Button
+                variant='contained'
+                onClick={() => { controlGame() }}
+                fullWidth
+              >
+              <SettingsRemoteIcon fontSize='medium' sx={ { mr: 1 } }/> Control
+              </Button>
+            </Grid>
+          </Grid>
         </CardContent>
       </Card>
       <>
@@ -195,17 +213,20 @@ function Quiz (props) {
           open={urlCopy}
           onClose={handleCopyClose}
         >
-          <DialogTitle sx={{ alignItems: 'center', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+          <DialogTitle sx={ { pb: 0 } }>
             ✏️ Start Your Quiz Now! :
-            <IconButton sx={{ ml: 5 }} onClick={handleCopyClose}><CloseIcon sx={{ color: '#1876d1' }}/></IconButton>
+            <IconButton sx={{ ml: 5, pb: 2 }} onClick={handleCopyClose}><CloseIcon sx={{ color: '#1876d1' }}/></IconButton>
           </DialogTitle>
-          <DialogContent sx={{ alignItems: 'center', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-            <DialogContentText sx={{ fontSize: '18px' }}>
+          <DialogContent>
+            <DialogContentText sx={{ fontSize: '20px', color: '#212121' }}>
               Session ID is {quizStatus}
+              <IconButton sx={ { ml: 1, mb: 1 } } onClick={() => { navigator.clipboard.writeText(`${currentLocation}/play/${quizStatus}`); handleCopyClose() }}>
+                <ContentCopyIcon />
+              </IconButton>
             </DialogContentText>
-            <IconButton onClick={() => { navigator.clipboard.writeText(`${currentLocation}/play/${quizStatus}`); handleCopyClose() }}>
-              <ContentCopyIcon/>
-            </IconButton>
+            <Typography variant='subtitle2'>
+              For more details, please click control button
+            </Typography>
           </DialogContent>
         </Dialog>
       </>

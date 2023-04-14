@@ -14,6 +14,20 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CircularProgress from '@mui/material/CircularProgress';
+import { WindowBorder } from './commonComponents'
+import { styled } from '@mui/system'
+import Avatar from '@mui/material/Avatar';
+import img1 from '../pictures/avatar/1.JPG'
+import img2 from '../pictures/avatar/2.JPG'
+import img3 from '../pictures/avatar/3.JPG'
+import img4 from '../pictures/avatar/4.JPG'
+import img5 from '../pictures/avatar/5.JPG'
+import img6 from '../pictures/avatar/6.JPG'
+import getAvatar from '../library/hashPlayer.js'
+
+const AdiminWindow = styled(WindowBorder)({
+  backgroundColor: 'white',
+})
 
 export default function AdminResults () {
   const quizId = localStorage.getItem('quizId');
@@ -25,6 +39,8 @@ export default function AdminResults () {
   const [players, setPLayers] = React.useState([])
   const data = [{ name: 'Page A', uv: 400, pv: 2400, amt: 2400 }];
   const navigate = useNavigate();
+
+  const avatars = [img1, img2, img3, img4, img5, img6];
 
   // keep fetching to view how many players logging in
   useEffect(() => {
@@ -72,7 +88,20 @@ export default function AdminResults () {
   }, [status])
 
   const PlayerDivs = players.map((player, index) => {
-    return <Grid item xs={3} key={index}>{player}</Grid>
+    return (
+      <Grid item xs={4} key={index}>
+        <Container>
+          <Avatar
+            alt='player avatar'
+            src={avatars[getAvatar(player)]}
+            sx={{ width: 75, height: 75 }}
+          />
+          <Typography variant='body2' noWrap align='center'>
+            {player}
+          </Typography>
+        </Container>
+      </Grid>
+    )
   }
   );
 
@@ -89,9 +118,9 @@ export default function AdminResults () {
         height: '100vh',
       }}
     >
-      {stage === -1 && status && (
-          <>
-            <Container maxWidth='md'>
+      { status && (
+        players.length === 0
+          ? <Container maxWidth='sm'>
               <Grid container spacing={1}>
                 <Grid item xs={12}>
                   <Typography variant='h5' sx={{ textAlign: 'center', mb: 3, mt: 3 }}>
@@ -101,59 +130,52 @@ export default function AdminResults () {
                 </Grid>
               </Grid>
             </Container>
-          </>)
-        ? (players.length === 0
-            ? <>
-                <CircularProgress> Waiting for players to join... </CircularProgress>
-              </>
-            : <>
-                <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
+          : <Container maxWidth='sm' sx={ { pt: 10 } }>
+              <AdiminWindow>
+                <Grid container direction="row" justifyContent="center" spacing={2}>
                   {PlayerDivs}
                 </Grid>
-              </>
-          )
-        : (<></>)
-      }
+              </AdiminWindow>
+            </Container>
+      )}
       {!status && (
-        <>
-          <Container sx={{ pt: 30 }} maxWidth='md'>
-            <Grid container direction="row" justifyContent="center" spacing={4}>
-              <Grid item xs={4}>
-                <BarChart width={200} height={250} data={data}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="pv" fill="#8884d8" />
-                  <Bar dataKey="uv" fill="#82ca9d" />
-                </BarChart>
-              </Grid>
-              <Grid item xs={4}>
-                <BarChart width={200} height={250} data={data}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="pv" fill="#8884d8" />
-                  <Bar dataKey="uv" fill="#82ca9d" />
-                </BarChart>
-              </Grid>
-              <Grid item xs={4}>
-                <BarChart width={200} height={250} data={data}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="pv" fill="#8884d8" />
-                  <Bar dataKey="uv" fill="#82ca9d" />
-                </BarChart>
-              </Grid>
+        <Container sx={{ pt: 30 }} maxWidth='md'>
+          <Grid container direction="row" justifyContent="center" spacing={4}>
+            <Grid item xs={4}>
+              <BarChart width={200} height={250} data={data}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="pv" fill="#8884d8" />
+                <Bar dataKey="uv" fill="#82ca9d" />
+              </BarChart>
             </Grid>
-          </Container>
-        </>
+            <Grid item xs={4}>
+              <BarChart width={200} height={250} data={data}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="pv" fill="#8884d8" />
+                <Bar dataKey="uv" fill="#82ca9d" />
+              </BarChart>
+            </Grid>
+            <Grid item xs={4}>
+              <BarChart width={200} height={250} data={data}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="pv" fill="#8884d8" />
+                <Bar dataKey="uv" fill="#82ca9d" />
+              </BarChart>
+            </Grid>
+          </Grid>
+        </Container>
       )}
 
       <BottomNavigation

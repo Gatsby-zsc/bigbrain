@@ -61,8 +61,8 @@ function GamePanel () {
     setQuiz(newQuiz)
   }, [refresh, newGame, newThumbnail])
 
+  // deep copy object to get an new question
   function moreQuestion () {
-    // deep copy object to get an new question
     const newQestion = { ...question }
     newQuestions.push(newQestion)
     newQuestions[newQuestions.length - 1].questionId = Math.trunc((Date.now() * Math.random())) % 100000
@@ -70,10 +70,14 @@ function GamePanel () {
     setRefresh(!refresh)
   }
 
+  // update quiz after we edit content
   async function updateQuiz () {
     const res = await fetchPut('admin/quiz/' + location.quizId, quiz)
     if (res.status === 200) {
       successsNotify('update quiz successully')
+      setTimeout(() => {
+        navigate(-1);
+      }, 1000);
     } else {
       failNotify('update quiz failed!!!')
     }

@@ -11,7 +11,6 @@ import FastForwardIcon from '@mui/icons-material/FastForward'
 import FastRewindIcon from '@mui/icons-material/FastRewind'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import CircularProgress from '@mui/material/CircularProgress'
-import Box from '@mui/material/Box'
 import { fetchGET } from '../library/fetch.js'
 import { useNavigate } from 'react-router-dom'
 
@@ -118,26 +117,25 @@ function Lobby () {
             Waiting for start...
           </Typography>
           <WindowBorder>
-            <Box sx={ { backgroundColor: 'white', padding: '10px' } }>
-              <Typography variant='h4' sx={{ textAlign: 'center' }}>
-                {icons}
-              </Typography>
-              <VictoryChart animate={{ duration: speed, easing: 'bounce' }}>
-                <VictoryScatter
-                  data={state}
-                  style={{
-                    data: {
-                      fill: ({ datum }) => datum.fill,
-                      opacity: ({ datum }) => datum.opacity
-                    }
-                  }}
-                />
-                <VictoryAxis style={{
-                  axis: { stroke: 'transparent' },
-                  ticks: { stroke: 'transparent' },
-                  tickLabels: { fill: 'transparent' }
-                }} />
-              </VictoryChart>
+            <Typography variant='h4' sx={{ textAlign: 'center' }}>
+              {icons}
+            </Typography>
+            <VictoryChart animate={{ duration: speed, easing: 'bounce' }}>
+              <VictoryScatter
+                data={state}
+                style={{
+                  data: {
+                    fill: ({ datum }) => datum.fill,
+                    opacity: ({ datum }) => datum.opacity
+                  }
+                }}
+              />
+              <VictoryAxis style={{
+                axis: { stroke: 'transparent' },
+                ticks: { stroke: 'transparent' },
+                tickLabels: { fill: 'transparent' }
+              }} />
+            </VictoryChart>
             <Grid container spacing={3} sx={ { mb: 2 } }>
               <Grid item xs={6} md={3}>
                 <Button fullWidth variant='contained' onClick={increaseIcon} sx={ { mr: 2 } }>
@@ -164,7 +162,6 @@ function Lobby () {
               <PlayArrowIcon sx={ { mr: 1 } }/>
               Start
             </Button>
-            </Box>
           </WindowBorder>
         </Grid>
       </Grid>
