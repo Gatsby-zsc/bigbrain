@@ -27,23 +27,6 @@ const NewWindowBorder = styled(WindowBorder)({
   padding: '0px 10px 20px 10px'
 })
 
-// validate video/img url passed by user
-function validateUrl (url) {
-  // if user didn't enter url, return
-  if (url === '') {
-    return true;
-  }
-
-  // validate url
-  // referenced by https://www.freecodecamp.org/news/how-to-validate-urls-in-javascript/
-  try {
-    new URL(url);
-    return true;
-  } catch (err) {
-    return false;
-  }
-}
-
 function CreateGameButton (props) {
 // expended info which allow user to add more info for the new game
   const [expanded, setExpanded] = useState(false)
@@ -129,12 +112,6 @@ function CreateGameButton (props) {
     if (newQuestions.length !== 0) {
       for (const question of newQuestions) {
         let countTrue = 0
-        if (!validateUrl(question.imgURL)) {
-          failNotify('the provided img url is not valid')
-        }
-        if (!validateUrl(question.videoURL)) {
-          failNotify('the provided video url is not valid')
-        }
         for (const option of question.answers) {
           if (option.optionCorrect) {
             countTrue++
@@ -143,13 +120,17 @@ function CreateGameButton (props) {
             failNotify('Please enter your option after select it as true answer')
             return
           }
+          if (option.optionField === '' && option.optionCorrect === false) {
+            failNotify('Please make sure all options are not empty')
+            return
+          }
         }
         if (question.questionType === 'single' && countTrue === 0) {
-          failNotify('please select at least one answer')
+          failNotify('Please select at least one answer')
           return
         }
         if (question.questionType === 'single' && countTrue !== 1) {
-          failNotify('please select only one answer')
+          failNotify('Please select only one answer')
           return
         }
       }
@@ -191,9 +172,9 @@ function CreateGameButton (props) {
         New
       </Button>
       <Dialog open={open} onClose={closeWindow}>
-        <DialogTitle>My New Game</DialogTitle>
+        <DialogTitle sx={ { pb: 1 } }>New Game</DialogTitle>
         <DialogContent sx={ { pb: 0 } }>
-          <DialogContentText>
+          <DialogContentText sx={ { pb: 1 } }>
             To successfully create a game, Please enter a title for the new game
           </DialogContentText>
           <NewWindowBorder>

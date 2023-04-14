@@ -6,6 +6,11 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Collapse from '@mui/material/Collapse';
 import { WindowBorder } from './commonComponents';
 import { fetchGET } from '../library/fetch';
+import { styled } from '@mui/system'
+
+const OldSessionWindow = styled(WindowBorder)({
+  paddingTop: '20px'
+})
 
 function Session (props) {
   const [expanded, setExpanded] = useState(false);
@@ -23,7 +28,7 @@ function Session (props) {
   }
 
   return (
-    <WindowBorder>
+    <OldSessionWindow>
       <Typography variant="h5" textAlign={'start'}>
         Session id: {session}
       </Typography>
@@ -36,7 +41,7 @@ function Session (props) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         More details of session
       </Collapse>
-    </WindowBorder>
+    </OldSessionWindow>
   );
 }
 

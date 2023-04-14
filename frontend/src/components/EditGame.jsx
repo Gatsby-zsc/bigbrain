@@ -15,6 +15,7 @@ import { styled } from '@mui/system'
 import question from '../library/question.js'
 import { fileToDataUrl } from '../library/helpers.js'
 import { failNotify, successsNotify } from '../library/notify.js'
+import sampleImg from '../pictures/sample.jpg'
 
 const ContainerBorder = styled(WindowBorder)({
   maxHeight: '85vh',
@@ -83,7 +84,8 @@ function GamePanel () {
     }
   }
 
-  // we need to update current questions before edit
+  // we need to update current questions status
+  // before edit each question details
   async function navigateToQuestion () {
     await fetchPut('admin/quiz/' + location.quizId, quiz)
   }
@@ -108,36 +110,47 @@ function GamePanel () {
           />
           <Box>
             <Grid container spacing={1} sx={ { mb: 2 } }>
-              <Grid item xs={6}>
-                <Typography
-                  variant='subtitle2'
-                  sx={ { mt: 2, mb: 1 } }
-                >
-                  Upload thunmbnail
-                </Typography>
-                <Button variant='contained' component='label'>
-                  { newThumbnail === null ? <PhotoCamera sx={ { mr: 1 } } /> : <DoneIcon sx={ { mr: 1 } } /> }
-                    Upload
-                  <input hidden type='file' onChange={ (e) => {
-                    if (e.target.value !== null) {
-                      fileToDataUrl(e.target.files[0]).then((data) => {
-                        setThumbnail(data)
-                      })
-                    }
-                  } } />
-                </Button>
+              <Grid item container md={4} spacing={3}>
+                <Grid item sm={6} md={12}>
+                  <Typography
+                    variant='subtitle2'
+                    sx={ { mt: 2, mb: 1 } }
+                  >
+                    Upload thunmbnail
+                  </Typography>
+                  <Button fullWidth variant='contained' component='label'>
+                    { newThumbnail === null ? <PhotoCamera sx={ { mr: 1 } } /> : <DoneIcon sx={ { mr: 1 } } /> }
+                      Upload
+                    <input hidden type='file' onChange={ (e) => {
+                      if (e.target.value !== null) {
+                        fileToDataUrl(e.target.files[0]).then((data) => {
+                          setThumbnail(data)
+                        })
+                        e.target.value = null;
+                      }
+                    } } />
+                  </Button>
+                </Grid>
+                <Grid item sm={6} md={12}>
+                  <Typography
+                    variant='subtitle2'
+                    sx={ { mt: 2, mb: 1 } }
+                  >
+                    Add more question
+                  </Typography>
+                  <Button fullWidth variant="contained" sx={ { mr: 2 } } onClick={moreQuestion}>
+                    <QuestionAnswerIcon sx={ { mr: 1 } }/>
+                      More
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item xs={6}>
-              <Typography
-                  variant='subtitle2'
-                  sx={ { mt: 2, mb: 1 } }
-                >
-                  Add more question
-                </Typography>
-                <Button variant="contained" sx={ { mr: 2 } } onClick={moreQuestion}>
-                  <QuestionAnswerIcon sx={ { mr: 1 } }/>
-                    More
-                </Button>
+              <Grid item md={8}>
+                <Box
+                  component='img'
+                  alt='thumbnail'
+                  src={newThumbnail === null ? sampleImg : newThumbnail}
+                  sx={ { mt: 5, width: 'auto', height: ' 170px' } }
+                />
               </Grid>
             </Grid>
           </Box>
