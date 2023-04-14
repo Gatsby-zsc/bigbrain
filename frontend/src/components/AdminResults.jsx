@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { fetchPost, fetchGET } from '../library/fetch.js'
 import { stopQuiz } from '../library/control.js';
@@ -18,24 +18,28 @@ import CircularProgress from '@mui/material/CircularProgress';
 export default function AdminResults () {
   const quizId = localStorage.getItem('quizId');
   const active = localStorage.getItem('sessionId');
-  const [stage, setStage] = React.useState(-1);
-  const [status, setStatus] = React.useState(true);
-  const [results, setResults] = React.useState([]);
-  // const [players, setPLayers] = React.useState([])
+  const [stage, setStage] = useState(-1);
+  const [status, setStatus] = useState(true);
+  const [end, setEnd] = useState(false);
+  let [results, setResults] = useState([]);
+  const [players, setPLayers] = React.useState([])
   const data = [{ name: 'Page A', uv: 400, pv: 2400, amt: 2400 }];
   const navigate = useNavigate();
-  // console.log(players)
 
-  if (stage === -1) {
-    setInterval(async () => {
-      const ret = await fetchGET(`admin/session/${active}/status`);
-      // const newPlayers = [...players];
-      // players.push(ret.results.players);
-      console.log(ret.results.players)
-      console.log(results)
+  // keep fetching to view how many players logging in
+  useEffect(() => {
+    const interval = window.setInterval(async () => {
+      if (end === false) {
+        const ret = await fetchGET(`admin/session/${active}/status`);
+        const newPlayers = [...ret.results.players];
+        setPLayers(newPlayers)
+      }
     }, 1000);
-  }
 
+    return () => clearInterval(interval)
+  }, [end])
+
+  // advance to next question
   async function advanceStage () {
     const nowStage = await fetchPost(`admin/quiz/${quizId}/advance`)
     setStage(nowStage.stage)
@@ -43,28 +47,33 @@ export default function AdminResults () {
       failNotify('All Questions have been answered');
       setStatus(false)
     }
-    console.log(stage)
+    if (nowStage.stage === 0) {
+      setEnd(true)
+    }
   }
 
+  // check whether we finish game
   useEffect(async () => {
     const ret = await fetchGET(`admin/session/${active}/status`);
-    setStatus(ret.results.active);
+    setStatus(ret.results.active)
     setStage(ret.results.position)
   }, [stage])
 
+  // retrive result
   useEffect(() => {
     const fetchData = async () => {
-      const ret = await fetchGET(`admin/session/${active}/results`);
-      setResults(ret.results);
+      results = await fetchGET(`admin/session/${active}/results`);
+      setResults(results);
     };
     if (!status) {
       fetchData();
     }
   }, [status])
 
-  // const playerDivs = players.map((player, index) =>
-  //   <Grid item xs={3} key={index}>{player}</Grid>
-  // );
+  const PlayerDivs = players.map((player, index) => {
+    return <Grid item xs={3} key={index}>{player}</Grid>
+  }
+  );
 
   // if (!status) {
   //   for results[name] in results {
@@ -93,19 +102,24 @@ export default function AdminResults () {
               </Grid>
             </Container>
           </>)
-        // ? (players.length === 0
-        //     ? <>
-        //       <CircularProgress> Waiting for players to join... </CircularProgress>
-        //     </>
-        //     : <>
-        //     <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
-        //       {playerDivs}
-        //     </Grid>
-        //   </>
-        //   )
+            ? (players.length === 0
+                ? <>
+                <CircularProgress> Waiting for players to join... </CircularProgress>
+              </>
+                : <>
+              <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
+                {PlayerDivs}
+              </Grid>
+            </>
+              )
+            : (
+            <>
+            </>
+              )
         : (
         <>
-      </>)}
+      </>)
+      }
       {!status
         ? (
         <>
