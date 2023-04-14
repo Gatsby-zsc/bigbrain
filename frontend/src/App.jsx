@@ -19,6 +19,7 @@ import Box from '@mui/material/Box'
 import AdminResults from './components/AdminResults.jsx'
 import Gaming from './components/Gaming.jsx'
 import HistoryPanel from './components/History.jsx'
+import Gaming from './components/Gaming.jsx'
 
 const Start = () => {
   return (
