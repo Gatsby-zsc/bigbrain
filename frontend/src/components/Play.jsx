@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import { styled } from '@mui/system'
 import { Button } from '@mui/material'
 import TextField from '@mui/material/TextField'
-import { fetchPost } from '../library/fetch.js'
+import { fetchPost, fetchGET } from '../library/fetch.js'
 import { useParams, useNavigate } from 'react-router-dom'
 import { failNotify } from '../library/notify.js'
 
@@ -37,35 +37,48 @@ export default function Play () {
   const [playInfo, setPlayInfo] = React.useState('id')
   const [sessionId, setSessionId] = React.useState('')
   const [nickName, setNickName] = React.useState('')
-  const [error, setError] = React.useState(false)
 
-  const enterSession = (e) => {
+  // if we enter a session id, ask player to enter their own nickname
+  const enterSession = () => {
     if (!sessionId) {
-      setError(!error)
       failNotify('Please enter the session ID.')
     } else {
-      setError(error)
       setPlayInfo('name')
       navigate('/play/' + sessionId)
     }
   }
 
+  // pre-populate sessionid if we use url shared by admin
   useEffect(() => {
     if (location.sessionId) { setSessionId(location.sessionId) }
   }, [])
 
+  // check whether we can join game
   async function Connect () {
     const bodyInfo = { name: nickName }
     if (!nickName) {
-      setError(!error)
+      // if we haven't enter nickname, ask user for that
       failNotify('Please enter the nickname.')
-    } else {
-      setError(!error)
-      const ret = await fetchPost(`play/join/${sessionId}`, bodyInfo)
-      if (ret.playerId) {
+      return
+    }
+
+    // get playId assigned by admin
+    const ret = await fetchPost(`play/join/${sessionId}`, bodyInfo)
+
+    // session is not active
+    if (ret.error) {
+      failNotify(ret.error)
+      return
+    }
+
+    // session is active, we check whether we can join lobby
+    if (ret.playerId) {
+      const start = await fetchGET(`play/${ret.playerId}/status`, 'no token')
+      if (start.started) {
+        failNotify('Game has started, you can not join this session ')
+      } else {
+        // redirect user to lobby and wait for game to start
         navigate('/play/lobby/' + sessionId)
-      } else if (ret.error) {
-        failNotify(ret.error)
       }
     }
   }

@@ -31,31 +31,26 @@ function Homepage (props) {
     <>
       <AppBar position='relative'>
         <ToolBarModified>
-          {token
+          {token &&
+            currentLocation === 'dashboard'
             ? (
-                currentLocation === 'dashboard'
-                  ? (
-                      <>
-                        <HomepageButton />
-                        <CreateGameButton value={refresh} function={setRefresh}/>
-                      </>
-                    )
-                  : (
-                      <>
-                        <HomepageButton />
-                        <DashBoardButton />
-                      </>
-                    )
+                <>
+                  <HomepageButton />
+                  <CreateGameButton value={refresh} function={setRefresh}/>
+                </>
               )
             : (
-                <></>
-              )}
+                <>
+                  <HomepageButton />
+                  <DashBoardButton />
+                </>
+              )
+          }
           <Logout />
         </ToolBarModified>
       </AppBar>
-      { currentLocation === 'homepage'
-        ? (
-        <Container maxWidth='sm' sx={ { mt: 30 } }>
+      { currentLocation === 'homepage' &&
+        <Container maxWidth='sm' sx={ { mt: 35 } }>
           <svg viewBox="0 0 440 150" y="0px" x="0px" transform='scale(0.8)'>
             <path d="M226.8,52.5c-18.7,0.3-34.8,16.1-36,35.1c-1.1,19.1,14.1,36.1,33.9,38.1c19.9,2,36-13.8,36-35.1 C260.7,69.2,245.5,52.2,226.8,52.5z M240.2,92c-0.8,9.9-7,15.3-11.1,15.7c-10.3,1.2-19.1-8.1-18.5-20s5.4-19.3,15.1-19.5 C235.4,68,241.3,79.1,240.2,92z" fill="#1876d1"></path>
             <path d="M300.3,54.4c-18.7-0.3-33.9,16.7-33.9,38.1s16.1,37.1,36,35.1c19.9-2,35.1-19,33.9-38.1 C335.2,70.5,319.1,54.8,300.3,54.4z M298,109.7c-4.1-0.5-10.2-5.9-11.1-15.7c-1.1-12.9,4.8-24,14.5-23.8s14.5,7.6,15.1,19.5 C317.1,101.5,308.3,110.9,298,109.7z" fill="#1876d1"></path>
@@ -66,9 +61,6 @@ function Homepage (props) {
             <polygon points="440,19.8 399,12 424.2,120.5" fill="#1876d1"></polygon><path d="M77.6,49.9L83,64.1c13.5-8.1,21.1,0,21.1,0l-0.1,9.1c-40.2,7.1-30,44.3-30,44.3 c4.1,14.6,17.3,14.1,17.3,14.1h30.1l0.6-67.7C117.3,32.4,77.6,49.9,77.6,49.9z M104,118.6c0,0-14.6,3.5-16.2-10.7 c0,0,0.3-22,16.7-19.6L104,118.6z" fill="#1876d1"></path>
           </svg>
         </Container>
-          )
-        : <>
-        </>
       }
       <Container>
         {token

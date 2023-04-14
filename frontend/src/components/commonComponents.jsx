@@ -23,7 +23,7 @@ const WindowBorder = styled('div')({
   boxShadow: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px',
   boxSizing: 'border-box',
   display: 'flex',
-  flexDirection: 'column'
+  flexDirection: 'column',
 })
 
 export {

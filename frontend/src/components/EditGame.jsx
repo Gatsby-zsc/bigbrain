@@ -16,9 +16,14 @@ import question from '../library/question.js'
 import { fileToDataUrl } from '../library/helpers.js'
 import { failNotify, successsNotify } from '../library/notify.js'
 
+const ContainerBorder = styled(WindowBorder)({
+  maxHeight: '85vh',
+  overflow: 'auto'
+})
+
 const QuestionBorder = styled(WindowBorder)({
   padding: '10px',
-  marginBottom: '10px'
+  marginBottom: '10px',
 })
 
 function GamePanel () {
@@ -35,7 +40,7 @@ function GamePanel () {
 
   // fetch quiz from server
   useEffect(async () => {
-    const ret = await fetchGET('admin/quiz/' + location.quizId)
+    const ret = await fetchGET('admin/quiz/' + location.quizId, 'token')
     setNewGame(ret.name)
     setThumbnail(ret.thumbnail)
     setQuestions(ret.questions)
@@ -80,7 +85,7 @@ function GamePanel () {
   }
 
   return (
-    <WindowBorder >
+    <ContainerBorder >
       <Container maxWidth={'sm'}>
         <Box sx={ { mt: 0, mb: 2 } }>
           <Typography
@@ -174,7 +179,7 @@ function GamePanel () {
           </Button>
         </Box>
       </Container>
-    </WindowBorder>
+    </ContainerBorder>
   )
 }
 

@@ -19,7 +19,7 @@ function DashBoard (props) {
 
   // fetch all quizzes from server
   useEffect(async () => {
-    const res = (await fetchGET('admin/quiz')).quizzes
+    const res = (await fetchGET('admin/quiz', 'token')).quizzes
     const newRes = res.sort(sortQuiz)
     setQuizzes(newRes)
   }, [])
@@ -28,7 +28,7 @@ function DashBoard (props) {
   // if so, refresh quizzes panel
 
   useEffect(async () => {
-    const res = (await fetchGET('admin/quiz')).quizzes
+    const res = (await fetchGET('admin/quiz', 'token')).quizzes
     const newRes = res.sort(sortQuiz)
     setQuizzes(newRes)
   }, [refresh])

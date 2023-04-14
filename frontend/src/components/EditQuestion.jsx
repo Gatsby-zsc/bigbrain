@@ -42,7 +42,7 @@ function EditQuestion () {
 
   // fetch quiz info from server
   useEffect(async () => {
-    const ret = await fetchGET('admin/quiz/' + quizId)
+    const ret = await fetchGET('admin/quiz/' + quizId, 'token')
     setQuestions(ret.questions)
     setQuiz(ret)
   }, [])

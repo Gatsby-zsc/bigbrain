@@ -136,7 +136,7 @@ function CreateGameButton (props) {
     if (responseForCreatingGame.status === 200) {
       // if user create questions for current quiz, update quiz after create it
       const quizId = (await responseForCreatingGame.json()).quizId
-      const quiz = await fetchGET('admin/quiz/' + quizId)
+      const quiz = await fetchGET('admin/quiz/' + quizId, 'token')
       const NewQuiz = { ...quiz }
       NewQuiz.name = newGame
       NewQuiz.thumbnail = newThumbnail

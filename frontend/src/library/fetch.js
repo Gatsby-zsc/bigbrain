@@ -21,13 +21,23 @@ async function fetchPOST (req, bodyInfo, flag) {
   return ret
 }
 
-async function fetchGET (req) {
-  const ret = await fetch('http://localhost:5005/' + req, {
-    method: 'GET',
-    headers: {
+async function fetchGET (req, flag) {
+  let header
+  if (flag === 'token') {
+    header = {
       accept: 'application/json',
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }
+  }
+
+  if (flag === 'no token') {
+    header = {
+      accept: 'application/json',
+    }
+  }
+  const ret = await fetch('http://localhost:5005/' + req, {
+    method: 'GET',
+    headers: header
   })
   return ret.json()
 }

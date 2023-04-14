@@ -29,8 +29,9 @@ export default function AdminResults () {
   // keep fetching to view how many players logging in
   useEffect(() => {
     const interval = window.setInterval(async () => {
+      // we stop updating the list of players after we start the game
       if (end === false) {
-        const ret = await fetchGET(`admin/session/${active}/status`);
+        const ret = await fetchGET(`admin/session/${active}/status`, 'token');
         const newPlayers = [...ret.results.players];
         setPLayers(newPlayers)
       }
@@ -54,7 +55,7 @@ export default function AdminResults () {
 
   // check whether we finish game
   useEffect(async () => {
-    const ret = await fetchGET(`admin/session/${active}/status`);
+    const ret = await fetchGET(`admin/session/${active}/status`, 'token');
     setStatus(ret.results.active)
     setStage(ret.results.position)
   }, [stage])
@@ -62,7 +63,7 @@ export default function AdminResults () {
   // retrive result
   useEffect(() => {
     const fetchData = async () => {
-      results = await fetchGET(`admin/session/${active}/results`);
+      results = await fetchGET(`admin/session/${active}/results`, 'token');
       setResults(results);
     };
     if (!status) {
@@ -83,13 +84,12 @@ export default function AdminResults () {
 
   return (
     <Box
-    sx={{
-      width: '100wh',
-      height: '100vh',
-    }}
+      sx={{
+        width: '100wh',
+        height: '100vh',
+      }}
     >
-      {stage === -1 && status
-        ? (
+      {stage === -1 && status && (
           <>
             <Container maxWidth='md'>
               <Grid container spacing={1}>
@@ -102,26 +102,19 @@ export default function AdminResults () {
               </Grid>
             </Container>
           </>)
-            ? (players.length === 0
-                ? <>
+        ? (players.length === 0
+            ? <>
                 <CircularProgress> Waiting for players to join... </CircularProgress>
               </>
-                : <>
-              <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
-                {PlayerDivs}
-              </Grid>
-            </>
-              )
-            : (
-            <>
-            </>
-              )
-        : (
-        <>
-      </>)
+            : <>
+                <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
+                  {PlayerDivs}
+                </Grid>
+              </>
+          )
+        : (<></>)
       }
-      {!status
-        ? (
+      {!status && (
         <>
           <Container sx={{ pt: 30 }} maxWidth='md'>
             <Grid container direction="row" justifyContent="center" spacing={4}>
@@ -161,14 +154,11 @@ export default function AdminResults () {
             </Grid>
           </Container>
         </>
-          )
-        : (
-        <></>
-          )}
+      )}
 
       <BottomNavigation
-      showLabels
-      sx={{ width: '100%', position: 'fixed', bottom: 0 }}
+        showLabels
+        sx={{ width: '100%', position: 'fixed', bottom: 0 }}
       >
         <BottomNavigationAction onClick={() => { advanceStage() }} label="NEXT" icon={<SkipNextIcon />} />
         <BottomNavigationAction onClick={() => { stopQuiz(quizId); setStatus(false) }} label="STOP" icon={<CancelIcon />} />
