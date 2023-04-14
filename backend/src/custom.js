@@ -28,8 +28,8 @@ option {
 */
 export const quizQuestionPublicReturn = question => {
   console.log('See question: ', question);
-  const options = question.answers.filter( eachOption => {
-    eachOption.optionCorrect !== true
+  const options = question.answers.map( eachOption => {
+    return { optionId: eachOption.optionId, optionField: eachOption.optionField, optionCorrect: false };
   });
 
   return {

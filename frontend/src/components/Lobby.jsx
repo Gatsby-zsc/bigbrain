@@ -12,6 +12,8 @@ import FastRewindIcon from '@mui/icons-material/FastRewind'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
+import { fetchGET } from '../library/fetch.js'
+import { useNavigate } from 'react-router-dom'
 
 function getScatterData (icons) {
   const colors = [
@@ -46,13 +48,20 @@ function Lobby () {
   const [icons, setIcons] = useState(0)
   const [state, setState] = useState(getScatterData(0))
   const [speed, setSpeed] = useState(3000)
+  const navigate = useNavigate()
 
   // keep fecthing backend to detect whether session has started
   useEffect(() => {
-    const interval = window.setInterval(() => {
-      console.log('fetch session status, go to the first question')
+    const interval = window.setInterval(async () => {
+      const sessionId = localStorage.getItem('sessionId')
+      const playerId = localStorage.getItem('playerId')
+      const status = await fetchGET(`play/${playerId}/status`, 'no token')
+      console.log(status)
       // navigate to new window to join active session
-    }, 5000)
+      if (status.started) {
+        navigate(`/play/session=${sessionId}/player=${playerId}`)
+      }
+    }, 500)
 
     return () => clearInterval(interval)
   }, [])

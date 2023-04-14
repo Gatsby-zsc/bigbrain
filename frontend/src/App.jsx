@@ -17,6 +17,7 @@ import Lobby from './components/Lobby.jsx'
 import backgroundImg from './pictures/background.jpg'
 import Box from '@mui/material/Box'
 import AdminResults from './components/AdminResults.jsx'
+import Gaming from './components/Gaming.jsx'
 
 const Start = () => {
   return (
@@ -82,6 +83,7 @@ function App () {
           <Route path='/play' element={<Play/>} >
             <Route path=':sessionId' element={<Play/>} />
           </Route>
+          <Route path='/play/:sessionId/:playerId' element={<Gaming/>} />
           <Route path='/homepage' element={<Homepage value={refresh} function={setRefresh}/>} >
             <Route path='dashboard' element={<DashBoard value={refresh} function={setRefresh} />} />
             <Route path='dashboard/:quizId/:questionId' element={<EditQuestion />}/>
