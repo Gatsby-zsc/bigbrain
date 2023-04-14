@@ -9,9 +9,9 @@ import Checkbox from '@mui/material/Checkbox'
 import HomeIcon from '@mui/icons-material/Home'
 import { Link, useNavigate } from 'react-router-dom'
 import { styled } from '@mui/system'
-import { fetchPOST } from './library/fetch.js'
+import { fetchPOST } from '../library/fetch.js'
 import { WindowBorder } from './commonComponents.jsx'
-import { failNotify } from './library/notify'
+import { failNotify } from '../library/notify.js'
 
 const MyHomeIcon = styled(HomeIcon)({
   margin: '0 auto',

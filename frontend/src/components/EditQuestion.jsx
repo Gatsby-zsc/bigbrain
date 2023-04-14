@@ -9,9 +9,9 @@ import Box from '@mui/material/Box'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
-import { fetchGET, fetchPut } from './library/fetch.js'
+import { fetchGET, fetchPut } from '../library/fetch.js'
 import Option from './Option'
-import { failNotify, successsNotify } from './library/notify.js'
+import { failNotify, successsNotify } from '../library/notify.js'
 
 // options of each question, generate random id for each option
 const optionTemplate = {

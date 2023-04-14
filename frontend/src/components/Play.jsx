@@ -3,9 +3,9 @@ import Box from '@mui/material/Box'
 import { styled } from '@mui/system'
 import { Button } from '@mui/material'
 import TextField from '@mui/material/TextField'
-import { fetchPost } from './library/fetch.js'
+import { fetchPost } from '../library/fetch.js'
 import { useParams, useNavigate } from 'react-router-dom'
-import { failNotify } from './library/notify.js'
+import { failNotify } from '../library/notify.js'
 
 const PlayStyle = styled('div')({
   width: 320,

@@ -16,10 +16,10 @@ import Question from '../Question'
 import { WindowBorder } from '../commonComponents'
 import { styled } from '@mui/system'
 import Typography from '@mui/material/Typography'
-import question from '../library/question'
-import { failNotify, successsNotify } from '../library/notify'
-import { fetchPOST, fetchPut, fetchGET } from '../library/fetch'
-import { fileToDataUrl } from '../library/helpers.js'
+import question from '../../library/question'
+import { failNotify, successsNotify } from '../../library/notify'
+import { fetchPOST, fetchPut, fetchGET } from '../../library/fetch'
+import { fileToDataUrl } from '../../library/helpers.js'
 
 const NewWindowBorder = styled(WindowBorder)({
   marginTop: '10px',

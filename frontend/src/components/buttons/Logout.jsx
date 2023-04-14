@@ -1,5 +1,5 @@
 import React from 'react'
-import { fetchPOST } from '../library/fetch.js'
+import { fetchPOST } from '../../library/fetch.js'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button'

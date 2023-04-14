@@ -14,7 +14,7 @@ import Login from './components/LoginAccount.jsx'
 import GamePanel from './components/EditGame.jsx'
 import EditQuestion from './components/EditQuestion.jsx'
 import Lobby from './components/Lobby.jsx'
-import backgroundImg from './components/background.jpg'
+import backgroundImg from './pictures/background.jpg'
 import Box from '@mui/material/Box'
 import AdminResults from './components/AdminResults.jsx'
 

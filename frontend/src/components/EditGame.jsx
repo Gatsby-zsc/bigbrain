@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { fetchGET, fetchPut } from './library/fetch.js'
+import { fetchGET, fetchPut } from '../library/fetch.js'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
@@ -12,9 +12,9 @@ import { WindowBorder } from './commonComponents'
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer'
 import { Grid } from '@mui/material'
 import { styled } from '@mui/system'
-import question from './library/question.js'
-import { fileToDataUrl } from './library/helpers.js'
-import { failNotify, successsNotify } from './library/notify.js'
+import question from '../library/question.js'
+import { fileToDataUrl } from '../library/helpers.js'
+import { failNotify, successsNotify } from '../library/notify.js'
 
 const QuestionBorder = styled(WindowBorder)({
   padding: '10px',

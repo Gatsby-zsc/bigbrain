@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
-import { fetchPost, fetchGET } from './library/fetch.js'
-import { stopQuiz } from './library/control.js';
+import { fetchPost, fetchGET } from '../library/fetch.js'
+import { stopQuiz } from '../library/control.js';
 import { useNavigate } from 'react-router-dom';
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
 import BottomNavigation from '@mui/material/BottomNavigation';
@@ -9,7 +9,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import CancelIcon from '@mui/icons-material/Cancel';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
-import { failNotify } from './library/notify.js';
+import { failNotify } from '../library/notify.js';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';

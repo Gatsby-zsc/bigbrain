@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { fetchGET } from './library/fetch.js'
+import { fetchGET } from '../library/fetch.js'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
