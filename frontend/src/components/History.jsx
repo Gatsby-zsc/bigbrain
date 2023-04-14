@@ -8,6 +8,7 @@ import Box from '@mui/material/Box'
 import sampleImg from '../pictures/sample.jpg'
 import analyzeTime from '../library/time';
 import { styled } from '@mui/system'
+import Session from './OldSession';
 
 const SideBarWindow = styled(WindowBorder)({
   padding: '10px'
@@ -33,7 +34,7 @@ function HistoryPanel () {
 
   return (
     <Grid container spacing={1}>
-      <Grid item xs={12} sm={6} md={5} lg={4}>
+      <Grid item xs={12} sm={6} md={5} lg={4} sx={ { mb: 1 } }>
         <SideBarWindow>
           <Box component='img' alt='quiz thumbnail' src={thumbnail === null ? sampleImg : thumbnail} />
           <Typography textAlign={'start'} variant='h4' sx={ { pl: 2, mt: 2, mb: 1 } }>
@@ -53,15 +54,11 @@ function HistoryPanel () {
       <Grid item xs={12} sm={6} md={7} lg={8}>
         {sessions.map(session => {
           return (
-            <Box key={session} sx={ { mb: 2 } }>
-              <WindowBorder>
-                History game
-                {session}
-              </WindowBorder>
+            <Box key={session} sx={{ mb: 2, position: 'relative' }}>
+              <Session value={session}></Session>
             </Box>
           )
         })}
-
       </Grid>
     </Grid>
   )

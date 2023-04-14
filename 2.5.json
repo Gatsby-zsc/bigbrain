@@ -3,18 +3,18 @@
   "questions": [
     {
       "questionField": "My favourite game",
-      "questionType": "type",
+      "questionType": "single",
       "timeLimit": 5000,
       "points": 1,
       "videoURL": "",
       "imgURL": "",
       "answers": [
         {
-          "optionField": "",
-          "optionCorrect": false
+          "optionField": "CSGO",
+          "optionCorrect": true
         },
         {
-          "optionField": "",
+          "optionField": "Horizon",
           "optionCorrect": false
         }
       ]

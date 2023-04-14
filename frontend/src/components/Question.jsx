@@ -125,14 +125,14 @@ function Question (props) {
           Question id: {newQid}
         </Typography>
         <IconButton
-          aria-label="expand"
+          aria-label='expand'
           sx={ { position: 'absolute', right: 10, top: 3 } }
           onClick={viewDetails}
         >
           {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
         </IconButton>
         <IconButton
-          aria-label="expand"
+          aria-label='expand'
           sx={ { position: 'absolute', right: 60, top: 3 } }
           onClick={deleteQuestion}
         >
