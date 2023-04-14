@@ -79,7 +79,6 @@ export default function Play () {
       } else {
         // redirect user to lobby and wait for game to start
         navigate('/play/lobby/' + sessionId)
-        console.log(ret.playerId)
         localStorage.setItem('playerId', ret.playerId)
         localStorage.setItem('sessionId', sessionId)
       }

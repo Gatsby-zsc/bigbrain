@@ -80,8 +80,8 @@ function App () {
           <Route path='/' element={<Start/>} />
           <Route path='/login' element={<Login/>} />
           <Route path='/signup' element={<SignUp/>} />
+          <Route path='/play/lobby/:sessionId' element={<Lobby />} />
           <Route path='/play' element={<Play/>} >
-            <Route path='lobby/:sessionId' element={<Lobby />} />
             <Route path=':sessionId' element={<Play/>} />
           </Route>
           <Route path='/play/:sessionId/:playerId' element={<Gaming/>} />
