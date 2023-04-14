@@ -21,28 +21,27 @@ export default function AdminResults () {
   const [stage, setStage] = React.useState(-1);
   const [status, setStatus] = React.useState(true);
   const [results, setResults] = React.useState([]);
-  const [start, setStart] = React.useState(false);
+  // const [players, setPLayers] = React.useState([])
   const data = [{ name: 'Page A', uv: 400, pv: 2400, amt: 2400 }];
-  // const players = [];
   const navigate = useNavigate();
-  console.log(results)
+  // console.log(players)
 
-  // if (stage === -1) {
-  //   setInterval(async () => {
-  //     const ret = await fetchGET(`admin/session/${active}/status`);
-  //     players.push(ret.results.players);
-  //     console.log(ret.results.players)
-  //   }, 1000);
-  // }
+  if (stage === -1) {
+    setInterval(async () => {
+      const ret = await fetchGET(`admin/session/${active}/status`);
+      // const newPlayers = [...players];
+      // players.push(ret.results.players);
+      console.log(ret.results.players)
+      console.log(results)
+    }, 1000);
+  }
 
   async function advanceStage () {
     const nowStage = await fetchPost(`admin/quiz/${quizId}/advance`)
     setStage(nowStage.stage)
-    setStart(true)
     if (nowStage.error) {
       failNotify('All Questions have been answered');
       setStatus(false)
-      setStart(false)
     }
     console.log(stage)
   }
@@ -50,6 +49,7 @@ export default function AdminResults () {
   useEffect(async () => {
     const ret = await fetchGET(`admin/session/${active}/status`);
     setStatus(ret.results.active);
+    setStage(ret.results.position)
   }, [stage])
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export default function AdminResults () {
       height: '100vh',
     }}
     >
-      {!start && status
+      {stage === -1 && status
         ? (
           <>
             <Container maxWidth='md'>
