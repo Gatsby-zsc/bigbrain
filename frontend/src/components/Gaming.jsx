@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchGET } from '../library/fetch';
+import { fetchGET, fetchPut } from '../library/fetch';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/system'
 import Container from '@mui/material/Container';
@@ -20,44 +20,113 @@ const PlayStyle = styled('div')({
 })
 
 export default function Gaming () {
+  const playerId = localStorage.getItem('playerId')
   const [questionContext, setQuestionContext] = React.useState('')
   const [imgUrl, setImgUrl] = useState('')
   const [videoUrl, setVideoUrl] = useState('')
   const [timeLimit, setTimeLimit] = useState(0)
   const [options, setOptions] = useState([])
-  const [buttonValue, setButtonValue] = useState(false)
-  console.log(buttonValue)
+  const [countDown, setCountDown] = useState(0);
+  const [timeUp, setTimeUp] = useState(false)
+  const [correctOption, setCorrectOption] = useState([])
+  const [questionId, setQuestionId] = useState('')
+  const [optionsSelected, setOptionsSelected] = useState([])
 
   useEffect(async () => {
-    const playerId = localStorage.getItem('playerId')
     const question = (await fetchGET(`play/${playerId}/question`, 'no token')).question
-    console.log(question)
+    setQuestionId(question.questionId)
     setQuestionContext(question.questionField)
     setImgUrl(question.imgURL)
     setVideoUrl(question.videoURL)
+    setCountDown(question.timeLimit / 1000)
     setTimeLimit(question.timeLimit)
     setOptions(question.answers)
-    console.log(question.answers)
   }, []);
 
   useEffect(() => {
-    const countdown = window.setInterval(() => {
-      setTimeLimit(timeLimit - 1000)
+    const interval = window.setInterval(async () => {
+      const question = (await fetchGET(`play/${playerId}/question`, 'no token')).question
+      if (question.questionId !== questionId) {
+        setQuestionId(question.questionId)
+        setQuestionContext(question.questionField)
+        setImgUrl(question.imgURL)
+        setVideoUrl(question.videoURL)
+        setCountDown(question.timeLimit / 1000)
+        setTimeLimit(question.timeLimit)
+        setOptions(question.answers)
+        setCorrectOption([])
+        setOptionsSelected([])
+      }
+    }, 500)
+    return () => clearInterval(interval)
+  }, [timeLimit, questionId])
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      if (countDown !== 0) { setCountDown(r => r - 1); setTimeUp(true) }
     }, 1000)
-    return () => clearInterval(countdown)
-  }, [])
+    return () => clearInterval(interval)
+  }, [timeLimit, countDown])
 
-  // useEffect(async () => {
-  //   const correctOption = fetch
+  useEffect(async () => {
+    if (countDown === 0 && timeUp === true) {
+      const correctOptions = (await fetchGET(`play/${playerId}/answer`, 'no token')).answerIds
+      setCorrectOption(correctOptions)
+    }
+  }, [countDown, timeUp])
 
-  console.log(options)
-  const optionDiv = options.map(option => {
-    console.log(option)
-    return (
-      <Grid item key={option.optionId} xs={6} sx={{ mb: 1 }}>
-        <Button onClick={() => { setButtonValue(true) }} variant="contained" sx={{ width: '95%', ':active': { backgroundColor: 'red' } }}>{option.optionField}</Button>
-      </Grid>
-    )
+  function checkOptionSelect (optionId) {
+    return optionsSelected.includes(optionId);
+  }
+
+  async function selectOption (optionId) {
+    const newOptionsSelected = [...optionsSelected]
+    newOptionsSelected.push(optionId)
+    setOptionsSelected(newOptionsSelected)
+  }
+
+  function deSelectOption (optionId) {
+    const newOptionsSelected = [...optionsSelected]
+    newOptionsSelected.splice(newOptionsSelected.indexOf(optionId), 1)
+    setOptionsSelected(newOptionsSelected)
+  }
+
+  useEffect(async () => {
+    const putAnswer = await fetchPut(`play/${playerId}/answer`, { answerIds: optionsSelected }, 'no token')
+    console.log(putAnswer)
+    console.log(optionsSelected)
+  }, [optionsSelected])
+
+  const optionDiv = options.map((option) => {
+    if (correctOption.length === 0) {
+      if (checkOptionSelect(option.optionId)) {
+        return (
+          <Grid item key={option.optionId} xs={6} sx={{ mb: 1 }}>
+            <Button onClick={() => { deSelectOption(option.optionId) }} variant="contained" sx={{ width: '95%' }}>{option.optionField}</Button>
+          </Grid>
+        )
+      } else {
+        return (
+          <Grid item key={option.optionId} xs={6} sx={{ mb: 1 }}>
+            <Button onClick={() => { selectOption(option.optionId) }} variant="outlined" sx={{ width: '95%' }}>{option.optionField}</Button>
+          </Grid>
+        )
+      }
+    } else {
+      if (correctOption.includes(option.optionId)) {
+        return (
+          <Grid item key={option.optionId} xs={6} sx={{ mb: 1 }}>
+            <Button variant="contained" sx={{ width: '95%', backgroundColor: 'green' }}>{option.optionField}</Button>
+          </Grid>
+        )
+      } else {
+        return (
+          <Grid item key={option.optionId} xs={6} sx={{ mb: 1 }}>
+            <Button disabled variant="contained" sx={{ width: '95%' }}>{option.optionField}</Button>
+          </Grid>
+        )
+      }
+    }
   }
   )
 
@@ -70,7 +139,7 @@ export default function Gaming () {
         <PlayStyle>
           <Grid container direction="row" textAlign="center" alignItems="center">
             <Grid item xs={12}>
-              {timeLimit}
+              {countDown}
             </Grid>
             <Grid item xs={12}>
               {questionContext}

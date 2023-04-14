@@ -42,13 +42,25 @@ async function fetchGET (req, flag) {
   return ret.json()
 }
 
-async function fetchPut (req, bodyInfo) {
+async function fetchPut (req, bodyInfo, flag) {
+  let header
+  if (flag === 'token') {
+    header = {
+      'Content-Type': 'application/json',
+      accept: 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    }
+  }
+
+  if (flag === 'no token') {
+    header = {
+      'Content-Type': 'application/json',
+      accept: 'application/json',
+    }
+  }
   const ret = await fetch('http://localhost:5005/' + req, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    },
+    headers: header,
     body: JSON.stringify(bodyInfo)
   })
   return ret
