@@ -161,7 +161,7 @@ function CreateGameButton (props) {
         NewQuiz.questions = []
       }
 
-      const responseForUpdatingGame = await fetchPut('admin/quiz/' + quizId, NewQuiz)
+      const responseForUpdatingGame = await fetchPut('admin/quiz/' + quizId, NewQuiz, 'token')
       if (responseForUpdatingGame.status !== 200) {
         failNotify('update quiz failed!!!')
       }

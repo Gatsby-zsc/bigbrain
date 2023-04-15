@@ -50,7 +50,7 @@ function SignUp () {
         maxWidth='xs'
         onSubmit={SignUpAccount}
       >
-        <Box sx={ { pt: 25 } }></Box>
+        <Box sx={ { pt: 18 } }></Box>
         <WindowBorder>
           <MyHomeIcon
             color="primary"

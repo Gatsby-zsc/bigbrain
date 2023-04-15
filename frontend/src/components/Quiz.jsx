@@ -56,6 +56,24 @@ function Quiz (props) {
     setQuizStatus(ret.active)
   }, [urlCopy, viewResult, start])
 
+  // request server to get the details of each question for the corresponding quiz
+  useEffect(async () => {
+    const ret = await fetchGET('admin/quiz/' + quizId, 'token')
+    setQuestions(ret.questions)
+  }, [])
+
+  // reset new time after fetch info of all questions of quiz
+  useEffect(() => {
+    let newTime = 0
+    for (const eachQuestion of questions) {
+      newTime += eachQuestion.timeLimit
+    }
+
+    newTime = processTime(newTime)
+
+    setTotalTime(newTime)
+  }, [questions])
+
   const handleCopyOpen = () => {
     setUrlCopy(true)
   }
@@ -74,8 +92,12 @@ function Quiz (props) {
 
   // delete current quiz by sending request to server
   function deleteGame () {
+    if (quizStatus !== null) {
+      failNotify('You can not delete a running game!!!')
+      return;
+    }
     fetchDelete('admin/quiz/' + quizId)
-    successsNotify('Delete game successfully!!!')
+    successsNotify('Delete game successfully')
     setRefresh(!refresh)
   }
 
@@ -98,24 +120,6 @@ function Quiz (props) {
       navigate(`/ongoing/${quizId}`)
     }
   }
-
-  // request server to get the details of each question for the corresponding quiz
-  useEffect(async () => {
-    const ret = await fetchGET('admin/quiz/' + quizId, 'token')
-    setQuestions(ret.questions)
-  }, [])
-
-  // reset new time after fetch info of all questions of quiz
-  useEffect(() => {
-    let newTime = 0
-    for (const eachQuestion of questions) {
-      newTime += eachQuestion.timeLimit
-    }
-
-    newTime = processTime(newTime)
-
-    setTotalTime(newTime)
-  }, [questions])
 
   return (
     <>
@@ -201,7 +205,7 @@ function Quiz (props) {
         >
           <DialogTitle sx={ { pb: 0 } }>
             ✏️ Start Your Quiz Now! :
-            <IconButton sx={{ ml: 5, pb: 2 }} onClick={handleCopyClose}><CloseIcon sx={{ color: '#1876d1' }}/></IconButton>
+            <IconButton sx={{ ml: 5, mb: 2 }} onClick={handleCopyClose}><CloseIcon sx={{ color: '#1876d1' }}/></IconButton>
           </DialogTitle>
           <DialogContent>
             <DialogContentText sx={{ fontSize: '20px', color: '#212121' }}>

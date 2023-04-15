@@ -158,6 +158,9 @@ function EditQuestion () {
     const res = await fetchPut('admin/quiz/' + quizId, newQuiz, 'token')
     if (res.status === 200) {
       successsNotify('update question successfully')
+      setTimeout(() => {
+        navigate(-1)
+      }, 2000);
     } else {
       failNotify('update question failed')
     }
@@ -286,7 +289,7 @@ function EditQuestion () {
               <Button fullWidth variant='outlined' onClick={deleteOption}>Delete</Button>
             </Grid>
           </Grid>
-        <Button variant='contained' fullWidth sx={ { mt: 2 } } onClick={updateQuestion}>Update Question !!!</Button>
+        <Button variant='contained' fullWidth sx={ { mt: 2 } } onClick={updateQuestion}>Update Question</Button>
         <Button variant='contained' fullWidth sx={ { mt: 2 } } onClick={backToQuestionPanel}>Cancel</Button>
         </Box>
       </Container>

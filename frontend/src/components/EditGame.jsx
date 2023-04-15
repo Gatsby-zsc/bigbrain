@@ -194,7 +194,7 @@ function GamePanel () {
             </QuestionBorder>
           })}
           <Button variant='contained' fullWidth sx={ { mt: 1 } } onClick={updateQuiz}>
-            Update my quiz !!!
+            Update my quiz
           </Button>
         </Box>
       </Container>
