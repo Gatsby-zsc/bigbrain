@@ -20,6 +20,8 @@ import AdminResults from './components/AdminResults.jsx'
 import Gaming from './components/Gaming.jsx'
 import HistoryPanel from './components/History.jsx'
 import Grid from '@mui/material/Grid'
+import SessionResults from './components/SessionResults.jsx'
+import PlayerResults from './components/PlayerResults.jsx'
 
 const Start = () => {
   return (
@@ -84,14 +86,16 @@ function App () {
           <Route path='/play' element={<Play/>} >
             <Route path=':sessionId' element={<Play/>} />
           </Route>
-          <Route path='/play/:sessionId/:playerId' element={<Gaming/>} />
+          <Route path='/play/sessionId/:sessionId/:playerId' element={<Gaming/>} />
           <Route path='/homepage' element={<Homepage value={refresh} function={setRefresh}/>} >
             <Route path='dashboard' element={<DashBoard value={refresh} function={setRefresh} />} />
             <Route path='dashboard/history/:quizId' element={<HistoryPanel/>}/>
-            <Route path='dashboard/:quizId/:questionId' element={<EditQuestion />}/>
             <Route path='dashboard/:quizId' element={<GamePanel />}/>
+            <Route path='dashboard/:quizId/:questionId' element={<EditQuestion />}/>
           </Route>
           <Route path='/ongoing/:quizId' element={<AdminResults/>}/>
+          <Route path='/results/session/:sessionId' element={<SessionResults/>} />
+          <Route path='/results/player/:playerId' element={<PlayerResults/>}/>
         </Routes>
         <ToastContainer />
       </BrowserRouter>

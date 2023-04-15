@@ -13,6 +13,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import CircularProgress from '@mui/material/CircularProgress'
 import { fetchGET } from '../library/fetch.js'
 import { useNavigate } from 'react-router-dom'
+import { failNotify } from '../library/notify'
 
 function getScatterData (icons) {
   const colors = [
@@ -58,7 +59,10 @@ function Lobby () {
       console.log(status)
       // navigate to new window to join active session
       if (status.started) {
-        navigate(`/play/session=${sessionId}/player=${playerId}`)
+        navigate(`/play/sessionId/${sessionId}/${playerId}`)
+      } else if (status.error) {
+        failNotify('Session has been stopped!')
+        navigate('/play')
       }
     }, 500)
 

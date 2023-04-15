@@ -5,6 +5,7 @@ import { styled } from '@mui/system'
 import Container from '@mui/material/Container';
 import { Grid } from '@mui/material';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 const PlayStyle = styled('div')({
   width: 390,
@@ -31,6 +32,7 @@ export default function Gaming () {
   const [correctOption, setCorrectOption] = useState([])
   const [questionId, setQuestionId] = useState('')
   const [optionsSelected, setOptionsSelected] = useState([])
+  const navigate = useNavigate()
 
   useEffect(async () => {
     const question = (await fetchGET(`play/${playerId}/question`, 'no token')).question
@@ -46,6 +48,9 @@ export default function Gaming () {
   useEffect(() => {
     const interval = window.setInterval(async () => {
       const question = (await fetchGET(`play/${playerId}/question`, 'no token')).question
+      if (!question) {
+        navigate('/results/player/' + playerId)
+      }
       if (question.questionId !== questionId) {
         setQuestionId(question.questionId)
         setQuestionContext(question.questionField)
