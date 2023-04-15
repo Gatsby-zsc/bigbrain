@@ -109,7 +109,7 @@ function EditQuestion () {
     }
     // update question
     const newQuestions = quiz.questions.map((eachQuestion) => {
-      if (eachQuestion.questionId === questionId) {
+      if (Number(eachQuestion.questionId) === Number(questionId)) {
         return newQuestion
       } else {
         return eachQuestion
@@ -124,11 +124,11 @@ function EditQuestion () {
     for (const question of newQuestions) {
       let countTrue = 0
       // validate URL if user provide one of them
-      if (question.imgURL !== '' && !isUrl(question.imgURL)){
+      if (question.imgURL !== '' && !isUrl(question.imgURL)) {
         failNotify('Please enter an valid image URL')
         return
       }
-      if (question.imgURL !== '' && !isUrl(question.videoURL)){
+      if (question.videoURL !== '' && !isUrl(question.videoURL)) {
         failNotify('Please enter an valid video URL')
         return
       }
@@ -141,7 +141,7 @@ function EditQuestion () {
           return
         }
         if (option.optionField === '' && option.optionCorrect === false) {
-          failNotify('Please set up all your options')
+          failNotify('Please make sure all your options are not empty')
           return
         }
       }
@@ -155,7 +155,7 @@ function EditQuestion () {
       }
     }
 
-    const res = await fetchPut('admin/quiz/' + quizId, newQuiz)
+    const res = await fetchPut('admin/quiz/' + quizId, newQuiz, 'token')
     if (res.status === 200) {
       successsNotify('update question successfully')
     } else {
@@ -171,7 +171,7 @@ function EditQuestion () {
             variant='h5'
             sx={ { mt: 1, mb: 1 } }
           >
-            Question title
+            Question Title
           </Typography>
           <TextField
             variant='outlined'
@@ -193,8 +193,8 @@ function EditQuestion () {
                 fullWidth
               >
                 <MenuItem value='type'>None</MenuItem>
-                <MenuItem value='single'>single</MenuItem>
-                <MenuItem value='multiple'>multiple</MenuItem>
+                <MenuItem value='single'>Single</MenuItem>
+                <MenuItem value='multiple'>Multiple</MenuItem>
               </Select>
             </Grid>
             <Grid item xs={4}>

@@ -114,11 +114,11 @@ function CreateGameButton (props) {
       for (const question of newQuestions) {
         let countTrue = 0
         // validate URL if user provide one of them
-        if (question.imgURL !== '' && !isUrl(question.imgURL)){
+        if (question.imgURL !== '' && !isUrl(question.imgURL)) {
           failNotify('Please enter an valid image URL')
           return
         }
-        if (question.videoURL !== '' && !isUrl(question.videoURL)){
+        if (question.videoURL !== '' && !isUrl(question.videoURL)) {
           failNotify('Please enter an valid video URL')
           return
         }

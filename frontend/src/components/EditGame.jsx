@@ -16,6 +16,8 @@ import question from '../library/question.js'
 import { fileToDataUrl } from '../library/helpers.js'
 import { failNotify, successsNotify } from '../library/notify.js'
 import sampleImg from '../pictures/sample.jpg'
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditNoteIcon from '@mui/icons-material/EditNote'
 
 const ContainerBorder = styled(WindowBorder)({
   maxHeight: '85vh',
@@ -149,7 +151,7 @@ function GamePanel () {
                   component='img'
                   alt='thumbnail'
                   src={newThumbnail === null ? sampleImg : newThumbnail}
-                  sx={ { mt: 3, width: 'auto', height: ' 170px' } }
+                  sx={ { pl: 2, pr: 2, mt: 3, width: '100%', height: 'auto' } }
                 />
               </Grid>
             </Grid>
@@ -174,7 +176,7 @@ function GamePanel () {
                     navigate('./' + eachQuestion.questionId)
                     navigateToQuestion()
                   } }>
-                    Edit
+                    <EditNoteIcon sx={ { mr: 1 } }/>Edit
                   </Button>
                 </Grid>
                 <Grid item xs={3}>
@@ -185,7 +187,7 @@ function GamePanel () {
                     setQuestions(Questions)
                     setRefresh(!refresh)
                   } }>
-                    Delete
+                    <DeleteIcon sx={ { mr: 1 } }/>Delete
                   </Button>
                 </Grid>
               </Grid>
