@@ -68,6 +68,10 @@ export default function Play () {
     // session is not active
     if (ret.error) {
       failNotify(ret.error)
+      setTimeout(() => {
+        setNickName('')
+        setPlayInfo('id')
+      }, 1000);
       return
     }
 
@@ -87,11 +91,11 @@ export default function Play () {
 
   return (
     <Box
-    sx={{
-      width: '100wh',
-      height: '100vh'
-    }}
-  >
+      sx={{
+        width: '100wh',
+        height: '100vh'
+      }}
+    >
     <PlayStyle>
       <div>
         <SvgIcon sx={ { mt: 5 } }/>

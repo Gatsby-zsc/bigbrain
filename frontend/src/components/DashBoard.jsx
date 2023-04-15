@@ -4,6 +4,8 @@ import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import Quiz from './Quiz.jsx'
+import Logo from './Logo.jsx'
+import Typography from '@mui/material/Typography'
 
 // sort all quizzes to display them in order on dashboard
 function sortQuiz (q1, q2) {
@@ -34,24 +36,31 @@ function DashBoard (props) {
 
   return (
     <Box>
-      <Container maxWidth='xl'>
-        <Grid container spacing={1} >
-          <Grid item xs={12} md={12}>
-            <Grid container spacing={3}>
-                {
-                  quizzes.map(quiz => {
-                    return (
-                      <Grid item key={quiz.id} xs={12} sm={12} md={6} >
-                        <Quiz eachQuiz={quiz} value={refresh} function={setRefresh}></Quiz>
-                      </Grid>
-                    )
+      { quizzes.length === 0
+        ? <Container maxWidth='sm' sx={ { mt: 26 } }>
+            <Logo />
+            <Typography variant='h6' sx={{ textAlign: 'center', color: '#1876d1' }}>
+              No game yet, try create your new game!!!
+            </Typography>
+          </Container>
+        : <Container maxWidth='xl'>
+            <Grid container spacing={1} >
+              <Grid item xs={12} md={12}>
+                <Grid container spacing={3}>
+                  {
+                    quizzes.map(quiz => {
+                      return (
+                        <Grid item key={quiz.id} xs={12} sm={12} md={6} >
+                          <Quiz eachQuiz={quiz} value={refresh} function={setRefresh}></Quiz>
+                        </Grid>
+                      )
+                    })
                   }
-                  )
-                }
+                </Grid>
               </Grid>
-          </Grid>
-        </Grid>
-      </Container>
+            </Grid>
+          </Container>
+      }
     </Box>
   )
 }

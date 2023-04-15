@@ -15,6 +15,7 @@ import { fetchGET } from '../library/fetch.js'
 import { useNavigate } from 'react-router-dom'
 import { failNotify } from '../library/notify'
 
+// generate icons with random shape and colors
 function getScatterData (icons) {
   const colors = [
     'red', 'navy', 'chartreuse', 'royalblue',
@@ -56,7 +57,7 @@ function Lobby () {
       const sessionId = localStorage.getItem('sessionId')
       const playerId = localStorage.getItem('playerId')
       const status = await fetchGET(`play/${playerId}/status`, 'no token')
-      console.log(status)
+
       // navigate to new window to join active session
       if (status.started) {
         navigate(`/play/sessionId/${sessionId}/${playerId}`)
