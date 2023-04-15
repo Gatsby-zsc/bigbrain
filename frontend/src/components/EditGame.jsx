@@ -73,7 +73,7 @@ function GamePanel () {
 
   // update quiz after we edit content
   async function updateQuiz () {
-    const res = await fetchPut('admin/quiz/' + location.quizId, quiz)
+    const res = await fetchPut('admin/quiz/' + location.quizId, quiz, 'token')
     if (res.status === 200) {
       successsNotify('update quiz successully')
       setTimeout(() => {
@@ -87,7 +87,7 @@ function GamePanel () {
   // we need to update current questions status
   // before edit each question details
   async function navigateToQuestion () {
-    await fetchPut('admin/quiz/' + location.quizId, quiz)
+    await fetchPut('admin/quiz/' + location.quizId, quiz, 'token')
   }
 
   return (
@@ -111,7 +111,7 @@ function GamePanel () {
           <Box>
             <Grid container spacing={1} sx={ { mb: 2 } }>
               <Grid item container md={4} spacing={3}>
-                <Grid item sm={6} md={12}>
+                <Grid item xs={6} md={12}>
                   <Typography
                     variant='subtitle2'
                     sx={ { mt: 2, mb: 1 } }
@@ -131,7 +131,7 @@ function GamePanel () {
                     } } />
                   </Button>
                 </Grid>
-                <Grid item sm={6} md={12}>
+                <Grid item xs={6} md={12}>
                   <Typography
                     variant='subtitle2'
                     sx={ { mt: 2, mb: 1 } }
@@ -144,12 +144,12 @@ function GamePanel () {
                   </Button>
                 </Grid>
               </Grid>
-              <Grid item md={8}>
+              <Grid item xs={12} md={8}>
                 <Box
                   component='img'
                   alt='thumbnail'
                   src={newThumbnail === null ? sampleImg : newThumbnail}
-                  sx={ { mt: 5, width: 'auto', height: ' 170px' } }
+                  sx={ { mt: 3, width: 'auto', height: ' 170px' } }
                 />
               </Grid>
             </Grid>

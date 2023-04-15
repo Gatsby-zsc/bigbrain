@@ -6,28 +6,15 @@ import { fetchGET } from '../library/fetch';
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import sampleImg from '../pictures/sample.jpg'
-import analyzeTime from '../library/time';
+import analyzeTime from '../library/parseTime';
 import { styled } from '@mui/system'
 import Session from './OldSession';
 import SubtitlesIcon from '@mui/icons-material/Subtitles';
+import processTime from '../library/questionTotalTime'
 
 const SideBarWindow = styled(WindowBorder)({
   padding: '10px'
 })
-
-function processTime (time) {
-  let retTime = time
-  retTime /= 1000
-
-  let minutes = 0
-  while (retTime >= 60) {
-    retTime -= 60
-    minutes++
-  }
-
-  const totalTime = minutes.toString() + 'm' + retTime.toString() + 's'
-  return totalTime
-}
 
 function HistoryPanel () {
   const quizId = useParams().quizId;

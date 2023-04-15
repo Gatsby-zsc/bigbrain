@@ -12,6 +12,7 @@ import Button from '@mui/material/Button'
 import { fetchGET, fetchPut } from '../library/fetch.js'
 import Option from './Option'
 import { failNotify, successsNotify } from '../library/notify.js'
+import isUrl from 'is-url-superb';
 
 // options of each question, generate random id for each option
 const optionTemplate = {
@@ -122,6 +123,15 @@ function EditQuestion () {
     // single choice question with multiple true answer
     for (const question of newQuestions) {
       let countTrue = 0
+      // validate URL if user provide one of them
+      if (question.imgURL !== '' && !isUrl(question.imgURL)){
+        failNotify('Please enter an valid image URL')
+        return
+      }
+      if (question.imgURL !== '' && !isUrl(question.videoURL)){
+        failNotify('Please enter an valid video URL')
+        return
+      }
       for (const option of question.answers) {
         if (option.optionCorrect) {
           countTrue++

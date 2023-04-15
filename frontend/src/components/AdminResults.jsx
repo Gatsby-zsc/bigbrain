@@ -118,26 +118,19 @@ export default function AdminResults () {
         height: '100vh',
       }}
     >
-      { status && (
-        players.length === 0
-          ? <Container maxWidth='sm'>
-              <Grid container spacing={1}>
-                <Grid item xs={12}>
-                  <Typography variant='h5' sx={{ textAlign: 'center', mb: 3, mt: 3 }}>
-                    <CircularProgress sx={ { mr: 3 } }/>
-                      Waiting for players to join...
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Container>
-          : <Container maxWidth='sm' sx={ { pt: 10 } }>
-              <AdiminWindow>
-                <Grid container direction="row" justifyContent="center" spacing={2}>
-                  {PlayerDivs}
-                </Grid>
-              </AdiminWindow>
-            </Container>
-      )}
+      { status &&
+        <Container maxWidth='sm' sx={ { pt: 10 } }>
+          <AdiminWindow>
+            <Typography variant='h5' sx={{ textAlign: 'center', mb: 3 }}>
+              <CircularProgress sx={ { mr: 3 } }/>
+                Waiting for players to join...
+            </Typography>
+            <Grid container direction="row" justifyContent="center" spacing={2}>
+              {PlayerDivs}
+            </Grid>
+          </AdiminWindow>
+        </Container>
+      }
       {!status && (
         <Container sx={{ pt: 30 }} maxWidth='md'>
           <Grid container direction="row" justifyContent="center" spacing={4}>

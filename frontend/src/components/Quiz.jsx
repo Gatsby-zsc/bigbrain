@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
-import analyzeTime from '../library/time.js'
+import analyzeTime from '../library/parseTime.js'
 import sampleImg from '../pictures/sample.jpg'
 import { fetchGET, fetchDelete } from '../library/fetch.js'
 import { useNavigate } from 'react-router-dom'
@@ -26,21 +26,7 @@ import HistoryIcon from '@mui/icons-material/History'
 import SettingsRemoteIcon from '@mui/icons-material/SettingsRemote'
 import { startQuiz, stopQuiz } from '../library/control.js'
 import Grid from '@mui/material/Grid'
-
-// transform time into minutes and seconds
-function processTime (time) {
-  let retTime = time
-  retTime /= 1000
-
-  let minutes = 0
-  while (retTime >= 60) {
-    retTime -= 60
-    minutes++
-  }
-
-  const totalTime = minutes.toString() + 'm' + retTime.toString() + 's'
-  return totalTime
-}
+import processTime from '../library/questionTotalTime'
 
 function Quiz (props) {
   const refresh = props.value
