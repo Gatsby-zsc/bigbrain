@@ -79,11 +79,11 @@ export default function SessionResult (props) {
         people = people + 1
       }
     }
-    correctPercentage.push({ question: `Question ${i + 1}`, percentage: ((people / sessionResult.length) * 100).toFixed(1) })
+    correctPercentage.push({ question: `Q${i + 1}`, percentage: ((people / sessionResult.length) * 100).toFixed(1) })
     if (timecost === 0 || peopleAnswered === 0) {
-      averageTime.push({ questionTime: `Question ${i + 1}`, AvergeTimeCost: '0' })
+      averageTime.push({ questionTime: `Q${i + 1}`, AvergeTimeCost: '0' })
     } else {
-      averageTime.push({ questionTime: `Question ${i + 1}`, AverageTimeCost: (timecost / peopleAnswered).toFixed(1) })
+      averageTime.push({ questionTime: `Q${i + 1}`, AverageTimeCost: (timecost / peopleAnswered).toFixed(1) })
     }
   }
 
