@@ -86,7 +86,7 @@ function App () {
             <Route path='dashboard/:quizId' element={<GamePanel />}/>
             <Route path='dashboard/:quizId/:questionId' element={<EditQuestion />}/>
           </Route>
-          <Route path='/ongoing/:quizId' element={<AdminResults/>}/>
+          <Route path='/ongoing/:quizId/:sessionId' element={<AdminResults/>}/>
           <Route path='/results/session/:sessionId' element={<SessionResults/>} />
           <Route path='/results/player/:playerId' element={<PlayerResults/>}/>
         </Routes>

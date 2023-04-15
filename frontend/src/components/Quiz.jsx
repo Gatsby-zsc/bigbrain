@@ -115,9 +115,7 @@ function Quiz (props) {
     if (quizStatus === null) {
       failNotify('Game not started yet!');
     } else {
-      localStorage.setItem('quizId', quizId);
-      localStorage.setItem('sessionId', quizStatus);
-      navigate(`/ongoing/${quizId}`)
+      navigate(`/ongoing/${quizId}/${quizStatus}`)
     }
   }
 

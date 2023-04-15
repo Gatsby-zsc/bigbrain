@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { fetchPost, fetchGET } from '../library/fetch.js'
 import { stopQuiz } from '../library/control.js';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
@@ -30,8 +30,8 @@ const AdiminWindow = styled(WindowBorder)({
 })
 
 export default function AdminResults () {
-  const quizId = localStorage.getItem('quizId');
-  const active = localStorage.getItem('sessionId');
+  const quizId = useParams().quizId;
+  const active = useParams().sessionId;
   const [stage, setStage] = useState(-1);
   const [status, setStatus] = useState(true);
   const [end, setEnd] = useState(false);
@@ -185,7 +185,7 @@ export default function AdminResults () {
       >
         <BottomNavigationAction onClick={() => { advanceStage() }} label="NEXT" icon={<SkipNextIcon />} />
         <BottomNavigationAction onClick={() => { stopQuiz(quizId); setStatus(false) }} label="STOP" icon={<CancelIcon />} />
-        <BottomNavigationAction onClick={() => { localStorage.removeItem('sessionId'); localStorage.removeItem('quizId'); navigate('/homepage/dashboard/') }} label="EXIT" icon={<ExitToAppIcon />} />
+        <BottomNavigationAction onClick={() => { navigate('/homepage/dashboard/') }} label="EXIT" icon={<ExitToAppIcon />} />
       </BottomNavigation>
     </Box>
   );
