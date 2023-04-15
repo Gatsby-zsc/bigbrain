@@ -24,8 +24,8 @@ function Session (props) {
 
   return (
     <OldSessionWindow>
-      <Typography variant="h5" textAlign={'start'}>
-        Session id: {session}
+      <Typography variant="h6" textAlign={'start'}>
+        Session : {session}
       </Typography>
       <IconButton
         sx={{ position: 'absolute', right: 10, top: 15 }}

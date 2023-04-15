@@ -66,9 +66,8 @@ function App () {
     <Box sx={{
       minHeight: '100vh',
       backgroundImage: `url(${backgroundImg})`,
-      backgroundPosition: 'center',
       backgroundRepeat: 'repeat',
-      backgroundSize: '2500px',
+      backgroundSize: '2200px',
     }}>
       <BrowserRouter>
         <CssBaseline />

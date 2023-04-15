@@ -6,7 +6,7 @@ function getAvatar (player) {
 
   for (let i = 0; i < player.length; i++) {
     const char = player.charCodeAt(i);
-    hash = hash + char;
+    hash = hash + (hash * char);
   }
   return hash % 6;
 }

@@ -4,28 +4,27 @@ import Grid from '@mui/material/Grid';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { Container } from '@mui/material';
-import { styled } from '@mui/system'
 import Box from '@mui/material/Box';
 import { useParams } from 'react-router-dom';
-
-const PlayStyle = styled('div')({
-  width: 320,
-  height: 338,
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  alignItems: 'center',
-  textAlign: 'center',
-})
+import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
+import img1 from '../pictures/avatar/1.JPG'
+import img2 from '../pictures/avatar/2.JPG'
+import img3 from '../pictures/avatar/3.JPG'
+import img4 from '../pictures/avatar/4.JPG'
+import img5 from '../pictures/avatar/5.JPG'
+import img6 from '../pictures/avatar/6.JPG'
+import getAvatar from '../library/hashPlayer.js'
+import { WindowBorder } from './commonComponents'
 
 function PlayerResults (props) {
   const eachQuestionPoint = props.value
   console.log(eachQuestionPoint)
   const playerId = useParams().playerId;
   const nickname = useParams().playName;
-  console.log(nickname)
   const [results, setResults] = React.useState([])
+
+  const avatars = [img1, img2, img3, img4, img5, img6];
 
   useEffect(async () => {
     const result = await fetchGET(`play/${playerId}/results`, 'no token')
@@ -59,14 +58,25 @@ function PlayerResults (props) {
   })
 
   return (
-  <Container>
-    <PlayStyle>
-      <Box>Here is your results:</Box>
-      <Grid container direction='row' justifyContent='center' textAlign='center' sx={{ width: '100wh', height: '100vh' }}>
-        {resultDiv}
-      </Grid>
-    </PlayStyle>
-  </Container>);
+    <Container maxWidth='md' sx={ { pt: 10, height: 'auto' } }>
+      <WindowBorder>
+        <Box sx={ { display: 'inlineBlock' } } maxWidth='200px'>
+          <Avatar
+            alt='player avatar'
+            src={avatars[getAvatar(nickname)]}
+            sx={{ width: 'auto', height: 'auto', mt: 1 }}
+          />
+          <Typography variant='h5' align='center'>
+            {nickname}
+          </Typography>
+        </Box>
+        <Typography variant='h5'>Here is your results:</Typography>
+        <Grid container >
+          {resultDiv}
+        </Grid>
+      </WindowBorder>
+    </Container>
+  );
 }
 
 export default PlayerResults;
