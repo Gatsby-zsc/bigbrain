@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import { fetchPost, fetchGET } from '../library/fetch.js'
 import { stopQuiz } from '../library/control.js';
 import { useNavigate, useParams } from 'react-router-dom';
-import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
@@ -24,6 +23,7 @@ import img4 from '../pictures/avatar/4.JPG'
 import img5 from '../pictures/avatar/5.JPG'
 import img6 from '../pictures/avatar/6.JPG'
 import getAvatar from '../library/hashPlayer.js'
+import SessionResult from './SessionResults.jsx';
 
 const AdiminWindow = styled(WindowBorder)({
   backgroundColor: 'white',
@@ -37,7 +37,6 @@ export default function AdminResults () {
   const [end, setEnd] = useState(false);
   let [results, setResults] = useState([]);
   const [players, setPLayers] = React.useState([])
-  const data = [{ name: 'Page A', uv: 400, pv: 2400, amt: 2400 }];
   const navigate = useNavigate();
 
   const avatars = [img1, img2, img3, img4, img5, img6];
@@ -140,43 +139,7 @@ export default function AdminResults () {
         </Container>
       }
       {!status && (
-        <Container sx={{ pt: 30 }} maxWidth='md'>
-          <Grid container direction="row" justifyContent="center" spacing={4}>
-            <Grid item xs={4}>
-              <BarChart width={200} height={250} data={data}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="pv" fill="#8884d8" />
-                <Bar dataKey="uv" fill="#82ca9d" />
-              </BarChart>
-            </Grid>
-            <Grid item xs={4}>
-              <BarChart width={200} height={250} data={data}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="pv" fill="#8884d8" />
-                <Bar dataKey="uv" fill="#82ca9d" />
-              </BarChart>
-            </Grid>
-            <Grid item xs={4}>
-              <BarChart width={200} height={250} data={data}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="pv" fill="#8884d8" />
-                <Bar dataKey="uv" fill="#82ca9d" />
-              </BarChart>
-            </Grid>
-          </Grid>
-        </Container>
+        <SessionResult value={active}/>
       )}
 
       <BottomNavigation
