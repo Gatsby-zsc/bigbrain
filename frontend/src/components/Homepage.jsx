@@ -35,14 +35,14 @@ function Homepage (props) {
             currentLocation === 'dashboard'
             ? (
                 <>
-                  <HomepageButton />
                   <CreateGameButton value={refresh} function={setRefresh}/>
+                  <HomepageButton />
                 </>
               )
             : (
                 <>
-                  <HomepageButton />
                   <DashBoardButton />
+                  <HomepageButton />
                 </>
               )
           }

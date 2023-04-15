@@ -72,7 +72,7 @@ function App () {
       backgroundImage: `url(${backgroundImg})`,
       backgroundPosition: 'center',
       backgroundRepeat: 'repeat',
-      backgroundSize: '100%',
+      backgroundSize: '1500px',
     }}>
       <BrowserRouter>
         <CssBaseline />
