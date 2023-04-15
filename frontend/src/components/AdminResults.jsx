@@ -89,12 +89,12 @@ export default function AdminResults () {
 
   const PlayerDivs = players.map((player, index) => {
     return (
-      <Grid item xs={4} key={index}>
+      <Grid item xs={3} key={index}>
         <Container>
           <Avatar
             alt='player avatar'
             src={avatars[getAvatar(player)]}
-            sx={{ width: 75, height: 75 }}
+            sx={{ width: 'auto', height: 'auto' }}
           />
           <Typography variant='body2' noWrap align='center'>
             {player}
@@ -125,7 +125,7 @@ export default function AdminResults () {
               <CircularProgress sx={ { mr: 3 } }/>
                 Waiting for players to join...
             </Typography>
-            <Grid container direction="row" justifyContent="center" spacing={2}>
+            <Grid container spacing={2}>
               {PlayerDivs}
             </Grid>
           </AdiminWindow>
