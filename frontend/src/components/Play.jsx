@@ -82,9 +82,7 @@ export default function Play () {
         failNotify('Game has started, you can not join this session ')
       } else {
         // redirect user to lobby and wait for game to start
-        navigate('/play/lobby/' + sessionId)
-        localStorage.setItem('playerId', ret.playerId)
-        localStorage.setItem('sessionId', sessionId)
+        navigate('/play/lobby/' + sessionId + '/' + ret.playerId)
       }
     }
   }

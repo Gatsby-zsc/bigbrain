@@ -42,7 +42,13 @@ export default function AdminResults () {
 
   const avatars = [img1, img2, img3, img4, img5, img6];
 
-  // keep fetching to view how many players logging in
+  // view how many players logging in
+  useEffect(async () => {
+    const ret = await fetchGET(`admin/session/${active}/status`, 'token');
+    const newPlayers = [...ret.results.players];
+    setPLayers(newPlayers)
+  }, [])
+
   useEffect(() => {
     const interval = window.setInterval(async () => {
       // we stop updating the list of players after we start the game
@@ -51,7 +57,7 @@ export default function AdminResults () {
         const newPlayers = [...ret.results.players];
         setPLayers(newPlayers)
       }
-    }, 1000);
+    }, 500);
 
     return () => clearInterval(interval)
   }, [end])
@@ -121,10 +127,12 @@ export default function AdminResults () {
       { status &&
         <Container maxWidth='sm' sx={ { pt: 10 } }>
           <AdiminWindow>
-            <Typography variant='h5' sx={{ textAlign: 'center', mb: 3 }}>
-              <CircularProgress sx={ { mr: 3 } }/>
-                Waiting for players to join...
-            </Typography>
+            { stage === -1 &&
+              <Typography variant='h5' sx={{ textAlign: 'center', mb: 3 }}>
+                <CircularProgress sx={ { mr: 3 } }/>
+                  Waiting for players to join...
+              </Typography>
+            }
             <Grid container spacing={2}>
               {PlayerDivs}
             </Grid>

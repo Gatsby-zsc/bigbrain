@@ -5,7 +5,7 @@ import { styled } from '@mui/system'
 import Container from '@mui/material/Container';
 import { Grid } from '@mui/material';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const PlayStyle = styled('div')({
   width: 390,
@@ -21,7 +21,7 @@ const PlayStyle = styled('div')({
 })
 
 export default function Gaming () {
-  const playerId = localStorage.getItem('playerId')
+  const playerId = useParams().playerId;
   const [questionContext, setQuestionContext] = React.useState('')
   const [imgUrl, setImgUrl] = useState('')
   const [videoUrl, setVideoUrl] = useState('')
@@ -97,9 +97,7 @@ export default function Gaming () {
   }
 
   useEffect(async () => {
-    const putAnswer = await fetchPut(`play/${playerId}/answer`, { answerIds: optionsSelected }, 'no token')
-    console.log(putAnswer)
-    console.log(optionsSelected)
+    await fetchPut(`play/${playerId}/answer`, { answerIds: optionsSelected }, 'no token')
   }, [optionsSelected])
 
   const optionDiv = options.map((option) => {

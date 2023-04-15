@@ -12,7 +12,7 @@ import FastRewindIcon from '@mui/icons-material/FastRewind'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import CircularProgress from '@mui/material/CircularProgress'
 import { fetchGET } from '../library/fetch.js'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { failNotify } from '../library/notify'
 
 // generate icons with random shape and colors
@@ -50,14 +50,16 @@ function Lobby () {
   const [state, setState] = useState(getScatterData(0))
   const [speed, setSpeed] = useState(3000)
   const navigate = useNavigate()
+  const sessionId = useParams().sessionId;
+  const playerId = useParams().playerId;
 
+  console.log(sessionId)
+  console.log(playerId)
   // keep fecthing backend to detect whether session has started
   useEffect(() => {
     const interval = window.setInterval(async () => {
-      const sessionId = localStorage.getItem('sessionId')
-      const playerId = localStorage.getItem('playerId')
       const status = await fetchGET(`play/${playerId}/status`, 'no token')
-
+      console.log(status)
       // navigate to new window to join active session
       if (status.started) {
         navigate(`/play/sessionId/${sessionId}/${playerId}`)

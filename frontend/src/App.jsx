@@ -67,7 +67,7 @@ function App () {
       backgroundImage: `url(${backgroundImg})`,
       backgroundPosition: 'center',
       backgroundRepeat: 'repeat',
-      backgroundSize: '2000px',
+      backgroundSize: '2500px',
     }}>
       <BrowserRouter>
         <CssBaseline />
@@ -75,7 +75,7 @@ function App () {
           <Route path='/' element={<Start/>} />
           <Route path='/login' element={<Login/>} />
           <Route path='/signup' element={<SignUp/>} />
-          <Route path='/play/lobby/:sessionId' element={<Lobby />} />
+          <Route path='/play/lobby/:sessionId/:playerId' element={<Lobby />} />
           <Route path='/play' element={<Play/>} >
             <Route path=':sessionId' element={<Play/>} />
           </Route>

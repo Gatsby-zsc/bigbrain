@@ -6,6 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Container } from '@mui/material';
 import { styled } from '@mui/system'
 import Box from '@mui/material/Box';
+import { useParams } from 'react-router-dom'
 
 const PlayStyle = styled('div')({
   width: 320,
@@ -19,7 +20,7 @@ const PlayStyle = styled('div')({
 })
 
 export default function PlayerResults () {
-  const playerId = localStorage.getItem('playerId')
+  const playerId = useParams().playerId;
   const [results, setResults] = React.useState([])
 
   useEffect(async () => {
