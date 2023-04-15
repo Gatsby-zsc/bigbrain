@@ -52,17 +52,15 @@ function Lobby () {
   const navigate = useNavigate()
   const sessionId = useParams().sessionId;
   const playerId = useParams().playerId;
+  const nickname = useParams().nickname;
 
-  console.log(sessionId)
-  console.log(playerId)
   // keep fecthing backend to detect whether session has started
   useEffect(() => {
     const interval = window.setInterval(async () => {
       const status = await fetchGET(`play/${playerId}/status`, 'no token')
-      console.log(status)
       // navigate to new window to join active session
       if (status.started) {
-        navigate(`/play/sessionId/${sessionId}/${playerId}`)
+        navigate(`/play/sessionId/${sessionId}/${nickname}/${playerId}`)
       } else if (status.error) {
         failNotify('Session has been stopped!')
         navigate('/play')

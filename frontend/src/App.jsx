@@ -21,8 +21,8 @@ import Gaming from './components/Gaming.jsx'
 import HistoryPanel from './components/History.jsx'
 import Grid from '@mui/material/Grid'
 import SessionResults from './components/SessionResults.jsx'
-import PlayerResults from './components/PlayerResults.jsx'
 import Logo from './components/Logo.jsx'
+import PlayerResults from './components/PlayerResults.jsx'
 
 const Start = () => {
   return (
@@ -61,6 +61,7 @@ const Start = () => {
 
 function App () {
   const [refresh, setRefresh] = useState(true)
+  const [eachQuestionPoint, setEachQuestionPoint] = useState([])
   return (
     <Box sx={{
       minHeight: '100vh',
@@ -75,11 +76,11 @@ function App () {
           <Route path='/' element={<Start/>} />
           <Route path='/login' element={<Login/>} />
           <Route path='/signup' element={<SignUp/>} />
-          <Route path='/play/lobby/:sessionId/:playerId' element={<Lobby />} />
+          <Route path='/play/lobby/:sessionId/:nickname/:playerId' element={<Lobby />} />
           <Route path='/play' element={<Play/>} >
-            <Route path=':sessionId' element={<Play/>} />
+            <Route path=':sessionId' element={<Play/>}/>
           </Route>
-          <Route path='/play/sessionId/:sessionId/:playerId' element={<Gaming/>} />
+          <Route path='/play/sessionId/:sessionId/:nickname/:playerId' element={<Gaming value={eachQuestionPoint} function={setEachQuestionPoint}/>} />
           <Route path='/homepage' element={<Homepage value={refresh} function={setRefresh}/>} >
             <Route path='dashboard' element={<DashBoard value={refresh} function={setRefresh} />} />
             <Route path='dashboard/history/:quizId' element={<HistoryPanel/>}/>
@@ -88,7 +89,7 @@ function App () {
           </Route>
           <Route path='/ongoing/:quizId/:sessionId' element={<AdminResults/>}/>
           <Route path='/results/session/:sessionId' element={<SessionResults/>} />
-          <Route path='/results/player/:playerId' element={<PlayerResults/>}/>
+          <Route path='/results/player/:playName/:playerId' element={<PlayerResults value={eachQuestionPoint}/>} />
         </Routes>
         <ToastContainer />
       </BrowserRouter>

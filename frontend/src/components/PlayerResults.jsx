@@ -6,7 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Container } from '@mui/material';
 import { styled } from '@mui/system'
 import Box from '@mui/material/Box';
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 
 const PlayStyle = styled('div')({
   width: 320,
@@ -19,8 +19,12 @@ const PlayStyle = styled('div')({
   textAlign: 'center',
 })
 
-export default function PlayerResults () {
+function PlayerResults (props) {
+  const eachQuestionPoint = props.value
+  console.log(eachQuestionPoint)
   const playerId = useParams().playerId;
+  const nickname = useParams().playName;
+  console.log(nickname)
   const [results, setResults] = React.useState([])
 
   useEffect(async () => {
@@ -64,3 +68,5 @@ export default function PlayerResults () {
     </PlayStyle>
   </Container>);
 }
+
+export default PlayerResults;

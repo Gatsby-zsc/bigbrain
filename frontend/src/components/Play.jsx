@@ -82,7 +82,7 @@ export default function Play () {
         failNotify('Game has started, you can not join this session ')
       } else {
         // redirect user to lobby and wait for game to start
-        navigate('/play/lobby/' + sessionId + '/' + ret.playerId)
+        navigate(`/play/lobby/${sessionId}/${nickName}/${ret.playerId}`)
       }
     }
   }

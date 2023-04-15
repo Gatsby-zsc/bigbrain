@@ -160,7 +160,7 @@ function EditQuestion () {
       successsNotify('update question successfully')
       setTimeout(() => {
         navigate(-1)
-      }, 2000);
+      }, 1500);
     } else {
       failNotify('update question failed')
     }
