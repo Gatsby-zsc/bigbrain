@@ -15,7 +15,7 @@ export default function Gaming (props) {
 
   const playerId = useParams().playerId;
   const nickname = useParams().nickname;
-  const [questionContext, setQuestionContext] = React.useState('');
+  const [questionContext, setQuestionContext] = useState('');
   const [imgUrl, setImgUrl] = useState('');
   const [videoUrl, setVideoUrl] = useState('');
   const [timeLimit, setTimeLimit] = useState(0);
@@ -132,7 +132,6 @@ export default function Gaming (props) {
 
   // present optional media
   const Media = () => {
-    console.log(videoUrl);
     // both url are provided
     if (imgUrl && videoUrl) {
       return (

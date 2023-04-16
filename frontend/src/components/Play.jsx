@@ -39,7 +39,7 @@ export default function Play () {
   }, []);
 
   // check whether we can join game
-  async function Connect () {
+  async function connect () {
     const bodyInfo = { name: nickName };
     // if we haven't enter nickname, ask user for that
     if (!nickName) {
@@ -88,6 +88,18 @@ export default function Play () {
     setNickName(randomName);
   }
 
+  function enterSessionKey (event) {
+    if (event.key === 'Enter') {
+      enterSession();
+    }
+  }
+
+  function connectKey (event) {
+    if (event.key === 'Enter') {
+      connect();
+    }
+  }
+
   return (
     <Box
       sx={{
@@ -119,6 +131,7 @@ export default function Play () {
                 <TextField
                   value={sessionId}
                   onChange={(e) => setSessionId(e.target.value)}
+                  onKeyDown={enterSessionKey}
                   placeholder='Enter Session ID'
                 />
                 <Button
@@ -160,11 +173,12 @@ export default function Play () {
                     }
                     value={nickName}
                     onChange={(e) => setSessionId(e.target.value)}
+                    onKeyDown={connectKey}
                     placeholder='Nickname'
                   />
                 </FormControl>
                 <Button
-                  onClick={Connect}
+                  onClick={connect}
                   variant='contained'
                   size='large'
                   sx={{ mt: 1 }}

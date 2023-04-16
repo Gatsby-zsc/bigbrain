@@ -71,10 +71,13 @@ function PlayerResults (props) {
       let finalMark =
         questionType === 'S'
           ? rawMark * questionSpeed
-          : rawMark * 1.5 * questionSpeed;
+          : rawMark * questionSpeed * 1.5;
+
       if (isNaN(finalMark)) {
         finalMark = 0;
       }
+
+      // insert each row of data into table
       const id = Number(index) + 1;
       const tableCeil = createData(
         id,

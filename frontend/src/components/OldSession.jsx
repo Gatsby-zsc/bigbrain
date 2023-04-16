@@ -16,8 +16,6 @@ function Session (props) {
   const [expanded, setExpanded] = useState(false);
   const session = props.value;
 
-  // get results of current session
-
   function viewDetails () {
     setExpanded(!expanded);
   }

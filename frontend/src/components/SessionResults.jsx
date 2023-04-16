@@ -91,8 +91,9 @@ export default function SessionResult (props) {
     }
   }
 
-  newResultInfo.sort((a, b) => b.score - a.score)
-  const topFive = newResultInfo.slice(0, 5)
+  newResultInfo.sort((a, b) => b.score - a.score);
+  const topFive = newResultInfo.slice(0, 5);
+
   return (
     <Container maxWidth='lg' sx={ { pt: 10, height: 'auto' } }>
       <WindowBorder>
