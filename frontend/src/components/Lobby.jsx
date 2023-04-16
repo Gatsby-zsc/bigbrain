@@ -117,10 +117,10 @@ function Lobby () {
     <Container maxWidth='md'>
       <Grid container spacing={1}>
         <Grid item xs={12}>
-          <Typography variant='h5' sx={{ textAlign: 'center', mb: 3, mt: 3 }}>
-            <CircularProgress sx={ { mr: 3 } }/>
-            Waiting for start...
-          </Typography>
+            <Typography variant='h5' textAlign={'center'} sx={{ mb: 3 }}>
+              <CircularProgress sx={ { mr: 3, mt: 3 } }/>
+              Waiting for start...
+            </Typography>
           <WindowBorder>
             <Typography variant='h4' sx={{ textAlign: 'center' }}>
               {icons}

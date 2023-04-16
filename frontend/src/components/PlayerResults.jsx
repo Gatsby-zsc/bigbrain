@@ -60,20 +60,26 @@ function PlayerResults (props) {
   return (
     <Container maxWidth='md' sx={ { pt: 10, height: 'auto' } }>
       <WindowBorder>
-        <Box sx={ { display: 'inlineBlock' } } maxWidth='200px'>
-          <Avatar
-            alt='player avatar'
-            src={avatars[getAvatar(nickname)]}
-            sx={{ width: 'auto', height: 'auto', mt: 1 }}
-          />
+      <Grid container spacing={1}>
+        <Grid item xs={12} sm={4} sx={ { mb: 1 } }>
+          <Box sx={ { width: '100px', margin: '0 auto' } }>
+            <Avatar
+              alt='player avatar'
+              src={avatars[getAvatar(nickname)]}
+              sx={{ width: 'auto', height: 'auto', mt: 1 }}
+            />
+          </Box>
           <Typography variant='h5' align='center'>
             {nickname}
           </Typography>
-        </Box>
-        <Typography variant='h5'>Here is your results:</Typography>
-        <Grid container >
-          {resultDiv}
         </Grid>
+        <Grid item xs={12} sm={8}>
+          <Typography variant='h5'>Here is your results:</Typography>
+          <Grid container >
+            {resultDiv}
+          </Grid>
+        </Grid>
+      </Grid>
       </WindowBorder>
     </Container>
   );

@@ -48,12 +48,13 @@ export default function Gaming (props) {
     setVideoUrl(question.videoURL)
     setCountDown(question.timeLimit / 1000)
     setTimeLimit(question.timeLimit)
-    setOptions(question.answers)
+    setOptions([...question.answers])
     const currentPoint = question.points
     const newEachQuestionPoint = [...eachQuestionPoint]
     newEachQuestionPoint.push({
       Index: questionIndex,
-      point: currentPoint
+      point: currentPoint,
+      details: question
     })
     setQuestionIndex(questionIndex + 1)
     setEachQuestionPoint(newEachQuestionPoint)
@@ -70,7 +71,7 @@ export default function Gaming (props) {
       }
 
       // admin has advanced question
-      if (question.questionId !== questionId) {
+      if (question !== undefined && question.questionId !== questionId) {
         setQuestionId(question.questionId)
         setQuestionContext(question.questionField)
         setImgUrl(question.imgURL)
@@ -84,7 +85,8 @@ export default function Gaming (props) {
         const newEachQuestionPoint = [...eachQuestionPoint]
         newEachQuestionPoint.push({
           Index: questionIndex,
-          point: currentPoint
+          point: currentPoint,
+          details: question
         })
         setQuestionIndex(r => r + 1)
         setEachQuestionPoint(newEachQuestionPoint)
@@ -132,7 +134,7 @@ export default function Gaming (props) {
   }
 
   const optionDiv = options.map((option) => {
-    if (correctOption.length === 0) {
+    if (correctOption !== undefined && correctOption.length === 0) {
       // question is not ended
       if (optionsSelected.includes(option.optionId)) {
         return (

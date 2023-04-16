@@ -63,6 +63,10 @@ export default function AdminResults () {
 
   // advance to next question
   async function advanceStage () {
+    if (players.length === 0) {
+      failNotify('No players join, you can not advance game')
+      return
+    }
     const nowStage = await fetchPost(`admin/quiz/${quizId}/advance`)
     setStage(nowStage.stage)
     if (nowStage.error) {
@@ -126,11 +130,14 @@ export default function AdminResults () {
       { status &&
         <Container maxWidth='sm' sx={ { pt: 10 } }>
           <AdiminWindow>
-            { stage === -1 &&
-              <Typography variant='h5' sx={{ textAlign: 'center', mb: 3 }}>
+            { stage === -1
+              ? <Typography variant='h5' sx={{ textAlign: 'center', mb: 3 }}>
                 <CircularProgress sx={ { mr: 3 } }/>
                   Waiting for players to join...
               </Typography>
+              : <Typography variant='h5' sx={{ textAlign: 'center', mb: 1 }}>
+                  Game Start
+                </Typography>
             }
             <Grid container spacing={2}>
               {PlayerDivs}
