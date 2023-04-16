@@ -38,7 +38,7 @@ function DashBoard (props) {
     <Box>
       {quizzes.length === 0
         ? (
-        <Container maxWidth='sm' sx={{ mt: 26 }}>
+        <Container maxWidth='sm' sx={{ mt: 30 }}>
           <Logo />
           <Typography
             variant='h6'

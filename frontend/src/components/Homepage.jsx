@@ -49,7 +49,7 @@ function Homepage (props) {
         </ToolBarModified>
       </AppBar>
       {currentLocation === 'homepage' && (
-        <Container maxWidth='sm' sx={{ mt: 30 }}>
+        <Container maxWidth='sm' sx={{ mt: 35 }}>
           <Logo />
         </Container>
       )}
@@ -58,9 +58,16 @@ function Homepage (props) {
           ? (
           <Typography
             variant='h6'
-            sx={{ textAlign: 'center', color: '#1876d1' }}
+            sx={{ textAlign: 'center' }}
           >
-            {currentLocation === 'homepage' ? 'Please go to Dashboard' : ''}
+            {currentLocation === 'homepage'
+              ? <Typography
+                variant='h6'
+                sx={{ textAlign: 'center', color: '#1876d1' }}
+              >
+                Please go to Dashboard
+              </Typography>
+              : ''}
             <br />
             <Outlet />
           </Typography>
