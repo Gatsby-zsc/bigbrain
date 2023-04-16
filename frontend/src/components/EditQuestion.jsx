@@ -193,7 +193,6 @@ function EditQuestion () {
                 }}
                 fullWidth
               >
-                <MenuItem value='type'>None</MenuItem>
                 <MenuItem value='single'>Single</MenuItem>
                 <MenuItem value='multiple'>Multiple</MenuItem>
               </Select>

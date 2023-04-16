@@ -198,7 +198,7 @@ export default function Gaming (props) {
   const OptionDiv = options.map((option) => {
     if (correctOption !== undefined && correctOption.length === 0) {
       // question is not ended
-      if (optionsSelected.includes(option.optionId)) {
+      if (optionsSelected && optionsSelected.includes(option.optionId)) {
         return (
           <Grid item key={option.optionId} xs={6}>
             <Button

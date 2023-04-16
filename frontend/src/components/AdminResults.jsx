@@ -156,7 +156,7 @@ export default function AdminResults () {
           </AdiminWindow>
         </Container>
       )}
-      {!status && <SessionResult value={active} />}
+      {!status && <SessionResult value={active} size={350}/>}
 
       <BottomNavigation
         showLabels

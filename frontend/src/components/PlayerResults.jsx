@@ -71,7 +71,7 @@ function PlayerResults (props) {
       let finalMark =
         questionType === 'S'
           ? rawMark * questionSpeed
-          : rawMark * questionSpeed * 1.5;
+          : rawMark * 1.5 * questionSpeed;
       if (isNaN(finalMark)) {
         finalMark = 0;
       }

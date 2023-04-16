@@ -34,7 +34,7 @@ function Session (props) {
         {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
       </IconButton>
       <Collapse in={expanded} timeout='auto' unmountOnExit>
-        <SessionResult value={session} />
+        <SessionResult value={session} size={200}/>
       </Collapse>
     </OldSessionWindow>
   );
