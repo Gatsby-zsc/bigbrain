@@ -91,7 +91,7 @@ export default function Gaming (props) {
         setQuestionIndex(r => r + 1)
         setEachQuestionPoint(newEachQuestionPoint)
       }
-    }, 100)
+    }, 500)
     return () => clearInterval(interval)
   }, [timeLimit, questionId, eachQuestionPoint])
 

@@ -36,7 +36,8 @@ export default function AdminResults () {
   const [status, setStatus] = useState(true);
   const [end, setEnd] = useState(false);
   let [results, setResults] = useState([]);
-  const [players, setPLayers] = React.useState([])
+  const [players, setPLayers] = useState([])
+  const [nextQuestion, setNextQuestion] = useState(false);
   const navigate = useNavigate();
 
   const avatars = [img1, img2, img3, img4, img5, img6];
@@ -61,13 +62,25 @@ export default function AdminResults () {
     return () => clearInterval(interval)
   }, [end])
 
+  useEffect(() => {
+    setTimeout(() => {
+      setNextQuestion(false)
+    }, 1000);
+  }, [nextQuestion])
+
   // advance to next question
   async function advanceStage () {
+    if (nextQuestion === true) {
+      failNotify('You should advance question between each 1s, to allow player answer your question')
+      return
+    }
+
     if (players.length === 0) {
       failNotify('No players join, you can not advance game')
       return
     }
     const nowStage = await fetchPost(`admin/quiz/${quizId}/advance`)
+    setNextQuestion(true);
     setStage(nowStage.stage)
     if (nowStage.error) {
       failNotify('All Questions have been answered');
@@ -113,12 +126,6 @@ export default function AdminResults () {
     )
   }
   );
-
-  // if (!status) {
-  //   for results[name] in results {
-  //     data.push({ name: name, uv: results[name].correct, pv: results[name].incorrect, amt: results[name].score });
-  //   }
-  // }
 
   return (
     <Box

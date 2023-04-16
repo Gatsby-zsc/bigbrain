@@ -27,7 +27,7 @@ import PlayerResults from './components/PlayerResults.jsx'
 const Start = () => {
   return (
     <Container maxWidth='sm'>
-      <Container maxWidth='sm' sx={ { pt: 30 } }>
+      <Container maxWidth='sm' sx={ { pt: 38 } }>
         <Logo />
       </Container>
       <Container sx={ { mt: 2 } }>
@@ -67,7 +67,7 @@ function App () {
       minHeight: '100vh',
       backgroundImage: `url(${backgroundImg})`,
       backgroundRepeat: 'repeat',
-      backgroundSize: '2200px',
+      backgroundSize: '2000px',
     }}>
       <BrowserRouter>
         <CssBaseline />
