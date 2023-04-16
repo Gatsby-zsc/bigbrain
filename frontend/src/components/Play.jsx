@@ -7,6 +7,12 @@ import { fetchPost, fetchGET } from '../library/fetch.js';
 import { useParams, useNavigate } from 'react-router-dom';
 import { failNotify } from '../library/notify.js';
 import Logo from './Logo.jsx';
+import SyncIcon from '@mui/icons-material/Sync';
+import IconButton from '@mui/material/IconButton';
+import FormControl from '@mui/material/FormControl';
+import InputAdornment from '@mui/material/InputAdornment';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import humans from '../library/human.js'
 
 const PlayStyle = styled('div')({
   width: 320,
@@ -24,16 +30,6 @@ export default function Play () {
   const [playInfo, setPlayInfo] = React.useState('id');
   const [sessionId, setSessionId] = React.useState('');
   const [nickName, setNickName] = React.useState('');
-
-  // if we enter a session id, ask player to enter their own nickname
-  const enterSession = () => {
-    if (!sessionId) {
-      failNotify('Please enter the session ID.');
-    } else {
-      setPlayInfo('name');
-      navigate('/play/' + sessionId);
-    }
-  };
 
   // pre-populate sessionid if we use url shared by admin
   useEffect(() => {
@@ -76,6 +72,22 @@ export default function Play () {
     }
   }
 
+  // if we enter a session id, ask player to enter their own nickname
+  function enterSession () {
+    if (!sessionId) {
+      failNotify('Please enter the session ID.');
+    } else {
+      setPlayInfo('name');
+      navigate('/play/' + sessionId);
+    }
+  }
+
+  function getRandomName () {
+    const index = Math.trunc(Math.random() * 200);
+    const randomName = humans[index];
+    setNickName(randomName);
+  }
+
   return (
     <Box
       sx={{
@@ -95,32 +107,28 @@ export default function Play () {
                 sx={{
                   mt: 1,
                   width: 320,
-                  height: 138,
                   p: 2,
                   boxShadow: 2,
                   display: 'flex',
                   flexDirection: 'column',
                   backgroundColor: 'white',
                   borderRadius: '8px',
+                  position: 'relative'
                 }}
               >
-                <>
-                  <TextField
-                    value={sessionId}
-                    onChange={(e) => setSessionId(e.target.value)}
-                    placeholder='Enter Session ID'
-                  />
-                  <Button
-                    onClick={() => {
-                      enterSession();
-                    }}
-                    variant='contained'
-                    size='large'
-                    sx={{ mt: 1 }}
-                  >
-                    Enter
-                  </Button>
-                </>
+                <TextField
+                  value={sessionId}
+                  onChange={(e) => setSessionId(e.target.value)}
+                  placeholder='Enter Session ID'
+                />
+                <Button
+                  onClick={enterSession}
+                  variant='contained'
+                  size='large'
+                  sx={{ mt: 1 }}
+                >
+                  Enter
+                </Button>
               </Box>
             </>
               )
@@ -130,7 +138,6 @@ export default function Play () {
                 sx={{
                   mt: 1,
                   width: 320,
-                  height: 138,
                   p: 2,
                   boxShadow: 2,
                   display: 'flex',
@@ -139,11 +146,23 @@ export default function Play () {
                   borderRadius: '8px',
                 }}
               >
-                <TextField
-                  value={nickName}
-                  onChange={(e) => setNickName(e.target.value)}
-                  placeholder='Nickname'
-                />
+                <FormControl fullWidth variant="outlined">
+                  <OutlinedInput
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={getRandomName}
+                          edge="end"
+                        >
+                          <SyncIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    value={nickName}
+                    onChange={(e) => setSessionId(e.target.value)}
+                    placeholder='Nickname'
+                  />
+                </FormControl>
                 <Button
                   onClick={Connect}
                   variant='contained'

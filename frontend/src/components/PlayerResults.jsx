@@ -3,7 +3,7 @@ import { fetchGET } from '../library/fetch';
 import Grid from '@mui/material/Grid';
 import { Container } from '@mui/material';
 import Box from '@mui/material/Box';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import img1 from '../pictures/avatar/1.JPG';
@@ -21,6 +21,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 
 function createData (id, question, type, speed, rawScore, finalScore) {
   return { id, question, type, speed, rawScore, finalScore };
@@ -28,12 +30,22 @@ function createData (id, question, type, speed, rawScore, finalScore) {
 
 function PlayerResults (props) {
   const eachQuestion = props.value;
+
   const playerId = useParams().playerId;
   const nickname = useParams().playName;
+
   let [results, setResult] = useState([]);
   const [rows, setRows] = useState([]);
 
   const avatars = [img1, img2, img3, img4, img5, img6];
+
+  const navigate = useNavigate();
+
+  // fetch result from server
+  useEffect(async () => {
+    results = await fetchGET(`play/${playerId}/results`, 'no token');
+    setResult(results);
+  }, []);
 
   // process result of each question and put it into table
   useEffect(() => {
@@ -94,15 +106,15 @@ function PlayerResults (props) {
     setRows(newRow);
   }, [results]);
 
-  useEffect(async () => {
-    results = await fetchGET(`play/${playerId}/results`, 'no token');
-    setResult(results);
-  }, []);
+  // back to initial localtion to join another game
+  function backToTop () {
+    navigate('/play')
+  }
 
   return (
     <Container maxWidth='lg' sx={{ pt: 10, height: 'auto' }}>
       <WindowBorder>
-        <Grid container spacing={1}>
+        <Grid container spacing={3}>
           <Grid item xs={12} md={2} sx={{ mb: 1 }}>
             <Box sx={{ width: '100px', margin: '0 auto' }}>
               <Avatar
@@ -111,9 +123,12 @@ function PlayerResults (props) {
                 sx={{ width: 'auto', height: 'auto', mt: 2 }}
               />
             </Box>
-            <Typography variant='h5' align='center'>
+            <Typography variant='h5' align='center' sx={ { mt: 1 } }>
               {nickname}
             </Typography>
+            <Button variant='contained' fullWidth sx={ { mt: 2 } } onClick={backToTop}>
+              <KeyboardReturnIcon sx={ { mr: 1 } }/>Back
+            </Button>
           </Grid>
           <Grid item xs={12} md={10}>
             <Typography variant='h5' sx={{ mb: 1 }}>

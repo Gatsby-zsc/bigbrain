@@ -65,7 +65,7 @@ function getScatterData (icons) {
 function Lobby () {
   const [icons, setIcons] = useState(0);
   const [state, setState] = useState(getScatterData(0));
-  const [speed, setSpeed] = useState(3000);
+  const [speed, setSpeed] = useState(2000);
   const navigate = useNavigate();
   const sessionId = useParams().sessionId;
   const playerId = useParams().playerId;
