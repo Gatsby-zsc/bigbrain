@@ -3,9 +3,9 @@ async function startQuiz (quizId) {
     method: 'POST',
     headers: {
       accept: 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    }
-  })
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  });
 }
 
 async function stopQuiz (quizId) {
@@ -13,12 +13,9 @@ async function stopQuiz (quizId) {
     method: 'POST',
     headers: {
       accept: 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    }
-  })
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  });
 }
 
-export {
-  startQuiz,
-  stopQuiz
-}
+export { startQuiz, stopQuiz };

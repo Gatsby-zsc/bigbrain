@@ -9,6 +9,7 @@ import { styled } from '@mui/system'
 import { Link, useNavigate } from 'react-router-dom'
 import { fetchPOST } from '../library/fetch.js'
 import { WindowBorder } from './commonComponents.jsx'
+import { failNotify } from '../library/notify.js'
 
 const MyHomeIcon = styled(HomeIcon)({
   margin: '0 auto',
@@ -39,7 +40,7 @@ function SignUp () {
       localStorage.setItem('name', myName)
       navigate('../homepage')
     } else if (ret.status === 400) {
-      console.log('Invalid input')
+      failNotify('Invalid input')
     }
   }
 

@@ -1,4 +1,4 @@
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
 
 const failNotify = (message) =>
   toast.error(message, {
@@ -9,8 +9,8 @@ const failNotify = (message) =>
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: 'colored'
-  })
+    theme: 'colored',
+  });
 
 const successsNotify = (message) =>
   toast.success(message, {
@@ -21,10 +21,7 @@ const successsNotify = (message) =>
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: 'colored'
-  })
+    theme: 'colored',
+  });
 
-export {
-  failNotify,
-  successsNotify
-}
+export { failNotify, successsNotify };
