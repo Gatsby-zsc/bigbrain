@@ -45,3 +45,7 @@ indicating whether admin has done something wrong or successfully
 ## 6. Keyboard event
 
 In terms of user experience, we add onkeypress attribute for our component. Therefore user can enter lobby or admin homepage without clicking button on screen
+
+## 7. Return button
+
+At each page, we implement some other buttons which allow admin to navigate to other pages

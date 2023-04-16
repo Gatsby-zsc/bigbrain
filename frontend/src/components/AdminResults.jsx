@@ -133,6 +133,9 @@ export default function AdminResults () {
       sx={{
         width: '100wh',
         height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between'
       }}
     >
       {status && (
@@ -157,10 +160,9 @@ export default function AdminResults () {
         </Container>
       )}
       {!status && <SessionResult value={active} size={350}/>}
-
       <BottomNavigation
         showLabels
-        sx={{ width: '100%', position: 'fixed', bottom: 0 }}
+        sx={{ width: '100%', mt: 2 }}
       >
         <BottomNavigationAction
           onClick={() => {

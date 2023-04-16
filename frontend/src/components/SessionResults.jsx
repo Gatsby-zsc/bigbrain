@@ -25,6 +25,7 @@ export default function SessionResult (props) {
     const sessionResults = (await fetchGET(`admin/session/${sessionId}/results`, 'token')).results
     setSessionResult(sessionResults)
   }, [])
+
   // fetch question from server
   useEffect(async () => {
     const sessionQuestions = (await fetchGET(`admin/session/${sessionId}/status`, 'token')).results.questions
@@ -95,7 +96,7 @@ export default function SessionResult (props) {
   const topFive = newResultInfo.slice(0, 5);
 
   return (
-    <Container maxWidth='lg' sx={ { pt: 10, height: 'auto' } }>
+    <Container maxWidth='lg' sx={ { pt: 2, height: 'auto', overflow: 'auto' } } >
       <WindowBorder>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 400 }} aria-label="simple table">
@@ -124,14 +125,16 @@ export default function SessionResult (props) {
           </Table>
         </TableContainer>
         <Box textAlign={'start'}>
-          <Typography variant='body2' sx={ { mt: 2 } }>
-            Note: <br/>
-            AverageTimeCost: answer_time_each_question / question_num <br/>
+          <Typography variant='h6' sx={ { mt: 2 } }>
+            Note:
           </Typography>
-          <Typography variant='body2'>
+          <Typography variant='body1'>
+            AverageTimeCost: answer_time_each_question / question_num
+          </Typography>
+          <Typography variant='body1'>
             Final: (Question_point / Time_cost) * 1 Single
           </Typography>
-          <Typography variant='body2' sx={ { ml: 4 } }>
+          <Typography variant='body1' sx={ { ml: 4 } }>
             &nbsp;(Question_point / Time_cost) * 1.5 Multiple
           </Typography>
         </Box>
