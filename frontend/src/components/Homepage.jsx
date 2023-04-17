@@ -56,10 +56,7 @@ function Homepage (props) {
       <Container>
         {token
           ? (
-          <Typography
-            variant='h6'
-            sx={{ textAlign: 'center' }}
-          >
+          <>
             {currentLocation === 'homepage'
               ? <Typography
                 variant='h6'
@@ -70,7 +67,7 @@ function Homepage (props) {
               : ''}
             <br />
             <Outlet />
-          </Typography>
+          </>
             )
           : (
           <Typography

@@ -11,9 +11,6 @@ We use a hash function to assign an avatar for each player, this avatar will be 
 admin window (i.e when they join into the game lobby) and player result window (i.e once game is
 finished and they will be redirected to an result screen with different url)
 
-## 3. Media alt
-
-Each media including video and image contains an alt arritbute
 
 # UX
 
@@ -34,8 +31,8 @@ Similarly with what we mention above, when admin create game successfully, the p
 
 ## 4. Random player name
 
-At the screent where allow user to join game, we set up a button for user, which allow them to get a random
-player name for joining game
+See BONUS.md for more details
+
 
 ## 5. Message popup
 
@@ -48,4 +45,8 @@ In terms of user experience, we add onkeypress attribute for our component. Ther
 
 ## 7. Return button
 
-At each page, we implement some other buttons which allow admin to navigate to other pages
+Not required in spec, we add some buttons which allow admin to navigate to other pages at each page
+
+## 8. Search bar
+
+See BONUS.md for more details

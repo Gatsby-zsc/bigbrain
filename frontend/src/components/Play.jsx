@@ -4,7 +4,7 @@ import { styled } from '@mui/system';
 import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { fetchPost, fetchGET } from '../library/fetch.js';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { failNotify } from '../library/notify.js';
 import Logo from './Logo.jsx';
 import SyncIcon from '@mui/icons-material/Sync';
@@ -143,6 +143,11 @@ export default function Play () {
                   Enter
                 </Button>
               </Box>
+              <Box sx={ { display: 'flex', justifyContent: 'center', mt: 1 } }>
+                <Link to='/'>
+                  Back
+                </Link>
+              </Box>
             </>
               )
             : (
@@ -185,6 +190,11 @@ export default function Play () {
                 >
                   OK, go!🚀
                 </Button>
+              </Box>
+              <Box sx={ { display: 'flex', justifyContent: 'center', mt: 1 } }>
+                <Link to='/'>
+                  Back
+                </Link>
               </Box>
             </>
               )}

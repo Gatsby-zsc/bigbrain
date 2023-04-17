@@ -171,7 +171,7 @@ function Quiz (props) {
         >
           <DeleteIcon />
         </IconButton>
-        <CardHeader title={Quiz.name} subheader={analyzeTime(Quiz.createdAt)} />
+        <CardHeader title={Quiz.name} subheader={analyzeTime(Quiz.createdAt)} sx={ { textAlign: 'center' } }/>
         <CardMedia
           component='img'
           height='250px'
@@ -179,10 +179,10 @@ function Quiz (props) {
           alt='Thumbnail'
         />
         <CardContent>
-          <Typography sx={{ mb: 1 }} variant='body1'>
+          <Typography sx={{ mb: 1, textAlign: 'center' }} variant='body1'>
             {questions.length} questions
           </Typography>
-          <Typography sx={{ mb: 2 }} variant='body2'>
+          <Typography sx={{ mb: 2, textAlign: 'center' }} variant='body2'>
             Total time: {totalTime}
           </Typography>
           <Grid container spacing={1}>
