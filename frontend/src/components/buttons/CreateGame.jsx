@@ -187,7 +187,7 @@ function CreateGameButton (props) {
 
   return (
     <>
-      <Button variant='contained' onClick={popUpWindow} sx={{ mr: 2 }}>
+      <Button name='create-new-game-btn' variant='contained' onClick={popUpWindow} sx={{ mr: 2 }}>
         <VideogameAssetIcon sx={{ mr: 1 }} />
         New
       </Button>
@@ -202,6 +202,7 @@ function CreateGameButton (props) {
               Game title
             </Typography>
             <TextField
+              name='new-game-title'
               autoFocus
               fullWidth
               label='Game title'
@@ -227,6 +228,7 @@ function CreateGameButton (props) {
               })}
               <Box sx={{ mt: 2, mb: 1 }}>
                 <Button
+                  name='add-question-btn'
                   variant='contained'
                   sx={{ mr: 2 }}
                   onClick={moreQuestion}
@@ -234,7 +236,7 @@ function CreateGameButton (props) {
                   <QuestionAnswerIcon sx={{ mr: 1 }} />
                   question
                 </Button>
-                <Button variant='contained' component='label'>
+                <Button name='upload-img-btn' variant='contained' component='label'>
                   {newThumbnail === null
                     ? (
                     <PhotoCamera sx={{ mr: 1 }} />
@@ -244,6 +246,7 @@ function CreateGameButton (props) {
                       )}
                   thumbnail
                   <input
+                    name='upload-thumbnail'
                     hidden
                     accept='image/*'
                     type='file'
@@ -259,9 +262,10 @@ function CreateGameButton (props) {
           </Collapse>
         </DialogContent>
         <DialogActions>
-          <Button onClick={moreInfo}>More</Button>
+          <Button name='more-info-btn' onClick={moreInfo}>More</Button>
           <Button component='label'>
             <input
+              name='input-question-btn'
               hidden
               type='file'
               onChange={(e) => {
@@ -273,8 +277,8 @@ function CreateGameButton (props) {
             />
             Input
           </Button>
-          <Button onClick={closeWindow}>Cancel</Button>
-          <Button onClick={createGame}>Create</Button>
+          <Button name='cancel-create-btn' onClick={closeWindow}>Cancel</Button>
+          <Button name='submit-new-create-btn' onClick={createGame}>Create</Button>
         </DialogActions>
       </Dialog>
     </>

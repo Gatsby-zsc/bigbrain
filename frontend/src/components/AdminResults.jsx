@@ -180,6 +180,7 @@ function AdminResults () {
           icon={<CancelIcon />}
         />
         <BottomNavigationAction
+          name='exit-control-btn'
           onClick={() => {
             navigate('/homepage/dashboard/');
           }}

@@ -89,6 +89,7 @@ function Login () {
               Enter your Email
             </Typography>
             <TextField
+              name='email'
               label='Email'
               variant='outlined'
               defaultValue={myEmail}
@@ -101,6 +102,7 @@ function Login () {
               Enter your Password
             </Typography>
             <TextField
+              name='password'
               variant='outlined'
               type='password'
               label='Password'
@@ -143,6 +145,7 @@ function Login () {
               </Typography>
             </Box>
             <Button
+              name='sign-in-btn'
               variant='contained'
               sx={{ mt: 1, mb: 2 }}
               fullWidth

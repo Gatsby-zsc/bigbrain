@@ -34,21 +34,21 @@ const Start = () => {
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <CustomizedLink to={'/login'}>
-              <Button fullWidth variant='contained'>
+              <Button name='sign-in-button' fullWidth variant='contained'>
                 Login
               </Button>
             </CustomizedLink>
           </Grid>
           <Grid item xs={4}>
             <CustomizedLink to={'/signup'}>
-              <Button fullWidth variant='contained'>
+              <Button name='sign-up-button' fullWidth variant='contained'>
                 SignUp
               </Button>
             </CustomizedLink>
           </Grid>
           <Grid item xs={4}>
             <CustomizedLink to={'/play'}>
-              <Button fullWidth variant='contained'>
+              <Button name='play-button' fullWidth variant='contained'>
                 Play
               </Button>
             </CustomizedLink>

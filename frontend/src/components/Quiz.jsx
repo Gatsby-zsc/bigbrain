@@ -200,6 +200,7 @@ function Quiz (props) {
               {quizStatus === null
                 ? (
                 <Button
+                  name='start-game-btn'
                   sx={{ alignItems: 'center' }}
                   variant='contained'
                   onClick={() => {
@@ -212,6 +213,7 @@ function Quiz (props) {
                   )
                 : (
                 <Button
+                  name='stop-game-btn'
                   color='error'
                   variant='contained'
                   onClick={stopGame}
@@ -234,7 +236,7 @@ function Quiz (props) {
         <Dialog open={urlCopy} onClose={handleCopyClose}>
           <DialogTitle sx={{ pb: 0 }}>
             ✏️ Start Your Quiz Now! :
-            <IconButton sx={{ ml: 5, mb: 2 }} onClick={handleCopyClose}>
+            <IconButton name='close-copyurl-btn' sx={{ ml: 5, mb: 2 }} onClick={handleCopyClose}>
               <CloseIcon sx={{ color: '#1876d1' }} />
             </IconButton>
           </DialogTitle>
@@ -263,7 +265,7 @@ function Quiz (props) {
             }}
           >
             <Button onClick={handleViewResultClose}>NO</Button>
-            <Button onClick={showResults}>YES</Button>
+            <Button name='show-result-btn' onClick={showResults}>YES</Button>
           </DialogActions>
         </Dialog>
       </>

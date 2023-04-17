@@ -61,6 +61,7 @@ function SignUp () {
             Enter your name
           </Typography>
           <TextField
+            name='name'
             variant='outlined'
             fullWidth
             label='Name'
@@ -72,6 +73,7 @@ function SignUp () {
             Enter your Email
           </Typography>
           <TextField
+            name='email'
             variant='outlined'
             label='Email'
             fullWidth
@@ -83,6 +85,7 @@ function SignUp () {
             Enter your Password
           </Typography>
           <TextField
+            name='password'
             variant='outlined'
             type='password'
             label='Password'
@@ -92,6 +95,7 @@ function SignUp () {
             }}
           />
           <Button
+            name='sign-up-submit-btn'
             variant='contained'
             sx={{ mt: 3, mb: 2 }}
             onClick={SignUpAccount}

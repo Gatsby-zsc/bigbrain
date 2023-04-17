@@ -15,7 +15,7 @@ function Logout () {
 
   return (
     <>
-      <Button variant='contained' onClick={logout}>
+      <Button name="logout-btn" variant='contained' onClick={logout}>
         <LogoutIcon sx={{ mr: 1 }} />
         Logout
       </Button>

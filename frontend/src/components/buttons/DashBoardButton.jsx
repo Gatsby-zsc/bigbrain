@@ -11,7 +11,7 @@ function DashBoardButton () {
   }
 
   return (
-    <Button variant='contained' sx={{ mr: 2 }} onClick={goToDashboard}>
+    <Button name='dashboard-btn' variant='contained' sx={{ mr: 2 }} onClick={goToDashboard}>
       <DashboardIcon sx={{ mr: 1 }} />
       Dashboard
     </Button>
