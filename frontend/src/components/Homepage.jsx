@@ -17,16 +17,18 @@ const ToolBarModified = styled(Toolbar)({
 });
 
 function Homepage (props) {
+  const setRefresh = props.function;
+  const refresh = props.value;
+
   const token = localStorage.getItem('token');
+
   const path = useLocation()
     .pathname.split('/')
     .filter((path) => {
       return path !== '';
     });
-  const currentLocation = path[path.length - 1];
 
-  const setRefresh = props.function;
-  const refresh = props.value;
+  const currentLocation = path[path.length - 1];
 
   return (
     <>

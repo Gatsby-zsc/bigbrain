@@ -24,7 +24,7 @@ const PlayStyle = styled('div')({
   paddingTop: 40,
 });
 
-export default function Play () {
+function Play () {
   const location = useParams();
   const navigate = useNavigate();
   const [playInfo, setPlayInfo] = React.useState('id');
@@ -203,3 +203,5 @@ export default function Play () {
     </Box>
   );
 }
+
+export default Play;

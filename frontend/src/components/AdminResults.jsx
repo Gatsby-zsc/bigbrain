@@ -29,7 +29,7 @@ const AdiminWindow = styled(WindowBorder)({
   backgroundColor: 'white',
 });
 
-export default function AdminResults () {
+function AdminResults () {
   const quizId = useParams().quizId;
   const active = useParams().sessionId;
   const [stage, setStage] = useState(-1);
@@ -190,3 +190,5 @@ export default function AdminResults () {
     </Box>
   );
 }
+
+export default AdminResults;
