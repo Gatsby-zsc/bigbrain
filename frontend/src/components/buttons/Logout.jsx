@@ -10,7 +10,7 @@ function Logout () {
   function logout () {
     fetchPOST('admin/auth/logout', {}, 'logout');
     localStorage.removeItem('token');
-    navigate('/');
+    navigate('/login');
   }
 
   return (

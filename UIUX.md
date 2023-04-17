@@ -50,3 +50,7 @@ Not required in spec, we add some buttons which allow admin to navigate to other
 ## 8. Search bar
 
 See BONUS.md for more details
+
+## 9. Foldable session results
+
+At past result screen, we make each session results foldable, which make admin to select specific session result and view them

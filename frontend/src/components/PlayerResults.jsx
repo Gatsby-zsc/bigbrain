@@ -129,9 +129,11 @@ function PlayerResults (props) {
             <Typography variant='h5' align='center' sx={ { mt: 1 } }>
               {nickname}
             </Typography>
-            <Button variant='contained' fullWidth sx={ { mt: 2 } } onClick={backToTop}>
-              <KeyboardReturnIcon sx={ { mr: 1 } }/>Back
-            </Button>
+            <Box sx={ { display: 'flex', justifyContent: 'center' } }>
+              <Button variant='contained' fullWidth sx={ { mt: 2, width: '120px' } } onClick={backToTop}>
+                <KeyboardReturnIcon sx={ { mr: 1 } }/>Back
+              </Button>
+            </Box>
           </Grid>
           <Grid item xs={12} md={10}>
             <Typography variant='h5' sx={{ mb: 1 }}>

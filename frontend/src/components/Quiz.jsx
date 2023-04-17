@@ -132,10 +132,6 @@ function Quiz (props) {
 
   // start particular game and display a popup for admin to copy url
   function startGame () {
-    if (questions.length === 0) {
-      failNotify('You can start a game with no questions');
-      return;
-    }
     startQuiz(quizId);
     handleCopyOpen();
     setStart(true);

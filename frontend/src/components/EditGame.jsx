@@ -117,7 +117,7 @@ function GamePanel () {
             <Grid container spacing={1} sx={{ mb: 2 }}>
               <Grid item container md={4} spacing={3}>
                 <Grid item xs={6} md={12}>
-                  <Typography variant='subtitle2' sx={{ mt: 2, mb: 1 }}>
+                  <Typography textAlign='center' variant='subtitle2' sx={{ mt: 2, mb: 1 }}>
                     Upload thunmbnail
                   </Typography>
                   <Button fullWidth variant='contained' component='label'>
@@ -144,7 +144,7 @@ function GamePanel () {
                   </Button>
                 </Grid>
                 <Grid item xs={6} md={12}>
-                  <Typography variant='subtitle2' sx={{ mt: 2, mb: 1 }}>
+                  <Typography textAlign='center' variant='subtitle2' sx={{ mt: 2, mb: 1 }}>
                     Add more question
                   </Typography>
                   <Button
@@ -158,7 +158,7 @@ function GamePanel () {
                   </Button>
                 </Grid>
               </Grid>
-              <Grid item xs={12} md={8}>
+              <Grid item xs={12} md={8} sx={ { display: 'flex', justifyContent: 'center' } }>
                 <Box
                   component='img'
                   alt='thumbnail'
@@ -172,45 +172,47 @@ function GamePanel () {
             newQuestions.map((eachQuestion) => {
               return (
                 <QuestionBorder key={eachQuestion.questionId}>
-                  <Grid container spacing={1}>
-                    <Grid item xs={6}>
-                      <Typography variant='h6'>
+                  <Grid container>
+                    <Grid item xs={6} sx={ { display: 'flex', flexDirection: 'column', justifyContent: 'center' } }>
+                      <Typography variant='h6' textAlign='center'>
                         Question {questionNumber++}
                       </Typography>
-                      <Typography variant='subtitle2'>
+                      <Typography variant='subtitle2' textAlign='center'>
                         Id {eachQuestion.questionId}
                       </Typography>
                     </Grid>
-                    <Grid item xs={3}>
-                      <Button
-                        fullWidth
-                        variant='contained'
-                        onClick={() => {
-                          navigate('./' + eachQuestion.questionId);
-                          navigateToQuestion();
-                        }}
-                      >
-                        <EditNoteIcon sx={{ mr: 1 }} />
-                        Edit
-                      </Button>
-                    </Grid>
-                    <Grid item xs={3}>
-                      <Button
-                        fullWidth
-                        variant='contained'
-                        onClick={() => {
-                          const Questions = newQuestions.filter((Question) => {
-                            return (
-                              Question.questionId !== eachQuestion.questionId
-                            );
-                          });
-                          setQuestions(Questions);
-                          setRefresh(!refresh);
-                        }}
-                      >
-                        <DeleteIcon sx={{ mr: 1 }} />
-                        Delete
-                      </Button>
+                    <Grid item container xs={6} spacing={1} sx={ { display: 'flex', justifyContent: 'center' } }>
+                      <Grid item xs={12} sm={6} >
+                        <Button
+                          fullWidth
+                          variant='contained'
+                          onClick={() => {
+                            navigate('./' + eachQuestion.questionId);
+                            navigateToQuestion();
+                          }}
+                        >
+                          <EditNoteIcon sx={{ mr: 1 }} />
+                          Edit
+                        </Button>
+                      </Grid>
+                      <Grid item xs={12} sm={6}>
+                        <Button
+                          fullWidth
+                          variant='contained'
+                          onClick={() => {
+                            const Questions = newQuestions.filter((Question) => {
+                              return (
+                                Question.questionId !== eachQuestion.questionId
+                              );
+                            });
+                            setQuestions(Questions);
+                            setRefresh(!refresh);
+                          }}
+                        >
+                          <DeleteIcon sx={{ mr: 1 }} />
+                          Delete
+                        </Button>
+                      </Grid>
                     </Grid>
                   </Grid>
                 </QuestionBorder>

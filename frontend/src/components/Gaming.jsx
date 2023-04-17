@@ -8,6 +8,7 @@ import { WindowBorder } from './commonComponents';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Iframe from 'react-iframe';
+import { failNotify } from '../library/notify';
 
 export default function Gaming (props) {
   const eachQuestionPoint = props.value;
@@ -108,8 +109,8 @@ export default function Gaming (props) {
   }, [countDown]);
 
   // each time when user click answer, send the user' answer to server
-  useEffect(async () => {
-    await fetchPut(
+  useEffect(() => {
+    fetchPut(
       `play/${playerId}/answer`,
       { answerIds: optionsSelected },
       'no token'
@@ -235,6 +236,7 @@ export default function Gaming (props) {
               variant='contained'
               fullWidth
               sx={{ backgroundColor: 'green' }}
+              onClick={ () => { failNotify('Question is ended, you can\'t answer this question anymore') } }
             >
               {option.optionField}
             </Button>
