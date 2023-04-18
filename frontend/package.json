@@ -22,7 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test —watchAll=false && yarn run cypress open",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
     "coverage": "npm run test -- --watchAll=false --coverage",
     "cypress": "cypress open"

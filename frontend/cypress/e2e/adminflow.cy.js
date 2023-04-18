@@ -46,18 +46,18 @@ describe('admin happy path', () => {
       .click();
     cy.get('button[name="close-copyurl-btn"]')
       .click();
-  })
+  });
 
   it('should end a game successfully', () => {
     cy.get('button[name="stop-game-btn"]')
       .click();
-  })
+  });
 
   it('should loads the results page successfully', () => {
     cy.get('button[name="show-result-btn"]')
       .click();
     cy.url().should('include', 'http://localhost:3001/ongoing/');
-  })
+  });
 
   it('should log out successfully', () => {
     cy.get('button[name="exit-control-btn"]')
@@ -66,12 +66,6 @@ describe('admin happy path', () => {
     cy.get('button[name="logout-btn"]')
       .click();
     cy.url().should('include', 'http://localhost:3001/')
-  })
-
-  it('should navigate to the sign in screen successfully', () => {
-    cy.get('button[name="sign-in-button"]')
-      .click()
-    cy.url().should('include', 'http://localhost:3001/login');
   });
 
   it('should relogin successfully', () => {

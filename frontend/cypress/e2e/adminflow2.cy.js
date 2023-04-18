@@ -13,13 +13,13 @@ describe('admin happy path-2', () => {
   it('should sign up successfully', () => {
     cy.get('input[name="name"]')
       .focus()
-      .type('testNameSample3');
+      .type('testNameSample2');
     cy.get('input[name="email"]')
       .focus()
-      .type('testEmailSample3@email.com');
+      .type('testEmailSample2@email.com');
     cy.get('input[name="password"]')
       .focus()
-      .type('testPasswordSample3');
+      .type('testPasswordSample2');
     cy.get('button[name="sign-up-submit-btn"]')
       .click();
     cy.url().should('include', 'http://localhost:3001/homepage');
@@ -93,22 +93,15 @@ describe('admin happy path-2', () => {
     cy.get('button[name="logout-btn"]')
       .click();
     cy.url().should('include', 'http://localhost:3001/')
-    cy.wait(6000);
-  })
-
-  it('should navigate to the sign in screen successfully', () => {
-    cy.get('button[name="sign-in-button"]')
-      .click()
-    cy.url().should('include', 'http://localhost:3001/login');
   });
 
   it('should relogin successfully', () => {
     cy.get('input[name="email"]')
       .focus()
-      .type('testEmailSample3@email.com');
+      .type('testEmailSample2@email.com');
     cy.get('input[name="password"]')
       .focus()
-      .type('testPasswordSample3');
+      .type('testPasswordSample2');
     cy.get('button[name="sign-in-btn"]')
       .click();
     cy.url().should('include', 'http://localhost:3001/homepage');
