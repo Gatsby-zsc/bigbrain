@@ -173,7 +173,7 @@ function GamePanel () {
               return (
                 <QuestionBorder key={eachQuestion.questionId}>
                   <Grid container>
-                    <Grid item xs={6} sx={ { display: 'flex', flexDirection: 'column', justifyContent: 'center' } }>
+                    <Grid item xs={7} sm={6} sx={ { display: 'flex', flexDirection: 'column', justifyContent: 'center' } }>
                       <Typography variant='h6' textAlign='center'>
                         Question {questionNumber++}
                       </Typography>
@@ -181,7 +181,7 @@ function GamePanel () {
                         Id {eachQuestion.questionId}
                       </Typography>
                     </Grid>
-                    <Grid item container xs={6} spacing={1} sx={ { display: 'flex', justifyContent: 'center' } }>
+                    <Grid item container xs={5} sm={6} spacing={1} sx={ { marginTop: '2px', display: 'flex', justifyContent: 'center' } }>
                       <Grid item xs={12} sm={6} >
                         <Button
                           fullWidth

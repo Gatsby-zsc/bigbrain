@@ -7,9 +7,9 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/system';
 import { Link, useNavigate } from 'react-router-dom';
-import { fetchPOST } from '../library/fetch.js';
-import { WindowBorder } from './commonComponents.jsx';
-import { failNotify } from '../library/notify.js';
+import { fetchPOST } from '../../library/fetch.js';
+import { WindowBorder } from '../commonComponents.jsx';
+import { failNotify } from '../../library/notify.js';
 
 const MyHomeIcon = styled(HomeIcon)({
   margin: '0 auto',

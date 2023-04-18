@@ -28,7 +28,7 @@ function Homepage (props) {
       return path !== '';
     });
 
-  const currentLocation = path[path.length - 1];
+    const currentLocation = path[path.length - 1];
 
   return (
     <>

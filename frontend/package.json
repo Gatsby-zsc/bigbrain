@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "@testing-library/react": "^12.1.5",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
     "cypress": "^12.9.0",
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",

@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import SignUp from './components/SignUp.jsx';
+import SignUp from './components/Login/SignUp.jsx';
 import Homepage from './components/Homepage.jsx';
 import DashBoard from './components/DashBoard.jsx';
 import { CustomizedLink } from './components/commonComponents.jsx';
 import Play from './components/Play.jsx';
 import { ToastContainer } from 'react-toastify';
-import Login from './components/LoginAccount.jsx';
+import Login from './components/Login/LoginAccount.jsx';
 import GamePanel from './components/EditGame.jsx';
 import EditQuestion from './components/EditQuestion.jsx';
 import Lobby from './components/Lobby.jsx';
@@ -23,6 +22,7 @@ import Grid from '@mui/material/Grid';
 import SessionResults from './components/SessionResults.jsx';
 import Logo from './components/Logo.jsx';
 import PlayerResults from './components/PlayerResults.jsx';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Start = () => {
   return (
