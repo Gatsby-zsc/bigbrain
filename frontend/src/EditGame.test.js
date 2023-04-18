@@ -21,9 +21,9 @@ describe('Edit game panel test', () => {
     expect(editGameScreen.find(Box).at(2).props().alt).toEqual('thumbnail');
   })
 
-  it('check if upload/more question/update button render successfully', () => {
+  it('check if upload/more-question/update button render successfully', () => {
     expect(editGameScreen.find(Button).at(0).props().name).toEqual('thumbnail');
-    expect(editGameScreen.find(Button).at(1).props().name).toEqual('more question');
+    expect(editGameScreen.find(Button).at(1).props().name).toEqual('more-question');
     expect(editGameScreen.find(Button).at(2).props().name).toEqual('update');
   })
 })

@@ -161,6 +161,7 @@ function Quiz (props) {
     <>
       <Card sx={{ position: 'relative' }}>
         <IconButton
+          name='delete'
           aria-label='delete'
           sx={{ position: 'absolute', right: 10, top: 10 }}
           onClick={deleteGame}
@@ -183,12 +184,12 @@ function Quiz (props) {
           </Typography>
           <Grid container spacing={1}>
             <Grid item xs={6} sm={3} md={6} lg={3}>
-              <Button variant='contained' onClick={editGame} fullWidth>
+              <Button name='edit-quiz-btn' variant='contained' onClick={editGame} fullWidth>
                 <EditNoteIcon fontSize='medium' sx={{ mr: 1 }} /> Edit
               </Button>
             </Grid>
             <Grid item xs={6} sm={3} md={6} lg={3}>
-              <Button variant='contained' onClick={goToHistory} fullWidth>
+              <Button name='history' variant='contained' onClick={goToHistory} fullWidth>
                 <HistoryIcon fontSize='medium' sx={{ mr: 1 }} /> History
               </Button>
             </Grid>

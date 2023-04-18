@@ -1,4 +1,4 @@
-describe('admin happy path', () => {
+describe('admin happy path-2', () => {
   it('should navigate to home screen successfully', () => {
     window.cy.visit('http://localhost:3001/')
     cy.url().should('include', 'http://localhost:3001');
@@ -13,13 +13,13 @@ describe('admin happy path', () => {
   it('should sign up successfully', () => {
     cy.get('input[name="name"]')
       .focus()
-      .type('testNameSample1');
+      .type('testNameSample3');
     cy.get('input[name="email"]')
       .focus()
-      .type('testEmailSample1@email.com');
+      .type('testEmailSample3@email.com');
     cy.get('input[name="password"]')
       .focus()
-      .type('testPasswordSample1');
+      .type('testPasswordSample3');
     cy.get('button[name="sign-up-submit-btn"]')
       .click();
     cy.url().should('include', 'http://localhost:3001/homepage');
@@ -37,7 +37,21 @@ describe('admin happy path', () => {
     cy.get('input[name="new-game-title"]')
       .focus()
       .type('testGameTitle');
+    cy.get('button[name="more-info-btn"]')
+      .click();
+    cy.get('button[name="add-question-btn"]')
+      .click();
     cy.get('button[name="submit-new-create-btn"]')
+      .click();
+  });
+
+  it('should edit a quiz successfully', () => {
+    cy.get('button[name="edit-quiz-btn"]')
+      .click();
+    cy.url().should('include', 'http://localhost:3001/homepage/dashboard/');
+    cy.get('button[name="more-question"]')
+      .click();
+    cy.get('button[name="update"]')
       .click();
   });
 
@@ -59,13 +73,27 @@ describe('admin happy path', () => {
     cy.url().should('include', 'http://localhost:3001/ongoing/');
   })
 
-  it('should log out successfully', () => {
+  it('should navigate to the question history screen successfully', () => {
     cy.get('button[name="exit-control-btn"]')
       .click();
     cy.url().should('include', 'http://localhost:3001/homepage/dashboard');
+    cy.get('button[name="history"]')
+      .click();
+    cy.url().should('include', 'http://localhost:3001/homepage/dashboard/history');
+  });
+
+  it('should delete the existed game successfully', () => {
+    cy.get('button[name="dashboard-btn"]')
+      .click();
+    cy.get('button[name="delete"]')
+      .click();
+  });
+
+  it('should log out successfully', () => {
     cy.get('button[name="logout-btn"]')
       .click();
     cy.url().should('include', 'http://localhost:3001/')
+    cy.wait(6000);
   })
 
   it('should navigate to the sign in screen successfully', () => {
@@ -77,10 +105,10 @@ describe('admin happy path', () => {
   it('should relogin successfully', () => {
     cy.get('input[name="email"]')
       .focus()
-      .type('testEmailSample1@email.com');
+      .type('testEmailSample3@email.com');
     cy.get('input[name="password"]')
       .focus()
-      .type('testPasswordSample1');
+      .type('testPasswordSample3');
     cy.get('button[name="sign-in-btn"]')
       .click();
     cy.url().should('include', 'http://localhost:3001/homepage');

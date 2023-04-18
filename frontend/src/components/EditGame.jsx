@@ -148,7 +148,7 @@ function GamePanel () {
                     Add more question
                   </Typography>
                   <Button
-                    name='more question'
+                    name='more-question'
                     fullWidth
                     variant='contained'
                     sx={{ mr: 2 }}
