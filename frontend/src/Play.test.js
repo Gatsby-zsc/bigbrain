@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 import Play from './components/Play.jsx';
 import TextField from '@mui/material/TextField';
+import { Button } from '@mui/material';
 
 describe('Play screen', () => {
   const playScreen = mount(
@@ -11,7 +12,11 @@ describe('Play screen', () => {
     </MemoryRouter>
   );
 
-  it ('Check if session enter testfield  ', () => {
+  it('Check session enter textfield', () => {
     expect(playScreen.find(TextField).at(0).props().name).toEqual('session');
-  }) 
+  })
+
+  it('Check session enter button', () => {
+    expect(playScreen.find(Button).at(0).props().name).toEqual('sessionBtn');
+  })
 })

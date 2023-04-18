@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import { fetchGET, fetchPut } from '../library/fetch.js';
 import Option from './Option';
 import { failNotify, successsNotify } from '../library/notify.js';
-import isUrl from 'is-url-superb';
+import validURL from '../library/validateURL';
 
 // options of each question, generate random id for each option
 const optionTemplate = {
@@ -31,7 +31,7 @@ function EditQuestion () {
   const [quiz, setQuiz] = useState({});
   const [newQuestions, setQuestions] = useState(quiz.questions);
 
-  const [newType, setType] = useState('type');
+  const [newType, setType] = useState('single');
   const [newField, setField] = useState('');
   const [newPoints, setPoints] = useState(1);
   const [newLimit, setTimeLimit] = useState(5000);
@@ -124,11 +124,11 @@ function EditQuestion () {
     for (const question of newQuestions) {
       let countTrue = 0;
       // validate URL if user provide one of them
-      if (question.imgURL !== '' && !isUrl(question.imgURL)) {
+      if (question.imgURL !== '' && !validURL(question.imgURL)) {
         failNotify('Please enter an valid image URL');
         return;
       }
-      if (question.videoURL !== '' && !isUrl(question.videoURL)) {
+      if (question.videoURL !== '' && !validURL(question.videoURL)) {
         failNotify('Please enter an valid video URL');
         return;
       }
@@ -237,6 +237,7 @@ function EditQuestion () {
             Question videoURL (optional)
           </Typography>
           <TextField
+            name='videoURL'
             value={newVideoURL}
             variant='outlined'
             onChange={(e) => {
@@ -248,6 +249,7 @@ function EditQuestion () {
             Question imgURL (optional)
           </Typography>
           <TextField
+            name='imgURL'
             value={newImgURL}
             variant='outlined'
             onChange={(e) => {
@@ -283,6 +285,7 @@ function EditQuestion () {
             </Grid>
           </Grid>
           <Button
+            name='update'
             variant='contained'
             fullWidth
             sx={{ mt: 2 }}
@@ -291,6 +294,7 @@ function EditQuestion () {
             Update Question
           </Button>
           <Button
+            name='cancel'
             variant='contained'
             fullWidth
             sx={{ mt: 2 }}

@@ -84,6 +84,7 @@ function HistoryPanel () {
             src={thumbnail === null ? sampleImg : thumbnail}
           />
           <Typography
+            name='game title'
             textAlign={'start'}
             variant='h5'
             sx={{ pl: 2, mt: 2, mb: 1, display: 'inline' }}
@@ -101,7 +102,7 @@ function HistoryPanel () {
           <Typography textAlign={'start'} variant='subtitle1' sx={{ pl: 2, pb: 2 }}>
             {numberSession} {numberSession === 0 ? 'play' : 'plays'}
           </Typography>
-          <Button variant='contained' onClick={goToEdit}>
+          <Button name='edit' variant='contained' onClick={goToEdit}>
             <EditNoteIcon sx={ { mr: 1 } }/>
             Edit
           </Button>

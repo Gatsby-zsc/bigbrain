@@ -129,12 +129,14 @@ function Play () {
                 }}
               >
                 <TextField
+                  name='session'
                   value={sessionId}
                   onChange={(e) => setSessionId(e.target.value)}
                   onKeyDown={enterSessionKey}
                   placeholder='Enter Session ID'
                 />
                 <Button
+                  name='sessionBtn'
                   onClick={enterSession}
                   variant='contained'
                   size='large'
@@ -176,6 +178,7 @@ function Play () {
                         </IconButton>
                       </InputAdornment>
                     }
+                    name='nickname'
                     value={nickName}
                     onChange={(e) => setSessionId(e.target.value)}
                     onKeyDown={connectKey}
@@ -183,6 +186,7 @@ function Play () {
                   />
                 </FormControl>
                 <Button
+                  name='nicknameBtn'
                   onClick={connect}
                   variant='contained'
                   size='large'

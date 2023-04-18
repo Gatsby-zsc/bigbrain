@@ -28,7 +28,7 @@ function Homepage (props) {
       return path !== '';
     });
 
-    const currentLocation = path[path.length - 1];
+  const currentLocation = path[path.length - 1];
 
   return (
     <>
@@ -76,7 +76,7 @@ function Homepage (props) {
             variant='h6'
             sx={{ textAlign: 'center', color: '#1876d1' }}
           >
-            You haven&rsquo;t login, please go to the login page
+            {'You haven\'t login, please go to the login page'}
           </Typography>
             )}
       </Container>

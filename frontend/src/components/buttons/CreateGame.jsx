@@ -20,7 +20,7 @@ import question from '../../library/question';
 import { failNotify, successsNotify } from '../../library/notify';
 import { fetchPOST, fetchPut, fetchGET } from '../../library/fetch';
 import { fileToDataUrl } from '../../library/helpers.js';
-import isUrl from 'is-url-superb';
+import validURL from '../../library/validateURL';
 
 const NewWindowBorder = styled(WindowBorder)({
   marginTop: '10px',
@@ -114,11 +114,11 @@ function CreateGameButton (props) {
       for (const question of newQuestions) {
         let countTrue = 0;
         // validate URL if user provide one of them
-        if (question.imgURL !== '' && !isUrl(question.imgURL)) {
+        if (question.imgURL !== '' && !validURL(question.imgURL)) {
           failNotify('Please enter an valid image URL');
           return;
         }
-        if (question.videoURL !== '' && !isUrl(question.videoURL)) {
+        if (question.videoURL !== '' && !validURL(question.videoURL)) {
           failNotify('Please enter an valid video URL');
           return;
         }

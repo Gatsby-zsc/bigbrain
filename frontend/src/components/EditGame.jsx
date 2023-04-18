@@ -120,7 +120,7 @@ function GamePanel () {
                   <Typography textAlign='center' variant='subtitle2' sx={{ mt: 2, mb: 1 }}>
                     Upload thunmbnail
                   </Typography>
-                  <Button fullWidth variant='contained' component='label'>
+                  <Button fullWidth name='thumbnail' variant='contained' component='label'>
                     {newThumbnail === null
                       ? (
                       <PhotoCamera sx={{ mr: 1 }} />
@@ -148,6 +148,7 @@ function GamePanel () {
                     Add more question
                   </Typography>
                   <Button
+                    name='more question'
                     fullWidth
                     variant='contained'
                     sx={{ mr: 2 }}
@@ -219,6 +220,7 @@ function GamePanel () {
               );
             })}
           <Button
+            name='update'
             variant='contained'
             fullWidth
             sx={{ mt: 1 }}
