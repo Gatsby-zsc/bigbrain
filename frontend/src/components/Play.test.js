@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
-import Play from './components/Play.jsx';
+import Play from './Play.jsx';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 

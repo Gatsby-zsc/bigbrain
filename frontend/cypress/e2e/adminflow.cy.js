@@ -1,13 +1,13 @@
 describe('admin happy path', () => {
   it('should navigate to home screen successfully', () => {
-    window.cy.visit('http://localhost:3001/')
-    cy.url().should('include', 'http://localhost:3001');
+    window.cy.visit('http://localhost:3000/')
+    cy.url().should('include', 'http://localhost:3000');
   });
 
   it('should navigate to the sign up screen successfully', () => {
     cy.get('button[name="sign-up-button"]')
       .click()
-    cy.url().should('include', 'http://localhost:3001/signup');
+    cy.url().should('include', 'http://localhost:3000/signup');
   });
 
   it('should sign up successfully', () => {
@@ -22,13 +22,13 @@ describe('admin happy path', () => {
       .type('testPasswordSample1');
     cy.get('button[name="sign-up-submit-btn"]')
       .click();
-    cy.url().should('include', 'http://localhost:3001/homepage');
+    cy.url().should('include', 'http://localhost:3000/homepage');
   });
 
   it('should navigate to the dashboard screen successfully', () => {
     cy.get('button[name="dashboard-btn"]')
       .click();
-    cy.url().should('include', 'http://localhost:3001/homepage/dashboard');
+    cy.url().should('include', 'http://localhost:3000/homepage/dashboard');
   });
 
   it('should create a new game successfully', () => {
@@ -56,16 +56,16 @@ describe('admin happy path', () => {
   it('should loads the results page successfully', () => {
     cy.get('button[name="show-result-btn"]')
       .click();
-    cy.url().should('include', 'http://localhost:3001/ongoing/');
+    cy.url().should('include', 'http://localhost:3000/ongoing/');
   });
 
   it('should log out successfully', () => {
     cy.get('button[name="exit-control-btn"]')
       .click();
-    cy.url().should('include', 'http://localhost:3001/homepage/dashboard');
+    cy.url().should('include', 'http://localhost:3000/homepage/dashboard');
     cy.get('button[name="logout-btn"]')
       .click();
-    cy.url().should('include', 'http://localhost:3001/')
+    cy.url().should('include', 'http://localhost:3000/')
   });
 
   it('should relogin successfully', () => {
@@ -77,6 +77,6 @@ describe('admin happy path', () => {
       .type('testPasswordSample1');
     cy.get('button[name="sign-in-btn"]')
       .click();
-    cy.url().should('include', 'http://localhost:3001/homepage');
+    cy.url().should('include', 'http://localhost:3000/homepage');
   });
 })

@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
-import HistoryPanel from './components/History';
+import HistoryPanel from './History';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
