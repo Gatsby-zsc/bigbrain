@@ -6,6 +6,8 @@ sample account: sample@email.com
 
 sample password: sample
 
+\*_You can upload the sample.json to help create a sample quiz_
+
 # Preview
 
 <img src="public/dashboard.png"  alt="quiz card" width="600" height=auto>
