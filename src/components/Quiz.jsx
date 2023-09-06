@@ -171,14 +171,14 @@ function Quiz (props) {
           <DeleteIcon />
         </IconButton>
         <CardHeader
-          title={Quiz.name}
-          subheader={analyzeTime(Quiz.createdAt)}
+          title={eachQuiz.name}
+          subheader={analyzeTime(eachQuiz.createdAt)}
           sx={{ textAlign: 'center' }}
         />
         <CardMedia
           component="img"
           height="250px"
-          image={Quiz.thumbnail ? Quiz.thumbnail : sampleImg}
+          image={eachQuiz.thumbnail ? eachQuiz.thumbnail : sampleImg}
           alt="Thumbnail"
         />
         <CardContent>

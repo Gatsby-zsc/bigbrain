@@ -116,11 +116,11 @@ function AdminResults () {
       <Grid item xs={3} key={index}>
         <Container>
           <Avatar
-            alt='player avatar'
+            alt="player avatar"
             src={avatars[getAvatar(player)]}
             sx={{ width: 'auto', height: 'auto' }}
           />
-          <Typography variant='body2' noWrap align='center'>
+          <Typography variant="body2" noWrap align="center">
             {player}
           </Typography>
         </Container>
@@ -135,22 +135,22 @@ function AdminResults () {
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
       }}
     >
       {status && (
-        <Container maxWidth='sm' sx={{ pt: 10 }}>
+        <Container maxWidth="sm" sx={{ pt: 10 }}>
           <AdiminWindow>
             {stage === -1
               ? (
-              <Typography variant='h5' sx={{ textAlign: 'center', mb: 3 }}>
+              <Typography variant="h5" sx={{ textAlign: 'center', mb: 3 }}>
                 <CircularProgress sx={{ mr: 3 }} />
                 Waiting for players to join...
               </Typography>
                 )
               : (
-              <Typography variant='h5' sx={{ textAlign: 'center', mb: 1 }}>
-                Game Start
+              <Typography variant="h5" sx={{ textAlign: 'center', mb: 1 }}>
+                Game is ongoing...
               </Typography>
                 )}
             <Grid container spacing={2}>
@@ -159,16 +159,13 @@ function AdminResults () {
           </AdiminWindow>
         </Container>
       )}
-      {!status && <SessionResult value={active} size={350}/>}
-      <BottomNavigation
-        showLabels
-        sx={{ width: '100%', mt: 2 }}
-      >
+      {!status && <SessionResult value={active} size={350} />}
+      <BottomNavigation showLabels sx={{ width: '100%', mt: 2 }}>
         <BottomNavigationAction
           onClick={() => {
             advanceStage();
           }}
-          label='NEXT'
+          label="NEXT"
           icon={<SkipNextIcon />}
         />
         <BottomNavigationAction
@@ -176,15 +173,15 @@ function AdminResults () {
             stopQuiz(quizId);
             setStatus(false);
           }}
-          label='STOP'
+          label="STOP"
           icon={<CancelIcon />}
         />
         <BottomNavigationAction
-          name='exit-control-btn'
+          name="exit-control-btn"
           onClick={() => {
             navigate('/homepage/dashboard/');
           }}
-          label='EXIT'
+          label="EXIT"
           icon={<ExitToAppIcon />}
         />
       </BottomNavigation>

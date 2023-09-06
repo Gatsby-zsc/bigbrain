@@ -98,7 +98,7 @@ function GamePanel () {
       <Container maxWidth={'sm'}>
         <Box sx={{ mt: 0, mb: 2 }}>
           <Typography
-            variant='subtitle2'
+            variant="subtitle2"
             sx={{ mt: 2, mb: 1 }}
             style={{ textAlign: 'start' }}
           >
@@ -106,7 +106,7 @@ function GamePanel () {
           </Typography>
           <TextField
             autoFocus
-            variant='outlined'
+            variant="outlined"
             value={newGame || ''}
             onChange={(e) => {
               setNewGame(e.target.value);
@@ -117,10 +117,19 @@ function GamePanel () {
             <Grid container spacing={1} sx={{ mb: 2 }}>
               <Grid item container md={4} spacing={3}>
                 <Grid item xs={6} md={12}>
-                  <Typography textAlign='center' variant='subtitle2' sx={{ mt: 2, mb: 1 }}>
+                  <Typography
+                    textAlign="center"
+                    variant="subtitle2"
+                    sx={{ mt: 2, mb: 1 }}
+                  >
                     Upload thunmbnail
                   </Typography>
-                  <Button fullWidth name='thumbnail' variant='contained' component='label'>
+                  <Button
+                    fullWidth
+                    name="thumbnail"
+                    variant="contained"
+                    component="label"
+                  >
                     {newThumbnail === null
                       ? (
                       <PhotoCamera sx={{ mr: 1 }} />
@@ -131,7 +140,7 @@ function GamePanel () {
                     Upload
                     <input
                       hidden
-                      type='file'
+                      type="file"
                       onChange={(e) => {
                         if (e.target.value !== null) {
                           fileToDataUrl(e.target.files[0]).then((data) => {
@@ -144,13 +153,17 @@ function GamePanel () {
                   </Button>
                 </Grid>
                 <Grid item xs={6} md={12}>
-                  <Typography textAlign='center' variant='subtitle2' sx={{ mt: 2, mb: 1 }}>
+                  <Typography
+                    textAlign="center"
+                    variant="subtitle2"
+                    sx={{ mt: 2, mb: 1 }}
+                  >
                     Add more question
                   </Typography>
                   <Button
-                    name='more-question'
+                    name="more-question"
                     fullWidth
-                    variant='contained'
+                    variant="contained"
                     sx={{ mr: 2 }}
                     onClick={moreQuestion}
                   >
@@ -159,12 +172,17 @@ function GamePanel () {
                   </Button>
                 </Grid>
               </Grid>
-              <Grid item xs={12} md={8} sx={ { display: 'flex', justifyContent: 'center' } }>
+              <Grid
+                item
+                xs={12}
+                md={8}
+                sx={{ display: 'flex', justifyContent: 'center' }}
+              >
                 <Box
-                  component='img'
-                  alt='thumbnail'
+                  component="img"
+                  alt="thumbnail"
                   src={newThumbnail === null ? sampleImg : newThumbnail}
-                  sx={{ pl: 2, pr: 2, mt: 3, width: 'auto', height: '200px' }}
+                  sx={{ pl: 2, pr: 2, mt: 3, width: '400px', height: '200px' }}
                 />
               </Grid>
             </Grid>
@@ -174,19 +192,39 @@ function GamePanel () {
               return (
                 <QuestionBorder key={eachQuestion.questionId}>
                   <Grid container>
-                    <Grid item xs={7} sm={6} sx={ { display: 'flex', flexDirection: 'column', justifyContent: 'center' } }>
-                      <Typography variant='h6' textAlign='center'>
+                    <Grid
+                      item
+                      xs={7}
+                      sm={6}
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <Typography variant="h6" textAlign="center">
                         Question {questionNumber++}
                       </Typography>
-                      <Typography variant='subtitle2' textAlign='center'>
+                      <Typography variant="subtitle2" textAlign="center">
                         Id {eachQuestion.questionId}
                       </Typography>
                     </Grid>
-                    <Grid item container xs={5} sm={6} spacing={1} sx={ { marginTop: '2px', display: 'flex', justifyContent: 'center' } }>
-                      <Grid item xs={12} sm={6} >
+                    <Grid
+                      item
+                      container
+                      xs={5}
+                      sm={6}
+                      spacing={1}
+                      sx={{
+                        marginTop: '2px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <Grid item xs={12} sm={6}>
                         <Button
                           fullWidth
-                          variant='contained'
+                          variant="contained"
                           onClick={() => {
                             navigate('./' + eachQuestion.questionId);
                             navigateToQuestion();
@@ -199,13 +237,16 @@ function GamePanel () {
                       <Grid item xs={12} sm={6}>
                         <Button
                           fullWidth
-                          variant='contained'
+                          variant="contained"
                           onClick={() => {
-                            const Questions = newQuestions.filter((Question) => {
-                              return (
-                                Question.questionId !== eachQuestion.questionId
-                              );
-                            });
+                            const Questions = newQuestions.filter(
+                              (Question) => {
+                                return (
+                                  Question.questionId !==
+                                  eachQuestion.questionId
+                                );
+                              }
+                            );
                             setQuestions(Questions);
                             setRefresh(!refresh);
                           }}
@@ -220,8 +261,8 @@ function GamePanel () {
               );
             })}
           <Button
-            name='update'
-            variant='contained'
+            name="update"
+            variant="contained"
             fullWidth
             sx={{ mt: 1 }}
             onClick={updateQuiz}
