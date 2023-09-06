@@ -33,8 +33,7 @@ function Quiz (props) {
   const setRefresh = props.function;
   const eachQuiz = props.eachQuiz;
 
-  const [Quiz] = useState(eachQuiz);
-  const [quizId] = useState(eachQuiz.id);
+  const quizId = eachQuiz.id;
   const [questions, setQuestions] = useState([]);
   const [totalTime, setTotalTime] = useState(0);
   const [quizStatus, setQuizStatus] = useState(eachQuiz.active);
@@ -50,13 +49,17 @@ function Quiz (props) {
   const currentLocation = path[1];
 
   // request server to get the details of each question for the corresponding quiz
-  useEffect(async () => {
-    const ret = await fetchGET('admin/quiz/' + quizId, 'token');
-    if (ret.active !== null) {
-      localStorage.setItem(quizId, ret.active);
-    }
-    setQuizStatus(ret.active);
-  }, [urlCopy, viewResult, start]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const ret = await fetchGET('admin/quiz/' + quizId, 'token');
+      if (ret.active !== null) {
+        localStorage.setItem(quizId, ret.active);
+      }
+      setQuizStatus(ret.active);
+    };
+    fetchData();
+  }, [start, urlCopy, viewResult]);
+  console.log(quizStatus);
 
   // request server to get the details of each question for the corresponding quiz
   useEffect(async () => {
@@ -131,15 +134,15 @@ function Quiz (props) {
   }
 
   // start particular game and display a popup for admin to copy url
-  function startGame () {
-    startQuiz(quizId);
+  async function startGame () {
+    await startQuiz(quizId);
     handleCopyOpen();
     setStart(true);
   }
 
   // stop particular game and display a popup for admin to view result
-  function stopGame () {
-    stopQuiz(quizId);
+  async function stopGame () {
+    await stopQuiz(quizId);
     handleViewResultOpen();
     setStart(false);
   }
