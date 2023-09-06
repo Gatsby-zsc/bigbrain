@@ -1,5 +1,5 @@
 async function startQuiz (quizId) {
-  await fetch(`http://localhost:5005/admin/quiz/${quizId}/start`, {
+  await fetch(`https://bigbrain-backend.onrender.com/admin/quiz/${quizId}/start`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -9,7 +9,7 @@ async function startQuiz (quizId) {
 }
 
 async function stopQuiz (quizId) {
-  await fetch(`http://localhost:5005/admin/quiz/${quizId}/end`, {
+  await fetch(`https://bigbrain-backend.onrender.com/admin/quiz/${quizId}/end`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
