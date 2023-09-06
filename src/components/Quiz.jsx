@@ -59,7 +59,6 @@ function Quiz (props) {
     };
     fetchData();
   }, [start, urlCopy, viewResult]);
-  console.log(quizStatus);
 
   // request server to get the details of each question for the corresponding quiz
   useEffect(async () => {
