@@ -26,29 +26,29 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Start = () => {
   return (
-    <Container maxWidth='sm'>
-      <Container maxWidth='sm' sx={{ pt: 38 }}>
+    <Container maxWidth="sm">
+      <Container maxWidth="sm" sx={{ pt: 38 }}>
         <Logo />
       </Container>
       <Container sx={{ mt: 2 }}>
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <CustomizedLink to={'/login'}>
-              <Button name='sign-in-button' fullWidth variant='contained'>
+              <Button name="sign-in-button" fullWidth variant="contained">
                 Login
               </Button>
             </CustomizedLink>
           </Grid>
           <Grid item xs={4}>
             <CustomizedLink to={'/signup'}>
-              <Button name='sign-up-button' fullWidth variant='contained'>
+              <Button name="sign-up-button" fullWidth variant="contained">
                 SignUp
               </Button>
             </CustomizedLink>
           </Grid>
           <Grid item xs={4}>
             <CustomizedLink to={'/play'}>
-              <Button name='play-button' fullWidth variant='contained'>
+              <Button name="play-button" fullWidth variant="contained">
                 Play
               </Button>
             </CustomizedLink>
@@ -67,25 +67,26 @@ function App () {
       sx={{
         minHeight: '100vh',
         backgroundImage: `url(${backgroundImg})`,
-        backgroundRepeat: 'repeat',
-        backgroundSize: '2000px',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }}
     >
       <BrowserRouter>
         <CssBaseline />
         <Routes>
-          <Route path='/' element={<Start />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<SignUp />} />
+          <Route path="/" element={<Start />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route
-            path='/play/lobby/:sessionId/:nickname/:playerId'
+            path="/play/lobby/:sessionId/:nickname/:playerId"
             element={<Lobby />}
           />
-          <Route path='/play' element={<Play />}>
-            <Route path=':sessionId' element={<Play />} />
+          <Route path="/play" element={<Play />}>
+            <Route path=":sessionId" element={<Play />} />
           </Route>
           <Route
-            path='/play/sessionId/:sessionId/:nickname/:playerId'
+            path="/play/sessionId/:sessionId/:nickname/:playerId"
             element={
               <Gaming
                 value={eachQuestionPoint}
@@ -94,33 +95,33 @@ function App () {
             }
           />
           <Route
-            path='/homepage'
+            path="/homepage"
             element={<Homepage value={refresh} function={setRefresh} />}
           >
             <Route
-              path='dashboard'
+              path="dashboard"
               element={<DashBoard value={refresh} function={setRefresh} />}
             />
             <Route
-              path='dashboard/history/:quizId'
+              path="dashboard/history/:quizId"
               element={<HistoryPanel />}
             />
-            <Route path='dashboard/:quizId' element={<GamePanel />} />
+            <Route path="dashboard/:quizId" element={<GamePanel />} />
             <Route
-              path='dashboard/:quizId/:questionId'
+              path="dashboard/:quizId/:questionId"
               element={<EditQuestion />}
             />
           </Route>
           <Route
-            path='/ongoing/:quizId/:sessionId'
+            path="/ongoing/:quizId/:sessionId"
             element={<AdminResults />}
           />
           <Route
-            path='/results/session/:sessionId'
+            path="/results/session/:sessionId"
             element={<SessionResults />}
           />
           <Route
-            path='/results/player/:playName/:playerId'
+            path="/results/player/:playName/:playerId"
             element={<PlayerResults value={eachQuestionPoint} />}
           />
         </Routes>
