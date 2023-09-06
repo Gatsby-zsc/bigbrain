@@ -20,7 +20,7 @@ sample password: sample
 
 # Backend
 
-Github repo: <a src="https://github.com/Gatsby-zsc/bigbrain-backend">bigbrain-backend</a>
+Github repo: <a href="https://github.com/Gatsby-zsc/bigbrain-backend">bigbrain-backend</a>
 
 # Assessment 4 - ReactJS: BigBrain
 
