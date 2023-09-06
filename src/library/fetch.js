@@ -13,7 +13,7 @@ async function fetchPOST (req, bodyInfo, flag) {
     };
   }
 
-  const ret = await fetch('https://bigbrain-backend.onrender.com/' + req, {
+  const ret = await fetch('http://localhost:5005/' + req, {
     method: 'POST',
     headers: header,
     body: JSON.stringify(bodyInfo),
@@ -35,7 +35,7 @@ async function fetchGET (req, flag) {
       accept: 'application/json',
     };
   }
-  const ret = await fetch('https://bigbrain-backend.onrender.com/' + req, {
+  const ret = await fetch('http://localhost:5005/' + req, {
     method: 'GET',
     headers: header,
   });
@@ -58,7 +58,7 @@ async function fetchPut (req, bodyInfo, flag) {
       accept: 'application/json',
     };
   }
-  const ret = await fetch('https://bigbrain-backend.onrender.com/' + req, {
+  const ret = await fetch('http://localhost:5005/' + req, {
     method: 'PUT',
     headers: header,
     body: JSON.stringify(bodyInfo),
@@ -68,7 +68,7 @@ async function fetchPut (req, bodyInfo, flag) {
 
 // function of make a post or comment into server
 async function fetchPost (req, postDetail) {
-  const ret = await fetch('https://bigbrain-backend.onrender.com/' + req, {
+  const ret = await fetch('http://localhost:5005/' + req, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ async function fetchPost (req, postDetail) {
 }
 
 async function fetchDelete (req) {
-  const ret = await fetch('https://bigbrain-backend.onrender.com/' + req, {
+  const ret = await fetch('http://localhost:5005/' + req, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',

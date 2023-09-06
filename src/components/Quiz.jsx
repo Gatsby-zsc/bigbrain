@@ -161,69 +161,83 @@ function Quiz (props) {
     <>
       <Card sx={{ position: 'relative' }}>
         <IconButton
-          name='delete'
-          aria-label='delete'
+          name="delete"
+          aria-label="delete"
           sx={{ position: 'absolute', right: 10, top: 10 }}
           onClick={deleteGame}
         >
           <DeleteIcon />
         </IconButton>
-        <CardHeader title={Quiz.name} subheader={analyzeTime(Quiz.createdAt)} sx={ { textAlign: 'center' } }/>
+        <CardHeader
+          title={Quiz.name}
+          subheader={analyzeTime(Quiz.createdAt)}
+          sx={{ textAlign: 'center' }}
+        />
         <CardMedia
-          component='img'
-          height='250px'
+          component="img"
+          height="250px"
           image={Quiz.thumbnail ? Quiz.thumbnail : sampleImg}
-          alt='Thumbnail'
+          alt="Thumbnail"
         />
         <CardContent>
-          <Typography sx={{ mb: 1, textAlign: 'center' }} variant='body1'>
+          <Typography sx={{ mb: 1, textAlign: 'center' }} variant="body1">
             {questions.length} questions
           </Typography>
-          <Typography sx={{ mb: 2, textAlign: 'center' }} variant='body2'>
+          <Typography sx={{ mb: 2, textAlign: 'center' }} variant="body2">
             Total time: {totalTime}
           </Typography>
           <Grid container spacing={1}>
             <Grid item xs={6} sm={3} md={6} lg={3}>
-              <Button name='edit-quiz-btn' variant='contained' onClick={editGame} fullWidth>
-                <EditNoteIcon fontSize='medium' sx={{ mr: 1 }} /> Edit
+              <Button
+                name="edit-quiz-btn"
+                variant="contained"
+                onClick={editGame}
+                fullWidth
+              >
+                <EditNoteIcon fontSize="medium" sx={{ mr: 1 }} /> Edit
               </Button>
             </Grid>
             <Grid item xs={6} sm={3} md={6} lg={3}>
-              <Button name='history' variant='contained' onClick={goToHistory} fullWidth>
-                <HistoryIcon fontSize='medium' sx={{ mr: 1 }} /> History
+              <Button
+                name="history"
+                variant="contained"
+                onClick={goToHistory}
+                fullWidth
+              >
+                <HistoryIcon fontSize="medium" sx={{ mr: 1 }} /> History
               </Button>
             </Grid>
             <Grid item xs={6} sm={3} md={6} lg={3}>
               {quizStatus === null
                 ? (
                 <Button
-                  name='start-game-btn'
+                  name="start-game-btn"
                   sx={{ alignItems: 'center' }}
-                  variant='contained'
+                  variant="contained"
                   onClick={() => {
                     startGame();
                   }}
                   fullWidth
                 >
-                  <PlayArrowIcon fontSize='medium' sx={{ mr: 1 }} /> Start
+                  <PlayArrowIcon fontSize="medium" sx={{ mr: 1 }} /> Start
                 </Button>
                   )
                 : (
                 <Button
-                  name='stop-game-btn'
-                  color='error'
-                  variant='contained'
+                  name="stop-game-btn"
+                  color="error"
+                  variant="contained"
                   onClick={stopGame}
                   fullWidth
                 >
-                  <StopIcon fontSize='medium' sx={{ mr: 1 }} />
+                  <StopIcon fontSize="medium" sx={{ mr: 1 }} />
                   Stop
                 </Button>
                   )}
             </Grid>
             <Grid item xs={6} sm={3} md={6} lg={3}>
-              <Button variant='contained' onClick={controlGame} fullWidth>
-                <SettingsRemoteIcon fontSize='medium' sx={{ mr: 1 }} /> Control
+              <Button variant="contained" onClick={controlGame} fullWidth>
+                <SettingsRemoteIcon fontSize="medium" sx={{ mr: 1 }} /> Control
               </Button>
             </Grid>
           </Grid>
@@ -233,7 +247,11 @@ function Quiz (props) {
         <Dialog open={urlCopy} onClose={handleCopyClose}>
           <DialogTitle sx={{ pb: 0 }}>
             ✏️ Start Your Quiz Now! :
-            <IconButton name='close-copyurl-btn' sx={{ ml: 5, mb: 2 }} onClick={handleCopyClose}>
+            <IconButton
+              name="close-copyurl-btn"
+              sx={{ ml: 5, mb: 2 }}
+              onClick={handleCopyClose}
+            >
               <CloseIcon sx={{ color: '#1876d1' }} />
             </IconButton>
           </DialogTitle>
@@ -244,7 +262,7 @@ function Quiz (props) {
                 <ContentCopyIcon />
               </IconButton>
             </DialogContentText>
-            <Typography variant='subtitle2'>
+            <Typography variant="subtitle2">
               For more details, please click control button
             </Typography>
           </DialogContent>
@@ -262,7 +280,9 @@ function Quiz (props) {
             }}
           >
             <Button onClick={handleViewResultClose}>NO</Button>
-            <Button name='show-result-btn' onClick={showResults}>YES</Button>
+            <Button name="show-result-btn" onClick={showResults}>
+              YES
+            </Button>
           </DialogActions>
         </Dialog>
       </>
