@@ -310,7 +310,3 @@ Please note: You CAN modify the backend for bonus marks. But you cannot modify t
 - Besides those described to avoid, you may use any other packages available on npm.
 - The use of universal CSS is banned - you must use either CSS libraries (e.g. material-ui) or styled components.
 
-
-## 9. Late Submission Policy
-
-No late submission are accepted.
